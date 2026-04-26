@@ -1,0 +1,153 @@
+%=====================================================================
+% EAIFR THESIS TEMPLATE — VERSION 1 (MINIMAL, CLASSIC)
+% East African Institute for Fundamental Research
+%
+% Style : traditional LaTeX book layout, black ink only, EAIFR named
+%         on the cover with a brochure-style stacked wordmark. No
+%         colors, no logo, no partner institution references.
+%=====================================================================
+
+\documentclass[12pt, a4paper, openany]{book}
+
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% For Greek in text mode, uncomment: \usepackage[greek,english]{babel}\usepackage{alphabeta}
+\usepackage[margin=1in]{geometry}
+\setlength{\parskip}{2mm}
+\setlength{\parindent}{1cm}
+
+\usepackage{amssymb,amsmath,bm,mathalfa}
+% \usepackage{commath}  % Overleaf has it; uncomment if your TeX install does too
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{lscape}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{spverbatim}
+\usepackage{natbib}
+\usepackage{appendix}
+\usepackage{lipsum}
+
+\newcolumntype{L}{>{\centering\arraybackslash}m{3cm}}
+
+\newcommand{\thesistitle}{The Title of Your Thesis}
+\newcommand{\thesissubtitle}{An optional subtitle}
+\newcommand{\thesisauthor}{Author Name}
+\newcommand{\thesisdegree}{Master of Science in Physics}
+\newcommand{\thesissupervisor}{Prof.\ Supervisor Name}
+\newcommand{\thesiscosupervisor}{Dr.\ Co-supervisor Name}
+\newcommand{\thesisyear}{\the\year}
+\newcommand{\thesislocation}{Kigali, Rwanda}
+
+%=====================================================================
+
+% Override \mainmatter so it does \clearpage (not \cleardoublepage),
+% preventing a forced blank verso between the front- and main-matter.
+\makeatletter
+\renewcommand\mainmatter{\clearpage\@mainmattertrue\pagenumbering{arabic}}
+\renewcommand\backmatter{\clearpage\@mainmatterfalse}
+\makeatother
+
+\begin{document}
+\frontmatter
+
+% --------------------- TITLE PAGE (minimal) -----------------------
+% Single-page cover with \vfill separators so the content always fits.
+\begin{titlepage}
+\thispagestyle{empty}
+\newgeometry{top=2cm,bottom=2cm,left=2.5cm,right=2.5cm}
+\centering
+
+{\scshape\small East African Institute for Fundamental Research}\\[4pt]
+\rule{5cm}{0.4pt}
+
+\vfill
+
+% Brochure-style stacked wordmark, all black — first letter in bold
+{\fontsize{30}{36}\selectfont\rmfamily%
+  {\bfseries E}ast\\[-2pt]
+  {\bfseries A}frican\\[-2pt]
+  {\bfseries I}nstitute for\\[-2pt]
+  {\bfseries F}undamental\\[-2pt]
+  {\bfseries R}esearch\par}
+\vspace{10pt}
+\rule{2cm}{0.6pt}\\[8pt]
+{\itshape\large Advancing basic science in Africa}
+
+\vfill
+
+\rule{0.6\linewidth}{0.4pt}\\[10pt]
+{\Huge\rmfamily\bfseries \thesistitle\par}\vspace{4pt}
+{\large\itshape \thesissubtitle}\\[10pt]
+\rule{0.6\linewidth}{0.4pt}
+
+\vspace{1.2cm}
+
+{\small\itshape A thesis submitted in partial fulfilment of the requirements for the degree of}\\[4pt]
+{\large\bfseries \thesisdegree}
+
+\vspace{1cm}
+
+{\small\itshape by}\\[2pt]
+{\Large\bfseries \thesisauthor}
+
+\vspace{1cm}
+
+{\small
+  \textit{Supervisor:}~\thesissupervisor\quad\textbullet\quad
+  \textit{Co-supervisor:}~\thesiscosupervisor}
+
+\vfill
+{\small \thesislocation\ \ \textperiodcentered\ \ \thesisyear}
+\restoregeometry
+\end{titlepage}
+
+\clearpage
+\input{acknowledgments}
+\clearpage
+\input{abstract}
+\clearpage
+
+\tableofcontents
+% Uncomment when you actually have tables / figures:
+% \clearpage\listoftables
+% \clearpage\listoffigures
+
+%=====================================================================
+\mainmatter
+\chapter{Introduction}
+\setcounter{page}{1}
+\input{1_intoduction}
+
+\chapter{Survival analysis}
+\section{Definitions}
+\input{2_SURVIVAL_ANALYSES/1_definitions}
+\section{Distributions of failure time}
+\input{2_SURVIVAL_ANALYSES/2_distributionsSURV}
+
+\chapter{The theory of everything}
+\section{Definition of something}
+Another chapter here. Note that you can have (as we did for chapter~1) a separate \texttt{.tex} file.
+\section{The answer is 42}
+\subsection{And one subsection}
+\subsection{A second one}
+
+\chapter{Simulations}
+\section{Simulation for estimating something}
+\input{4_SIMULATION/A_simulation}
+
+\backmatter
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,267 @@
+%=====================================================================
+% EAIFR THESIS TEMPLATE — VERSION 3 (STANDALONE, BROCHURE-STYLE COVER)
+% East African Institute for Fundamental Research
+%
+% This version compiles on its own with no external files required.
+% Chapter bodies are inline placeholders using \lipsum; swap them for
+% \input{...} once you have your real content.  The Virunga cover image
+% is optional: drop `figures/virunga.jpg` next to this file to enable it,
+% or the cover falls back to a solid navy backdrop.
+%=====================================================================
+
+\documentclass[12pt, a4paper, openany]{book}
+
+% ---------- Typography & layout ----------
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in,headheight=15pt]{geometry}
+\setlength{\parskip}{2mm}
+\setlength{\parindent}{1cm}
+
+% ---------- Math ----------
+\usepackage{amssymb,amsmath,bm,mathalfa}
+
+% xcolor MUST come before tikz to avoid option clash
+\usepackage[table]{xcolor}
+
+% ---------- Graphics & floats ----------
+\usepackage{graphicx}
+\graphicspath{{figures/}{./}}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{lscape}
+\usepackage{tikz}
+\usetikzlibrary{calc,fadings}
+
+\usepackage{verbatim}
+\usepackage{spverbatim}
+\usepackage{appendix}
+\usepackage{lipsum}
+
+% ===================== EAIFR BRAND PALETTE ===========================
+\definecolor{eaifrNavy}{HTML}{0F2A4A}
+\definecolor{eaifrNavyDark}{HTML}{0A1E36}
+\definecolor{eaifrGold}{HTML}{D4A04B}
+\definecolor{eaifrCream}{HTML}{F5F1E8}
+\definecolor{eaifrGrey}{HTML}{5A5A5A}
+
+% ---------- Links ----------
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=eaifrNavy,
+  citecolor=eaifrNavy,
+  urlcolor=eaifrGold,
+}
+
+% ---------- Running headers ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{eaifrNavy}\itshape\leftmark}
+\fancyhead[RO]{\small\color{eaifrNavy}\itshape\rightmark}
+\fancyhead[LO,RE]{\small\color{eaifrGrey}\scshape EAIFR}
+\fancyfoot[C]{\small\color{eaifrGrey}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---------- Chapter & section styling ----------
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\normalfont\LARGE\bfseries\color{eaifrNavy}}
+  {\color{eaifrGold}\chaptertitlename\ \thechapter\ \ \textbar\ \ }{0pt}
+  {\LARGE}
+  [\vspace{4pt}{\color{eaifrGold}\titlerule[1pt]}\vspace{4pt}]
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{eaifrNavy}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{eaifrNavy!85!black}}{\thesubsection}{1em}{}
+
+\usepackage{tocloft}
+\renewcommand{\cftchapfont}{\bfseries\color{eaifrNavy}}
+\renewcommand{\cftchappagefont}{\color{eaifrNavy}}
+\renewcommand{\cftsecfont}{\color{black!80}}
+
+% ---------- Document metadata (edit these) ----------
+\newcommand{\thesistitle}{The Title of Your Thesis}
+\newcommand{\thesissubtitle}{An optional subtitle}
+\newcommand{\thesisauthor}{Author Name}
+\newcommand{\thesisdegree}{Master of Science in Physics}
+\newcommand{\thesissupervisor}{Prof.\ Supervisor Name}
+\newcommand{\thesiscosupervisor}{Dr.\ Co-supervisor Name}
+\newcommand{\thesisyear}{\the\year}
+\newcommand{\thesislocation}{Kigali, Rwanda}
+
+% Override \mainmatter so it uses \clearpage (not \cleardoublepage),
+% preventing a forced blank verso between the front- and main-matter.
+\makeatletter
+\renewcommand\mainmatter{\clearpage\@mainmattertrue\pagenumbering{arabic}}
+\renewcommand\backmatter{\clearpage\@mainmatterfalse}
+\makeatother
+
+\begin{document}
+\frontmatter
+
+% =====================================================================
+% COVER PAGE — navy background, optional mountain image, gold accents.
+% If figures/virunga.jpg (or virunga.jpg next to this file) is present
+% it is used; otherwise the cover uses a solid navy backdrop.
+% =====================================================================
+\begin{titlepage}
+\thispagestyle{empty}
+\newgeometry{margin=0pt}
+
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[eaifrNavy] (current page.north west) rectangle (current page.south east);
+  \IfFileExists{virunga.jpg}{%
+    \node[opacity=1.0, inner sep=0pt, anchor=center] at (current page.center)
+      {\includegraphics[width=\paperwidth]{virunga.jpg}};
+    \fill[eaifrNavy, opacity=0.35]
+      (current page.north west) rectangle (current page.south east);
+  }{%
+    % Fallback: a subtle diagonal navy gradient if the mountain is missing.
+    \shade[top color=eaifrNavyDark, bottom color=eaifrNavy]
+      (current page.north west) rectangle (current page.south east);
+  }
+  % Soft top vignette (stacked thin bands) for header legibility.
+  \foreach \i in {1,...,5}{%
+    \fill[eaifrNavyDark, opacity=0.07]
+      (current page.north west) rectangle
+      ($(current page.north east)+(0,-\i*0.8cm)$);
+  }
+  % Soft bottom vignette for the title block.
+  \foreach \i in {1,...,6}{%
+    \fill[eaifrNavyDark, opacity=0.08]
+      ($(current page.south west)+(0,\i*1.2cm)$) rectangle
+      (current page.south east);
+  }
+\end{tikzpicture}
+
+\begin{tikzpicture}[remember picture, overlay,
+                   every node/.style={text=eaifrCream, align=center}]
+
+  % Institute header (7% from top)
+  \node[anchor=north, yshift=-1.7cm] at (current page.north)
+    {\begin{minipage}{0.84\paperwidth}\raggedright
+       {\small\scshape\sffamily East African Institute for Fundamental Research}%
+       \hfill
+       {\small\sffamily\color{eaifrGold}\thesisyear}\\[4pt]
+       \textcolor{eaifrGold}{\rule{\linewidth}{0.6pt}}
+     \end{minipage}};
+
+  % Stacked EAIFR wordmark (centred at 25% of page height)
+  \node[anchor=center] at ($(current page.north)+(0,-0.25\paperheight)$) {%
+    \begin{minipage}{\paperwidth}\centering
+      {\fontsize{36}{48}\selectfont\rmfamily
+       {\color{eaifrGold}\bfseries E}ast\par
+       {\color{eaifrGold}\bfseries A}frican\par
+       {\color{eaifrGold}\bfseries I}nstitute for\par
+       {\color{eaifrGold}\bfseries F}undamental\par
+       {\color{eaifrGold}\bfseries R}esearch\par}
+    \end{minipage}};
+
+  % Gold rule + tagline in the sky (42%)
+  \node[anchor=center] at ($(current page.north)+(0,-0.44\paperheight)$) {%
+    \begin{minipage}{\paperwidth}\centering
+      {\color{eaifrGold}\rule{2.4cm}{0.9pt}}\\[8pt]
+      {\itshape\large Advancing \textcolor{eaifrGold}{basic science} in Africa}
+    \end{minipage}};
+
+  % Title + author block (centred at 80%)
+  \node[anchor=center] at ($(current page.north)+(0,-0.80\paperheight)$) {%
+    \begin{minipage}{0.82\paperwidth}\centering
+      {\color{eaifrGold}\rule{3cm}{0.6pt}}\\[12pt]
+      {\Large\rmfamily\bfseries \thesistitle\par}\vspace{4pt}
+      {\itshape\color{eaifrCream!90} \thesissubtitle\par}
+      \vspace{18pt}
+      {\small\itshape A thesis submitted in partial fulfilment of the requirements}\\
+      {\small\itshape for the degree of}\\[4pt]
+      {\normalsize\bfseries \thesisdegree}\\[14pt]
+      {\small\itshape by}\\[2pt]
+      {\large\bfseries \thesisauthor}\\[14pt]
+      {\footnotesize
+        \textit{Supervisor:}~\thesissupervisor\quad\textbullet\quad
+        \textit{Co-supervisor:}~\thesiscosupervisor}
+    \end{minipage}};
+
+  % Location + year near the bottom
+  \node[anchor=south, yshift=1.3cm] at (current page.south)
+    {\footnotesize\color{eaifrGold}\thesislocation\ \ \textperiodcentered\ \ \thesisyear};
+\end{tikzpicture}
+
+\restoregeometry
+\end{titlepage}
+
+% --------------------- Copyright / statement page -----------------
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+\textcopyright\ \thesisyear\ \thesisauthor.\\[0.3cm]
+This work was prepared at the\\
+\textbf{East African Institute for Fundamental Research} (EAIFR),\\
+a UNESCO Category~2 Institute hosted by the University of Rwanda.
+\end{center}
+\vspace*{\fill}
+\clearpage
+
+% --------------------- Acknowledgments -----------------
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+I would like to thank my supervisor, colleagues, and family for their
+support throughout the course of this work.
+\clearpage
+
+% --------------------- Abstract -----------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+This thesis presents\ldots{} a concise, self-contained overview of the
+motivation, methodology, main results and their implications.  Replace
+this placeholder with a 150--300 word summary of your work.
+\clearpage
+
+\tableofcontents
+
+%=====================================================================
+\mainmatter
+\chapter{Introduction}
+\setcounter{page}{1}
+\lipsum[1-3]
+
+\chapter{Survival analysis}
+\section{Definitions}
+\lipsum[1]
+\section{Distributions of failure time}
+\lipsum[2]
+
+\chapter{The theory of everything}
+\section{Definition of something}
+\lipsum[1]
+\section{The answer is 42}
+\subsection{And one subsection}
+\lipsum[2]
+\subsection{A second one}
+\lipsum[3]
+
+\chapter{Simulations}
+\section{Simulation for estimating something}
+\lipsum[1]
+
+\backmatter
+\begin{thebibliography}{9}
+\bibitem{example2024}
+  A. Author.
+  \emph{A Sample Reference}.
+  Journal of Examples, 42(7):1--10, 2024.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ═══════════════════════════════════════════════════════════════
+   EAIFR design tokens — lifted directly from the brochure.
+   See assets-source/EAIFR_brochure_latest.html for the reference.
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* Brand colors */
+  --color-navy: #0B3D5B;
+  --color-deep-navy: #061E2F;
+  --color-teal: #0D8080;
+  --color-bright-teal: #11AAAA;
+  --color-gold: #D4A843;
+  --color-cream: #F5F0E6;
+  --color-warm: #EFEBE2;
+  --color-ink: #1B2838;
+  --color-mid: #4A5568;
+  --color-light-ink: #8CA0B3;
+  --color-forest: #20603D;
+  --color-deep-forest: #143D28;
+  --color-rust: #C75C2E;
+
+  /* Semantic aliases */
+  --color-primary: var(--color-teal);
+  --color-accent: var(--color-gold);
+
+  /* Typography — set by next/font, referenced here */
+  --font-serif: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --radius-pill: 9999px;
+  --radius-card: 12px;
+}
+
+/* Base element defaults.
+ * Scoped to @layer base so Tailwind utilities (text-white, text-gold, …)
+ * beat these element selectors — otherwise `<h1 class="text-white">` on
+ * a dark hero renders ink-black because element selectors > utilities. */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-warm);
+    color: var(--color-mid);
+    font-family: var(--font-serif);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    /* default inherits from context; components choose their own color */
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* The signature section rule — a 4px teal stripe at the top of every
+   panel in the brochure. Apply with the .panel class. */
+.panel {
+  border-top: 4px solid var(--color-teal);
+}
+
+/* Uppercase tracked-out eyebrow label (`.lbl` in the brochure). */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;       /* ~11px */
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* The italic gold greeting above hero titles. */
+.greeting {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-gold);
+}
+
+/* The 45×4 gold accent bar under hero titles. */
+.gold-bar {
+  width: 54px;
+  height: 4px;
+  background: var(--color-gold);
+  border-radius: 2px;
+}
+
+/* Dot-grid motifs — replicated via CSS grid. */
+.dot-grid {
+  display: grid;
+  gap: 5px;
+}
+.dot-grid > span {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* Prose tweaks (used by ContentBody). */
+.prose-eaifr {
+  color: var(--color-mid);
+}
+.prose-eaifr h2,
+.prose-eaifr h3 {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+}
+.prose-eaifr a {
+  color: var(--color-bright-teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.prose-eaifr a:hover {
+  color: var(--color-teal);
+}
+.prose-eaifr strong {
+  color: var(--color-ink);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Texture & atmosphere
+   Subtle grain overlay — adds paper-like warmth to large color
+   fields. Applied via the .grain class on a positioned element.
+   ─────────────────────────────────────────────────────────── */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.02 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+.grain-dark {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Page-load reveal — one well-orchestrated staggered entrance.
+   Apply .reveal on load with incrementing --d delays.
+   ─────────────────────────────────────────────────────────── */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes reveal-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes gold-bar-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.reveal {
+  opacity: 0;
+  animation: reveal-up 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.reveal-in {
+  opacity: 0;
+  animation: reveal-in 1200ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.gold-bar.animate {
+  transform-origin: left center;
+  animation: gold-bar-grow 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Display type — tighter tracking for hero-scale serif headlines.
+   ─────────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.024em;
+  line-height: 1.03;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Respect reduced-motion preference.
+   ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-in, .gold-bar.animate {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}

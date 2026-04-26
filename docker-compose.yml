@@ -1,0 +1,81 @@
+# ══════════════════════════════════════════════════════════════════════
+# EAIFR monorepo — full-stack docker compose
+#
+#   db      — Postgres (slatestack data)
+#   api     — slatestack (Fastify + admin SPA on :3000)
+#   web     — EAIFR public site (Next.js on :3001)
+#
+# Copy .env.example to .env before `docker compose up`.
+# ══════════════════════════════════════════════════════════════════════
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER:-slatestack}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-slatestack_dev}
+      POSTGRES_DB: ${DB_NAME:-slatestack}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-slatestack}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - eaifr_net
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-slatestack}:${DB_PASSWORD:-slatestack_dev}@db:5432/${DB_NAME:-slatestack}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@eaifr.org}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme-please}
+      METRICS_SALT: ${METRICS_SALT:-replace-in-production}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3001,http://localhost:5173}
+      NODE_ENV: production
+      PORT: 3000
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - eaifr_net
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_CMS_URL: ${NEXT_PUBLIC_CMS_URL:-http://localhost:3000}
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-3001}:3001"
+    environment:
+      CMS_URL: http://api:3000
+      NEXT_PUBLIC_CMS_URL: ${NEXT_PUBLIC_CMS_URL:-http://localhost:3000}
+      NODE_ENV: production
+    depends_on:
+      - api
+    networks:
+      - eaifr_net
+
+volumes:
+  postgres_data:
+  uploads_data:
+
+networks:
+  eaifr_net:
+    driver: bridge

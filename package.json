@@ -1,0 +1,26 @@
+{
+  "name": "eaifr-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "EAIFR public website: Next.js frontend + slatestack CMS backend",
+  "scripts": {
+    "dev:api": "pnpm --filter slatestack dev",
+    "dev:admin": "pnpm --filter slatestack-admin dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev": "pnpm -r --parallel run dev",
+    "build:web": "pnpm --filter web build",
+    "build:api": "pnpm --filter slatestack build",
+    "build": "pnpm -r run build",
+    "seed:eaifr": "pnpm --filter slatestack exec tsx scripts/seed-eaifr.ts",
+    "scrape": "pnpm --filter scripts exec tsx scrape-ictp.ts",
+    "seed:from-scrape": "pnpm --filter scripts exec tsx seed-from-scrape.ts",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

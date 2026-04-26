@@ -1,0 +1,191 @@
+%=====================================================================
+% EAIFR THESIS TEMPLATE — VERSION 2 (TASTEFUL LIGHT BRANDING)
+% East African Institute for Fundamental Research
+%
+% Style : clean white title page with navy + gold EAIFR palette,
+%         brochure-style stacked "East African Institute for
+%         Fundamental Research" wordmark with gold capitals, a thin
+%         gold rule and an italic tagline. Inside: navy chapter
+%         headings under a gold rule. EAIFR-only, no partner logos.
+%=====================================================================
+
+\documentclass[12pt, a4paper, openany]{book}
+
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% For Greek in text mode, uncomment: \usepackage[greek,english]{babel}\usepackage{alphabeta}
+\usepackage[margin=1in,headheight=15pt]{geometry}
+\setlength{\parskip}{2mm}
+\setlength{\parindent}{1cm}
+
+\usepackage{amssymb,amsmath,bm,mathalfa}
+% \usepackage{commath}  % Overleaf has it; uncomment if your TeX install does too
+
+\usepackage[table]{xcolor}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{lscape}
+
+\usepackage{verbatim}
+\usepackage{spverbatim}
+\usepackage{natbib}
+\usepackage{appendix}
+\usepackage{lipsum}
+
+% ===================== EAIFR BRAND PALETTE ===========================
+\definecolor{eaifrNavy}{HTML}{0F2A4A}
+\definecolor{eaifrGold}{HTML}{D4A04B}
+\definecolor{eaifrGrey}{HTML}{5A5A5A}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=eaifrNavy,
+  citecolor=eaifrNavy,
+  urlcolor=eaifrGold,
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\color{eaifrGrey}\thepage}
+\fancyhead[RE]{\small\color{eaifrNavy}\itshape\leftmark}
+\fancyhead[LO]{\small\color{eaifrNavy}\itshape\rightmark}
+\renewcommand{\headrulewidth}{0.2pt}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\normalfont\LARGE\bfseries\color{eaifrNavy}}
+  {\color{eaifrGold}\chaptertitlename\ \thechapter\ \ \textbar\ \ }{0pt}
+  {\LARGE}
+  [\vspace{4pt}{\color{eaifrGold}\titlerule[0.8pt]}\vspace{4pt}]
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{eaifrNavy}}{\thesection}{1em}{}
+
+\newcolumntype{L}{>{\centering\arraybackslash}m{3cm}}
+
+\newcommand{\thesistitle}{The Title of Your Thesis}
+\newcommand{\thesissubtitle}{An optional subtitle}
+\newcommand{\thesisauthor}{Author Name}
+\newcommand{\thesisdegree}{Master of Science in Physics}
+\newcommand{\thesissupervisor}{Prof.\ Supervisor Name}
+\newcommand{\thesiscosupervisor}{Dr.\ Co-supervisor Name}
+\newcommand{\thesisyear}{\the\year}
+\newcommand{\thesislocation}{Kigali, Rwanda}
+
+%=====================================================================
+
+% Override \mainmatter so it does \clearpage (not \cleardoublepage),
+% preventing a forced blank verso between the front- and main-matter.
+\makeatletter
+\renewcommand\mainmatter{\clearpage\@mainmattertrue\pagenumbering{arabic}}
+\renewcommand\backmatter{\clearpage\@mainmatterfalse}
+\makeatother
+
+\begin{document}
+\frontmatter
+
+% --------------------- TITLE PAGE (tasteful light) -----------------
+% A single full-page minipage with \vfill separators distributes the
+% space evenly so the cover never overflows onto a second page.
+\begin{titlepage}
+\thispagestyle{empty}
+\newgeometry{top=2cm,bottom=2cm,left=2.5cm,right=2.5cm}
+\centering
+
+{\scshape\small\color{eaifrNavy} East African Institute for Fundamental Research}\\[4pt]
+{\color{eaifrGold}\rule{5cm}{0.6pt}}
+
+\vfill
+
+% Brochure-style stacked wordmark, gold capitals + navy body
+{\fontsize{32}{38}\selectfont\rmfamily\color{eaifrNavy}%
+  {\color{eaifrGold}\bfseries E}ast\\[-2pt]
+  {\color{eaifrGold}\bfseries A}frican\\[-2pt]
+  {\color{eaifrGold}\bfseries I}nstitute for\\[-2pt]
+  {\color{eaifrGold}\bfseries F}undamental\\[-2pt]
+  {\color{eaifrGold}\bfseries R}esearch\par}
+\vspace{10pt}
+{\color{eaifrGold}\rule{2cm}{0.8pt}}\\[8pt]
+{\itshape\large\color{eaifrNavy} Advancing \textcolor{eaifrGold}{basic science} in Africa}
+
+\vfill
+
+% Thesis title block
+{\color{eaifrNavy}\rule{0.55\linewidth}{0.4pt}}\\[10pt]
+{\Huge\rmfamily\bfseries\color{eaifrNavy} \thesistitle\par}\vspace{4pt}
+{\large\itshape\color{eaifrGrey} \thesissubtitle}\\[10pt]
+{\color{eaifrNavy}\rule{0.55\linewidth}{0.4pt}}
+
+\vspace{1.2cm}
+
+{\small\itshape A thesis submitted in partial fulfilment of the requirements for the degree of}\\[4pt]
+{\large\bfseries\color{eaifrNavy} \thesisdegree}
+
+\vspace{1cm}
+
+{\small\itshape by}\\[2pt]
+{\Large\bfseries \thesisauthor}
+
+\vspace{1cm}
+
+{\small
+  \textit{Supervisor:}~\thesissupervisor\quad\textbullet\quad
+  \textit{Co-supervisor:}~\thesiscosupervisor}
+
+\vfill
+{\small\color{eaifrGrey}\thesislocation\ \ \textperiodcentered\ \ \thesisyear}
+\restoregeometry
+\end{titlepage}
+
+\clearpage
+\input{acknowledgments}
+\clearpage
+\input{abstract}
+\clearpage
+
+\tableofcontents
+% Uncomment when you actually have tables / figures:
+% \clearpage\listoftables
+% \clearpage\listoffigures
+
+%=====================================================================
+\mainmatter
+\chapter{Introduction}
+\setcounter{page}{1}
+\input{1_intoduction}
+
+\chapter{Survival analysis}
+\section{Definitions}
+\input{2_SURVIVAL_ANALYSES/1_definitions}
+\section{Distributions of failure time}
+\input{2_SURVIVAL_ANALYSES/2_distributionsSURV}
+
+\chapter{The theory of everything}
+\section{Definition of something}
+Another chapter here. Note that you can have (as we did for chapter~1) a separate \texttt{.tex} file.
+\section{The answer is 42}
+\subsection{And one subsection}
+\subsection{A second one}
+
+\chapter{Simulations}
+\section{Simulation for estimating something}
+\input{4_SIMULATION/A_simulation}
+
+\backmatter
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}

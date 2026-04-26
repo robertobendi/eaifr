@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Map Calibration Overlay</title></head>
+<body style="margin:0;background:#111;display:flex;flex-direction:column;align-items:center;">
+<h2 style="color:white;font-family:sans-serif;">Dot Grid + Real Map Overlay</h2>
+<p style="color:#aaa;font-family:sans-serif;">Use opacity slider to compare. Red dots = current marker positions.</p>
+<div style="margin:10px;">
+  <label style="color:white;font-family:sans-serif;">Real map opacity: </label>
+  <input type="range" id="opslider" min="0" max="100" value="50" oninput="document.getElementById('realmap').style.opacity=this.value/100">
+</div>
+<div style="position:relative;width:1200px;height:750px;">
+  <!-- Dot grid SVG as base -->
+  <img id="dotgrid" src="world_map_dots.svg" 
+       style="position:absolute;top:0;left:0;width:1200px;height:750px;"/>
+  <!-- Real equirectangular map overlay -->
+  <img id="realmap" 
+       src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Equirectangular-projection.jpg/1200px-Equirectangular-projection.jpg"
+       style="position:absolute;top:0;left:0;width:1200px;height:750px;opacity:0.5;mix-blend-mode:multiply;"
+       onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg'"/>
+</div>
+</body>
+</html>
