@@ -1,0 +1,48 @@
+{% extends '@theme/layout.twig' %}
+
+{% block title %}Academics · EAIFR{% endblock %}
+{% block meta_description %}EAIFR's graduate and degree programmes, jointly delivered with the University of Rwanda and ICTP.{% endblock %}
+
+{% block head %}
+<style>
+    .prog-list { display: grid; gap: 1.75rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .prog-list { grid-template-columns: repeat(2, 1fr); } }
+    .prog-card { background: #fff; border-radius: 18px; padding: 2rem; box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.10); text-decoration: none; color: var(--mid); display: flex; flex-direction: column; gap: 1rem; transition: transform .2s, box-shadow .2s; }
+    .prog-card:hover { transform: translateY(-2px); box-shadow: 0 24px 50px -25px rgba(13,128,128,0.30); }
+    .prog-card h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.5rem; line-height: 1.2; color: var(--ink); margin: 0; }
+    .prog-card p { font-family: var(--font-serif); font-size: 15.5px; line-height: 1.6; margin: 0; }
+    .prog-card .meta { display: flex; gap: 1.5rem; flex-wrap: wrap; font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include '@theme/partials/page-hero.twig' with {
+    eyebrow: 'Academics',
+    title:   'Training the next generation',
+    accent:  'of African physicists.',
+    summary: 'Graduate-level programmes at the University of Rwanda, with scientific oversight by ICTP. Fully-funded scholarships available for admitted African students.',
+    tone:    'cream'
+} %}
+
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap">
+        {% if entries|length > 0 %}
+            <div class="prog-list">
+                {% for prog in entries %}
+                    <a href="/academics/{{ prog.slug }}" class="prog-card">
+                        <h3>{{ prog.field('name', prog.slug) }}</h3>
+                        {% if prog.field('summary') %}<p>{{ prog.field('summary') }}</p>{% endif %}
+                        <div class="meta">
+                            {% if prog.field('duration') %}<span>{{ prog.field('duration') }}</span>{% endif %}
+                            {% if prog.field('application_window') %}<span>{{ prog.field('application_window') }}</span>{% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><p>Programmes listing coming soon.</p></div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

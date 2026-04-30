@@ -1,0 +1,41 @@
+{% extends '@theme/layout.twig' %}
+
+{% set title   = entry.field('title', entry.slug) %}
+{% set eyebrow = entry.field('eyebrow', '') %}
+{% set summary = entry.field('summary', '') %}
+{% set body    = entry.field('body', '') %}
+{% set meta    = entry.field('meta_description', summary) %}
+
+{% block title %}{{ title }} · EAIFR{% endblock %}
+{% block meta_description %}{{ meta }}{% endblock %}
+
+{% block content %}
+{% include '@theme/partials/page-hero.twig' with {
+    eyebrow: eyebrow ?: 'Page',
+    title:   title,
+    summary: summary,
+    tone:    'cream'
+} %}
+
+{% if body or entry.slug == 'contact' or entry.slug == 'apply' %}
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow">
+        {% if body %}<div class="prose">{{ body|markdown|raw }}</div>{% endif %}
+
+        {% if entry.slug == 'contact' %}
+            <div style="margin-top: {{ body ? '3rem' : '0' }};">
+                {% include '@theme/partials/contact-form.twig' %}
+            </div>
+        {% elseif entry.slug == 'apply' %}
+            {% set msc = entry('programmes', 'msc-physics') %}
+            {% if msc and msc.field('apply_url') %}
+                <p style="margin-top: 2.5rem;">
+                    <a href="{{ msc.field('apply_url') }}" target="_blank" rel="noopener" class="btn btn-gold">Open the ICTP application portal →</a>
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

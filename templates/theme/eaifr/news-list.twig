@@ -1,0 +1,29 @@
+{% extends '@theme/layout.twig' %}
+
+{% block title %}News · EAIFR{% endblock %}
+{% block meta_description %}Latest news, announcements, and highlights from the East African Institute for Fundamental Research.{% endblock %}
+
+{% block content %}
+{% include '@theme/partials/page-hero.twig' with {
+    eyebrow: 'News & announcements',
+    title:   'What\'s happening at',
+    accent:  'EAIFR.',
+    summary: 'Admissions calls, research milestones, partnership updates, and highlights from our international community.',
+    tone:    'cream'
+} %}
+
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap">
+        {% if entries|length > 0 %}
+            <div style="display: grid; gap: 1.25rem; grid-template-columns: 1fr;">
+                {% for n in entries %}
+                    {% include '@theme/partials/news-card.twig' with { item: n } %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><p>No news yet — check back soon.</p></div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

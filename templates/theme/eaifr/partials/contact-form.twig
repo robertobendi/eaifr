@@ -1,0 +1,35 @@
+<form method="post" action="/forms/contact" style="display: grid; gap: 1.25rem; max-width: 640px; background: #fff; border-radius: 18px; padding: clamp(1.25rem, 4vw, 2rem); box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.10);">
+    <div class="field">
+        <label for="contact-name">Name</label>
+        <input type="text" id="contact-name" name="name" required>
+    </div>
+    <div class="field">
+        <label for="contact-email">Email</label>
+        <input type="email" id="contact-email" name="email" required>
+    </div>
+    <div class="field">
+        <label for="contact-affiliation">Affiliation (optional)</label>
+        <input type="text" id="contact-affiliation" name="affiliation">
+    </div>
+    <div class="field">
+        <label for="contact-topic">Topic</label>
+        <select id="contact-topic" name="topic">
+            <option value="General inquiry">General inquiry</option>
+            <option value="Admissions">Admissions</option>
+            <option value="Research collaboration">Research collaboration</option>
+            <option value="Visit">Visit</option>
+            <option value="Press">Press</option>
+        </select>
+    </div>
+    <div class="field">
+        <label for="contact-message">Message</label>
+        <textarea id="contact-message" name="message" required></textarea>
+    </div>
+    <div class="field field--hp" aria-hidden="true">
+        <label for="_hp">Leave this empty</label>
+        <input type="text" id="_hp" name="_hp" tabindex="-1" autocomplete="off">
+    </div>
+    <div>
+        <button type="submit" class="btn btn-teal">Send message →</button>
+    </div>
+</form>

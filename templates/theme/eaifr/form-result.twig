@@ -1,0 +1,27 @@
+{% extends '@theme/layout.twig' %}
+{% block title %}Thanks · EAIFR{% endblock %}
+{% block content %}
+<section class="panel bg-cream section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow empty-state">
+        <p class="eyebrow">{% if ok|default(false) %}Sent{% else %}Something went wrong{% endif %}</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2rem, 4vw, 2.75rem); margin-top: 1rem; color: var(--ink);">
+            {% if ok|default(false) %}Thanks for reaching out.{% else %}We couldn&rsquo;t submit your message.{% endif %}
+        </h1>
+        <div class="gold-bar" style="margin: 1.25rem auto 0;"></div>
+        <p style="margin-top: 1.5rem;">
+            {% if ok|default(false) %}
+                We&rsquo;ll be in touch as soon as possible.
+            {% else %}
+                {% if errors|default([])|length > 0 %}
+                    <strong>Some fields need a second look:</strong><br>
+                    {% for err in errors %}{{ err }}<br>{% endfor %}
+                {% else %}
+                    Please go back and try again — or email us directly at <a href="mailto:info@eaifr.org">info@eaifr.org</a>.
+                {% endif %}
+            {% endif %}
+        </p>
+        <p style="margin-top: 2rem;"><a href="/" class="btn btn-teal">← Back to home</a></p>
+    </div>
+</section>
+{% endblock %}

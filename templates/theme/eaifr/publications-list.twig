@@ -1,0 +1,46 @@
+{% extends '@theme/layout.twig' %}
+
+{% block title %}Publications · EAIFR{% endblock %}
+{% block meta_description %}Peer-reviewed work from EAIFR researchers across geophysics, condensed matter and beyond.{% endblock %}
+
+{% block head %}
+<style>
+    .pub-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .pub-row { background: #fff; border-radius: 14px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.08); display: grid; gap: 0.5rem; text-decoration: none; color: var(--mid); transition: transform .15s, box-shadow .15s; }
+    .pub-row:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -16px rgba(13,128,128,0.2); }
+    .pub-row .year { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
+    .pub-row h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; line-height: 1.35; color: var(--ink); margin: 0; }
+    .pub-row .authors { font-family: var(--font-serif); font-size: 14px; color: var(--mid); margin: 0; }
+    .pub-row .venue { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--mid); margin: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include '@theme/partials/page-hero.twig' with {
+    eyebrow: 'Publications',
+    title:   'Peer-reviewed work',
+    accent:  'from EAIFR.',
+    summary: 'A reverse-chronological index of journal articles and conference proceedings authored or co-authored by EAIFR scientists.',
+    tone:    'cream'
+} %}
+
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap">
+        {% if entries|length > 0 %}
+            <div class="pub-list">
+                {% for p in entries %}
+                    <a href="/publications/{{ p.slug }}" class="pub-row">
+                        {% if p.field('year') %}<span class="year">{{ p.field('year') }}</span>{% endif %}
+                        <h3>{{ p.field('title', p.slug) }}</h3>
+                        {% if p.field('authors') %}<p class="authors">{{ p.field('authors') }}</p>{% endif %}
+                        {% if p.field('venue') %}<p class="venue">{{ p.field('venue') }}</p>{% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><p>Publications listing coming soon.</p></div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

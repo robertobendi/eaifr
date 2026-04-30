@@ -1,0 +1,56 @@
+{% extends '@theme/layout.twig' %}
+
+{% block title %}People · EAIFR{% endblock %}
+{% block meta_description %}Faculty, postdocs, students, and staff of the East African Institute for Fundamental Research.{% endblock %}
+
+{% block head %}
+<style>
+    .people-grid { display: grid; gap: 1.75rem; grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .people-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .people-grid { grid-template-columns: repeat(3, 1fr); } }
+    .person-card { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.08); display: flex; gap: 1rem; align-items: center; text-decoration: none; color: var(--mid); transition: transform .2s, box-shadow .2s; }
+    .person-card:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -20px rgba(13,128,128,0.25); }
+    .person-card .avatar { width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0; background: var(--cream); object-fit: cover; }
+    .person-card .avatar.placeholder { display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: var(--teal); background: linear-gradient(180deg, var(--warm), var(--cream)); }
+    .person-card h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0; line-height: 1.25; }
+    .person-card .role { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-top: 0.4rem; }
+    .person-card .title { font-family: var(--font-serif); font-size: 14px; color: var(--mid); margin-top: 0.3rem; line-height: 1.45; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include '@theme/partials/page-hero.twig' with {
+    eyebrow: 'People',
+    title:   'Faculty, postdocs,',
+    accent:  'students & staff.',
+    summary: 'EAIFR is a young, growing community of African and international scientists working out of Kigali.',
+    tone:    'cream'
+} %}
+
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap">
+        {% if entries|length > 0 %}
+            <div class="people-grid">
+                {% for p in entries %}
+                    {% set photo = p.field('photo', '') %}
+                    <a href="/people/{{ p.slug }}" class="person-card">
+                        {% if photo %}
+                            <img src="{{ photo }}" alt="" class="avatar" loading="lazy" decoding="async">
+                        {% else %}
+                            <div class="avatar placeholder">{{ p.field('full_name', p.slug)|first|upper }}</div>
+                        {% endif %}
+                        <div>
+                            <h3>{{ p.field('full_name', p.slug) }}</h3>
+                            {% if p.field('role') %}<p class="role">{{ p.field('role')|replace({'-': ' '}) }}</p>{% endif %}
+                            {% if p.field('title') %}<p class="title">{{ p.field('title') }}</p>{% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><p>People listing coming soon.</p></div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

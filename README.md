@@ -1,143 +1,112 @@
 # EAIFR website
 
-A full rebuild of https://eaifr.ictp.it/ — the public site of the **East African Institute for Fundamental Research** (UNESCO Category II · Kigali · in partnership with ICTP).
+A PHP rebuild of [eaifr.ictp.it](https://eaifr.ictp.it/) — the public site of the **East African Institute for Fundamental Research** (UNESCO Category II · Kigali · in partnership with ICTP).
 
-- **`backend/`** — [slatestack](https://github.com/Labyrica/slatestack) CMS: Fastify + Drizzle + Postgres, admin SPA at `/admin`.
-- **`web/`** — Next.js 15 public site (App Router, React 19, Tailwind v4). Brochure-faithful design system.
-- **`scripts/`** — one-shot tools (scrape the old site, seed content).
-- **`assets-source/`** — the print brochure and raw brand assets that drove the visual design.
-- **`.planning/`** — the implementation plan (`plan-v1.md`).
-
-## Architecture at a glance
-
-```
-┌──────────────┐         ┌──────────────────┐
-│ web (Next.js)│ ──RSC──▶│  api (slatestack) │ ──▶  Postgres
-│    :3001     │ ◀──────│   :3000 + /admin  │       :5432
-└──────────────┘         └──────────────────┘
-    public site            content API + admin
-```
-
-The web app consumes `GET /api/content/:collection` and `GET /api/content/:collection/:slug` — both unauthenticated — and ISR-caches responses for 60 s. Editorial staff manage content via slatestack's admin SPA, reachable at http://localhost:3000/admin.
-
-## Quick start
-
-Prerequisites: Docker + Docker Compose (recommended) *or* Node ≥ 20 and pnpm ≥ 10.
-
-### Docker (easiest — boots the whole stack)
-
-```bash
-cp .env.example .env
-#  ↳ fill in BETTER_AUTH_SECRET (openssl rand -hex 32), ADMIN_PASSWORD, METRICS_SALT
-
-docker compose up -d --build
-#  ↳ db      (5432)
-#  ↳ api     (3000 · admin at /admin)
-#  ↳ web     (3001)
-
-# On first boot, seed the EAIFR content model:
-docker compose exec api pnpm seed:eaifr
-```
-
-Visit:
-
-- http://localhost:3001 — public site
-- http://localhost:3000/admin — content admin (log in with `ADMIN_EMAIL` / `ADMIN_PASSWORD`)
-
-### Local dev (hot reload)
-
-```bash
-cp .env.example .env
-pnpm install            # installs root + workspaces
-
-# terminal 1 — Postgres
-docker compose up -d db
-
-# terminal 2 — backend + admin
-cd backend && pnpm dev                           # Fastify on :3000
-cd backend/admin && pnpm dev                     # admin UI on :5173
-
-# terminal 3 — web
-cd web && pnpm dev                               # Next.js on :3001
-
-# One-time content seed
-cd backend && pnpm seed:eaifr
-```
-
-## Content model
-
-Seeded by `backend/scripts/seed-eaifr.ts`, editable in the slatestack admin:
-
-| Slug | What it holds |
-|---|---|
-| `pages` | Singleton long-form pages: About, Visit, Apply |
-| `news` | Announcements, admissions calls, highlights |
-| `events` | Schools, conferences, workshops, colloquia, seminars |
-| `research-areas` | The three EAIFR research programmes |
-| `people` | Faculty, postdocs, PhD / MSc students, staff |
-| `publications` | Peer-reviewed papers |
-| `programmes` | Degree programmes (MSc in Physics, …) |
-| `partners` | Supporting institutions |
-
-Every collection is accessed from the web app through `web/src/lib/content.ts`, which returns typed view-models parsed via zod. To add a new field, edit the collection definition in `backend/scripts/seed-eaifr.ts`, re-run the seed (idempotent), and update the matching `*DataSchema` in `web/src/lib/content.ts`.
-
-## Scrape the current ICTP site
-
-The first pass of content can be bootstrapped from https://eaifr.ictp.it/ :
-
-```bash
-pnpm scrape             # writes scripts/.cache/content/*.json
-pnpm seed:from-scrape   # imports into slatestack
-```
-
-Both steps are idempotent. The cache is gitignored (derivative content; re-scrape any time).
-
-## Design system
-
-The palette, typography, and section motifs come straight from the print brochure in `assets-source/EAIFR_brochure_latest.html`:
-
-- **Typefaces** — Lora serif (headlines + body) + Lato sans (labels, UI)
-- **Palette** — navy `#0B3D5B`, teal `#0D8080`, gold `#D4A843`, cream `#F5F0E6`, forest `#20603D`, rust `#C75C2E`
-- **Section rule** — every panel carries a 4 px teal top border (`.panel` in `globals.css`)
-- **Eyebrow labels** — uppercase, letter-spaced-wide sans, in one of five tones
-- **Gold bar** — 54 × 4 accent under every hero title
-- **Dot grids** — small gold / teal motifs in section corners
-
-Tokens live in `web/src/app/globals.css`. Primitives in `web/src/components/brand/`.
-
-## Layout
+Built on **[Pebblestack](https://github.com/Labyrica/pebblestack)** (PHP 8.2 + SQLite + Twig) so the site drops onto Hostinger or any cheap shared PHP host with **no Node, no MySQL, no Docker**.
 
 ```
 .
-├── backend/                       ← slatestack (Fastify + Drizzle + Postgres)
-│   ├── src/                       ← API, auth, modules, schema
-│   ├── admin/                     ← React admin SPA
-│   └── scripts/seed-eaifr.ts      ← creates EAIFR collections + placeholder entries
-├── web/                           ← Next.js 15 public site
-│   ├── src/app/                   ← routes (App Router)
-│   ├── src/components/
-│   │   ├── brand/                 ← Eyebrow, GoldBar, DotGrid, Greeting
-│   │   ├── content/               ← ResearchCard, EventCard, NewsCard, TagPill, VisionItem, PartnerLogos
-│   │   ├── layout/                ← Header, Footer, SectionPanel, MetricsTracker
-│   │   ├── page-sections/         ← HomeHero, HomeVision, HomeResearchPreview, HomeEducation, …
-│   │   └── ui/                    ← Button, Prose
-│   └── src/lib/
-│       ├── cms.ts                 ← typed fetch wrapper over slatestack
-│       └── content.ts             ← zod-parsed view-models (news, events, people, …)
-├── scripts/                       ← scraper + seed-from-scrape
-├── assets-source/                 ← original brochure HTML/PDF + brand assets
-├── .planning/plan-v1.md           ← approved implementation plan
-├── docker-compose.yml             ← full-stack boot
-├── .env.example
-├── pnpm-workspace.yaml
-└── package.json                   ← orchestration scripts
+├── index.php              ← front controller
+├── install.php            ← first-run installer (visit /install.php after upload)
+├── seed-eaifr.php         ← one-shot placeholder content seeder
+├── .htaccess              ← rewrites + security
+├── config/
+│   ├── app.php            ← app name, active theme
+│   └── collections.php    ← EAIFR's 8 content collections + contact form
+├── templates/
+│   ├── admin/             ← Pebblestack admin UI (don't edit)
+│   └── theme/eaifr/       ← the EAIFR public-facing theme (Lora + Lato, brochure palette)
+├── src/                   ← Pebblestack runtime (don't edit)
+├── data/
+│   ├── pebblestack.sqlite ← single-file database (created on install)
+│   └── migrations/        ← additive schema migrations
+├── uploads/               ← media library + committed brand assets (img/, logos/, svg/)
+├── vendor/                ← Composer deps (shipped — drop-in deployable)
+├── assets-source/         ← original brochure HTML/PDF + brand assets (reference only)
+└── .planning/             ← original implementation plan (historical reference)
 ```
 
-## What's out of scope (follow-up)
+## Deploy to Hostinger (or any PHP 8.2+ shared host)
 
-- **Contact / application forms** — deferred. `/contact` and `/apply` render the designed UI with email fallback; wire to `POST /api/forms/:slug` when ready.
+1. Push this repo to your host via FTP / Hostinger File Manager / `git clone`. The whole tree goes into `public_html/` (yes, including `vendor/` — `composer install` is not required on the host).
+2. Visit `https://yourdomain.com/install.php`. Pick a site name, admin email, password.
+3. Visit `https://yourdomain.com/seed-eaifr.php?token=<your-token>` to seed the placeholder EAIFR content (research areas, MSc programme, partners, sample news, About / Visit / Apply / Contact pages). Set `EAIFR_SEED_TOKEN` in your environment first, or edit the default value at the top of `seed-eaifr.php`. **Delete the file after running it.**
+4. Sign in at `/admin` and start editing.
+
+Public site lives at `/`. Admin lives at `/admin`. The contact form posts to `/forms/contact` and submissions are visible in the admin under "Contact".
+
+## Local development
+
+PHP 8.2+ with the `pdo_sqlite`, `mbstring`, and `json` extensions:
+
+```bash
+php -S localhost:8000          # in the repo root
+# Visit http://localhost:8000/install.php to set up the DB.
+# Then http://localhost:8000/seed-eaifr.php to load placeholder content.
+# Public:  http://localhost:8000/
+# Admin:   http://localhost:8000/admin
+```
+
+`composer install --no-dev --optimize-autoloader` is only needed if you change `composer.json` (the repo already ships `vendor/`).
+
+## Content model
+
+Defined in `config/collections.php` (the source of truth) and seeded with placeholder entries by `seed-eaifr.php`. The admin auto-generates CRUD UI from this config:
+
+| Slug             | What it holds                                                | Public route                |
+|------------------|--------------------------------------------------------------|-----------------------------|
+| `pages`          | Long-form pages: About, Visit, Apply, Contact (+ the form)   | `/{slug}`                   |
+| `news`           | Announcements, admissions calls, highlights                  | `/news` · `/news/{slug}`    |
+| `events`         | Schools, conferences, workshops, colloquia, seminars         | `/events` · `/events/{slug}`|
+| `research_areas` | EAIFR's research programmes (Geophysics, Condensed matter…)  | `/research` · `/research/{slug}` |
+| `people`         | Faculty, postdocs, PhD/MSc students, staff                   | `/people` · `/people/{slug}`|
+| `publications`   | Peer-reviewed papers                                         | `/publications` · `/publications/{slug}` |
+| `programmes`     | Degree programmes (MSc in Physics, …)                        | `/academics` · `/academics/{slug}` |
+| `partners`       | Supporting institutions (rendered as logo strips)            | (no public page)            |
+| `contact`        | Contact form — public submission endpoint                    | `POST /forms/contact`       |
+
+Field types available: `text`, `textarea`, `markdown`, `slug`, `boolean`, `number`, `select` (with `options`), `datetime`, `url`. There's no relation type — cross-collection links (e.g. a person's research area) are stored as a slug string and looked up in the template.
+
+## Theme — `templates/theme/eaifr/`
+
+The visual design is lifted directly from the print brochure in `assets-source/EAIFR_brochure_latest.html`:
+
+- **Typefaces** — Lora serif (headlines + body) + Lato sans (labels, UI). Loaded from Google Fonts in `layout.twig`.
+- **Palette** — navy `#0B3D5B`, teal `#0D8080`, gold `#D4A843`, cream `#F5F0E6`, forest `#20603D`, rust `#C75C2E`. Defined as CSS custom properties in `layout.twig`.
+- **Section rule** — every panel carries a 4 px teal top border (`.panel`).
+- **Eyebrow labels** — uppercase, letter-spaced sans (`.eyebrow`), in five tones.
+- **Gold bar** — 54 × 4 accent under hero titles (`.gold-bar`).
+- **Dot grids** — small gold / teal motifs in section corners (`.dot-grid`).
+- **Grain** — subtle paper texture on large color fields (`.grain` / `.grain-dark`).
+
+Theme files:
+
+| File                              | What it does                                                     |
+|-----------------------------------|------------------------------------------------------------------|
+| `layout.twig`                     | Base layout, design tokens, header, footer.                      |
+| `home.twig`                       | Brochure-faithful homepage: hero + vision + research preview + education + global reach + events/news + partners. Pulls live from `research_areas`, `programmes`, `events`, `news`, `partners`. |
+| `page.twig`                       | Generic page (About / Visit / Apply / Contact). Conditionally renders the contact form when slug == `contact`. |
+| `news.twig` · `news-list.twig`    | News detail / index.                                             |
+| `event.twig` · `event-list.twig`  | Event detail / index.                                            |
+| `research.twig` · `research-list.twig` | Research-area detail / index.                              |
+| `person.twig` · `people-list.twig`| Person detail / index.                                           |
+| `publication.twig` · `publications-list.twig` | Publication detail / index.                          |
+| `programme.twig` · `programmes-list.twig` | Programme detail / index.                                |
+| `partials/`                       | Shared header, footer, hero, news-card, event-card, contact-form. |
+| `404.twig` · `form-result.twig`   | Error and form-submission pages.                                 |
+
+## Twig helpers (added on top of stock Pebblestack)
+
+`templates/theme/eaifr/home.twig` uses two custom Twig functions registered in `src/Core/App.php`:
+
+- `entries('research_areas', 6)` — list published entries from any collection.
+- `entry('programmes', 'msc-physics')` — fetch a single published entry by slug.
+
+## What's deferred (follow-up)
+
+- **Form anti-spam** beyond the built-in honeypot + per-IP rate limit (Cloudflare Turnstile would be the natural drop-in).
 - **i18n (FR / RW)** — the brochure greeting ("Murakaza neza") implies Kinyarwanda support is desirable.
-- **Search**, **draft previews** through slatestack's preview-token flow.
+- **Search** across collections.
 
 ## License
 

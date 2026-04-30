@@ -1,0 +1,29 @@
+{% extends '@theme/layout.twig' %}
+
+{% set title   = entry.field('title', entry.slug) %}
+{% set authors = entry.field('authors', '') %}
+{% set year    = entry.field('year', '') %}
+{% set venue   = entry.field('venue', '') %}
+{% set doi     = entry.field('doi', '') %}
+{% set url     = entry.field('url', '') %}
+
+{% block title %}{{ title }} · Publications · EAIFR{% endblock %}
+{% block meta_description %}{{ title }} — {{ authors }} ({{ year }}), {{ venue }}.{% endblock %}
+
+{% block content %}
+<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+    <div class="grain"></div>
+    <div class="wrap-narrow" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(3rem, 5vw, 4rem);">
+        <p class="eyebrow">Publication{% if year %} · {{ year }}{% endif %}</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: var(--ink);">{{ title }}</h1>
+        <div class="gold-bar" style="margin-top: 1.5rem;"></div>
+        {% if authors %}<p style="font-family: var(--font-serif); font-size: 1.05rem; color: var(--mid); margin-top: 1.5rem;">{{ authors }}</p>{% endif %}
+        {% if venue %}<p style="font-family: var(--font-serif); font-style: italic; color: var(--mid); margin-top: 0.4rem;">{{ venue }}</p>{% endif %}
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem;">
+            {% if url %}<a href="{{ url }}" target="_blank" rel="noopener" class="btn btn-teal">Read paper →</a>{% endif %}
+            {% if doi %}<a href="https://doi.org/{{ doi }}" target="_blank" rel="noopener" class="btn btn-outline">DOI: {{ doi }}</a>{% endif %}
+            <a href="/publications" class="btn btn-outline">← All publications</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

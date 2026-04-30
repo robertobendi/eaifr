@@ -1,0 +1,31 @@
+{% set kind = event.field('kind', 'seminar') %}
+{% set kind_tone = {
+    school: 'forest',
+    conference: 'rust',
+    workshop: 'purple',
+    colloquium: 'navy',
+    seminar: ''
+} %}
+{% set start = event.field('start_date') %}
+{% set ends  = event.field('end_date') %}
+<a class="card" href="/events/{{ event.slug }}">
+    <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+        <span class="tag {{ kind_tone[kind]|default('') }}">{{ kind }}</span>
+        {% if start %}
+            <span class="meta" style="color: var(--mid);">
+                {% if ends and ends != start %}
+                    {{ start|date('j M') }} — {{ ends|date('j M Y') }}
+                {% else %}
+                    {{ start|date('j M Y') }}
+                {% endif %}
+            </span>
+        {% endif %}
+    </div>
+    <h3>{{ event.field('title', event.slug) }}</h3>
+    {% if not (compact|default(false)) and event.field('summary') %}
+        <p class="excerpt">{{ event.field('summary') }}</p>
+    {% endif %}
+    {% if event.field('location') %}
+        <p class="location">{{ event.field('location') }}</p>
+    {% endif %}
+</a>

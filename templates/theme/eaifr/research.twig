@@ -1,0 +1,44 @@
+{% extends '@theme/layout.twig' %}
+
+{% set name     = entry.field('name', entry.slug) %}
+{% set short    = entry.field('short', '') %}
+{% set accent   = entry.field('accent', 'teal') %}
+{% set overview = entry.field('overview', '') %}
+{% set cover    = entry.field('cover_image', '') %}
+{% if not cover %}
+    {% if entry.slug == 'geophysics' or entry.slug == 'physics-of-the-solid-earth' %}{% set cover = '/uploads/img/research-solid-earth.jpg' %}{% endif %}
+    {% if entry.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter.jpg' %}{% endif %}
+{% endif %}
+
+{% block title %}{{ name }} · Research · EAIFR{% endblock %}
+{% block meta_description %}{{ short }} — {{ overview|striptags|slice(0, 140) }}{% endblock %}
+
+{% block content %}
+<section class="panel bg-deep-navy" style="position: relative; overflow: hidden;">
+    <div class="grain-dark"></div>
+    {% if cover %}
+        <div style="position: absolute; inset: 0; z-index: 0;">
+            <img src="{{ cover }}" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.30;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,30,47,0.85) 0%, rgba(6,30,47,0.95) 100%);"></div>
+        </div>
+    {% endif %}
+    <div class="wrap" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(3.5rem, 6vw, 6rem); max-width: 980px; position: relative;">
+        <p class="eyebrow gold">Research programme</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: #fff;">{{ name }}</h1>
+        {% if short %}
+            <p style="font-family: var(--font-sans); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; color: var(--gold); margin-top: 0.85rem;">{{ short }}</p>
+        {% endif %}
+        <div class="gold-bar" style="margin-top: 1.5rem;"></div>
+    </div>
+</section>
+
+{% if overview %}
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow prose">{{ overview|markdown|raw }}</div>
+    <div class="wrap-narrow" style="padding-top: 2.5rem;">
+        <a href="/research" class="btn btn-outline">← All research areas</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

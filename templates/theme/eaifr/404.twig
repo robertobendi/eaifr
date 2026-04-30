@@ -1,0 +1,14 @@
+{% extends '@theme/layout.twig' %}
+{% block title %}Page not found · EAIFR{% endblock %}
+{% block content %}
+<section class="panel bg-cream section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow empty-state">
+        <p class="eyebrow">404</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); margin-top: 1rem; color: var(--ink);">Page not found.</h1>
+        <div class="gold-bar" style="margin: 1.25rem auto 0;"></div>
+        <p style="margin-top: 1.5rem;">The page you were looking for has moved or doesn&rsquo;t exist.</p>
+        <p style="margin-top: 2rem;"><a href="/" class="btn btn-teal">← Back to home</a></p>
+    </div>
+</section>
+{% endblock %}

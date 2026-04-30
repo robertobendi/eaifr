@@ -1,0 +1,55 @@
+{% extends '@theme/layout.twig' %}
+
+{% set name        = entry.field('full_name', entry.slug) %}
+{% set role        = entry.field('role', '') %}
+{% set title_pos   = entry.field('title', '') %}
+{% set affiliation = entry.field('affiliation', '') %}
+{% set email       = entry.field('email', '') %}
+{% set photo       = entry.field('photo', '') %}
+{% set bio         = entry.field('bio', '') %}
+
+{% block title %}{{ name }} · People · EAIFR{% endblock %}
+{% block meta_description %}{{ name }} — {{ title_pos }} at EAIFR, {{ affiliation }}.{% endblock %}
+
+{% block content %}
+<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+    <div class="grain"></div>
+    <div class="wrap" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(3rem, 5vw, 4rem); display: grid; gap: 3rem;">
+        <div style="display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1fr);" class="person-head">
+            <style>@media (min-width: 768px) { .person-head { grid-template-columns: 220px 1fr !important; align-items: start; } }</style>
+            <div>
+                {% if photo %}
+                    <img src="{{ photo }}" alt="{{ name }}" style="width: 220px; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 10px 40px -20px rgba(6,30,47,0.25);">
+                {% else %}
+                    <div style="width: 220px; height: 220px; background: linear-gradient(180deg, var(--warm), var(--cream)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 3rem; color: var(--teal); font-weight: 600;">
+                        {{ name|first|upper }}
+                    </div>
+                {% endif %}
+            </div>
+            <div>
+                {% if role %}<p class="eyebrow">{{ role|replace({'-': ' '}) }}</p>{% endif %}
+                <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0.85rem 0 0; color: var(--ink);">{{ name }}</h1>
+                <div class="gold-bar" style="margin-top: 1.25rem;"></div>
+                {% if title_pos %}
+                    <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{{ title_pos }}</p>
+                {% endif %}
+                {% if affiliation %}
+                    <p style="font-family: var(--font-serif); font-size: 15px; color: var(--mid); margin-top: 0.5rem;">{{ affiliation }}</p>
+                {% endif %}
+                {% if email %}
+                    <p style="margin-top: 1.5rem;"><a href="mailto:{{ email }}" class="btn btn-outline">{{ email }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% if bio %}
+<section class="panel bg-warm section-pad-sm" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow prose" style="padding-top: clamp(2rem, 4vw, 3rem);">{{ bio|markdown|raw }}</div>
+    <div class="wrap-narrow" style="padding-top: 2rem;">
+        <a href="/people" class="btn btn-outline">← All people</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

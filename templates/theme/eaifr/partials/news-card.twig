@@ -1,0 +1,10 @@
+{% set published = item.field('published_at') %}
+<a class="card" href="/news/{{ item.slug }}">
+    {% if published %}
+        <time datetime="{{ published|date('c') }}" class="meta">{{ published|date('j F Y') }}</time>
+    {% endif %}
+    <h3>{{ item.field('title', item.slug) }}</h3>
+    {% if item.field('excerpt') %}
+        <p class="excerpt">{{ item.field('excerpt') }}</p>
+    {% endif %}
+</a>

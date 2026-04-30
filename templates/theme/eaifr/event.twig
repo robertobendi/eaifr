@@ -1,0 +1,59 @@
+{% extends '@theme/layout.twig' %}
+
+{% set title    = entry.field('title', entry.slug) %}
+{% set kind     = entry.field('kind', 'seminar') %}
+{% set summary  = entry.field('summary', '') %}
+{% set start    = entry.field('start_date') %}
+{% set ends     = entry.field('end_date') %}
+{% set location = entry.field('location', '') %}
+{% set body     = entry.field('body', '') %}
+{% set reg_url  = entry.field('registration_url', '') %}
+
+{% block title %}{{ title }} · EAIFR{% endblock %}
+{% block meta_description %}{{ summary }}{% endblock %}
+
+{% block content %}
+<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+    <div class="grain"></div>
+    <div class="wrap-narrow" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(2rem, 4vw, 3rem);">
+        <p class="eyebrow">Event · {{ kind }}</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: var(--ink);">{{ title }}</h1>
+        <div class="gold-bar" style="margin-top: 1.25rem;"></div>
+        <dl style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            {% if start %}
+            <div>
+                <dt class="eyebrow">When</dt>
+                <dd style="font-family: var(--font-serif); font-size: 1.05rem; color: var(--ink); margin: 0.5rem 0 0;">
+                    {% if ends and ends != start %}
+                        {{ start|date('j M') }} — {{ ends|date('j M Y') }}
+                    {% else %}
+                        {{ start|date('j F Y') }}
+                    {% endif %}
+                </dd>
+            </div>
+            {% endif %}
+            {% if location %}
+            <div>
+                <dt class="eyebrow">Where</dt>
+                <dd style="font-family: var(--font-serif); font-size: 1.05rem; color: var(--ink); margin: 0.5rem 0 0;">{{ location }}</dd>
+            </div>
+            {% endif %}
+        </dl>
+        {% if summary %}
+            <p style="font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.65; color: var(--mid); margin-top: 1.75rem;">{{ summary }}</p>
+        {% endif %}
+        {% if reg_url %}
+            <p style="margin-top: 2rem;"><a href="{{ reg_url }}" class="btn btn-teal" target="_blank" rel="noopener">Registration / details →</a></p>
+        {% endif %}
+    </div>
+</section>
+{% if body %}
+<section class="panel bg-warm section-pad-sm" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow prose" style="padding-top: clamp(2rem, 4vw, 3rem);">{{ body|markdown|raw }}</div>
+    <div class="wrap-narrow" style="padding-top: 2rem;">
+        <a href="/events" class="btn btn-outline">← All events</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

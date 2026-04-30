@@ -1,0 +1,69 @@
+{% extends '@theme/layout.twig' %}
+
+{% block title %}Research · EAIFR{% endblock %}
+{% block meta_description %}EAIFR's research programmes — from geophysics and the East African Rift to condensed matter physics and computational materials science.{% endblock %}
+
+{% block head %}
+<style>
+    .research-list { display: grid; gap: 1.75rem; }
+    @media (min-width: 600px) { .research-list { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .research-list.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+    .research-card-lg {
+        background: #fff; border-radius: 18px; overflow: hidden;
+        box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.10);
+        text-decoration: none; color: var(--mid);
+        display: flex; flex-direction: column;
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .research-card-lg:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -25px rgba(13,128,128,0.45); }
+    .research-card-lg .cover { aspect-ratio: 16/10; background: var(--cream); }
+    .research-card-lg .cover img { width: 100%; height: 100%; object-fit: cover; }
+    .research-card-lg .body { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+    .research-card-lg h3 { font-family: var(--font-serif); font-weight: 600; font-size: 1.625rem; line-height: 1.2; color: var(--ink); margin: 0; }
+    .research-card-lg .subtitle { font-family: var(--font-sans); font-size: 0.875rem; font-weight: 700; color: var(--teal); }
+    .research-card-lg p { font-family: var(--font-serif); font-size: 16px; line-height: 1.6; margin: 0; color: var(--mid); }
+    .research-card-lg .cta { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; color: var(--teal); margin-top: auto; padding-top: 1rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include '@theme/partials/page-hero.twig' with {
+    eyebrow: 'Collaborative research',
+    title:   'Inquiry rooted in Africa,',
+    accent:  'shared with the world.',
+    summary: 'EAIFR\'s programmes pair African scientific questions with international expertise, producing peer-reviewed work and training the next generation of researchers.',
+    tone:    'cream'
+} %}
+
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap">
+        {% if entries|length > 0 %}
+            <div class="research-list {{ entries|length == 2 ? 'cols-2' : 'cols-3' }}">
+                {% for area in entries %}
+                    {% set accent  = area.field('accent', 'teal') %}
+                    {% set short   = area.field('short', '') %}
+                    {% set overview = area.field('overview', '') %}
+                    {% set preview = overview|striptags|length > 220 ? overview|striptags|slice(0, 220) ~ '…' : overview|striptags %}
+                    {% set cover = area.field('cover_image', '') %}
+                    {% if not cover %}
+                        {% if area.slug == 'geophysics' or area.slug == 'physics-of-the-solid-earth' %}{% set cover = '/uploads/img/research-solid-earth.jpg' %}{% endif %}
+                        {% if area.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter.jpg' %}{% endif %}
+                    {% endif %}
+                    <a href="/research/{{ area.slug }}" class="research-card-lg">
+                        <div class="cover">{% if cover %}<img src="{{ cover }}" alt="" loading="lazy" decoding="async">{% endif %}</div>
+                        <div class="body">
+                            <h3>{{ area.field('name', area.slug) }}</h3>
+                            {% if short %}<p class="subtitle">{{ short }}</p>{% endif %}
+                            {% if preview %}<p>{{ preview }}</p>{% endif %}
+                            <span class="cta">Explore →</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state"><p>Research areas coming soon.</p></div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

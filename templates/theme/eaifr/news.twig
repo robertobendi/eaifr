@@ -1,0 +1,34 @@
+{% extends '@theme/layout.twig' %}
+
+{% set title     = entry.field('title', entry.slug) %}
+{% set excerpt   = entry.field('excerpt', '') %}
+{% set published = entry.field('published_at') %}
+{% set body      = entry.field('body', '') %}
+{% set tag       = entry.field('tag', '') %}
+
+{% block title %}{{ title }} · EAIFR{% endblock %}
+{% block meta_description %}{{ excerpt }}{% endblock %}
+
+{% block content %}
+<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+    <div class="grain"></div>
+    <div class="wrap-narrow" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(2rem, 4vw, 3rem);">
+        <p class="eyebrow">News {% if tag %}· {{ tag }}{% endif %}</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: var(--ink);">{{ title }}</h1>
+        <div class="gold-bar" style="margin-top: 1.25rem;"></div>
+        {% if published %}
+            <p style="margin-top: 1.5rem; font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);">{{ published|date('j F Y') }}</p>
+        {% endif %}
+        {% if excerpt %}
+            <p style="font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.65; color: var(--mid); margin-top: 1rem;">{{ excerpt }}</p>
+        {% endif %}
+    </div>
+</section>
+<section class="panel bg-warm section-pad-sm" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow prose" style="padding-top: clamp(2rem, 4vw, 3rem);">{{ body|markdown|raw }}</div>
+    <div class="wrap-narrow" style="padding-top: 2rem;">
+        <a href="/news" class="btn btn-outline">← All news</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends '@theme/layout.twig' %}
+
+{% set name      = entry.field('name', entry.slug) %}
+{% set summary   = entry.field('summary', '') %}
+{% set body      = entry.field('body', '') %}
+{% set duration  = entry.field('duration', '') %}
+{% set window    = entry.field('application_window', '') %}
+{% set apply_url = entry.field('apply_url', '') %}
+
+{% block title %}{{ name }} · Academics · EAIFR{% endblock %}
+{% block meta_description %}{{ summary }}{% endblock %}
+
+{% block content %}
+<section class="panel bg-forest" style="position: relative; overflow: hidden; color: #fff;">
+    <div class="grain-dark"></div>
+    <div class="dot-grid" style="position: absolute; right: 2rem; top: 2rem;">
+        {% for i in 1..16 %}<span></span>{% endfor %}
+    </div>
+    <div class="wrap" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(3.5rem, 6vw, 6rem); max-width: 980px; position: relative;">
+        <p class="eyebrow gold">Academic programme</p>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: #fff;">{{ name }}</h1>
+        <div class="gold-bar" style="margin-top: 1.5rem;"></div>
+        {% if summary %}
+            <p style="font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.65; color: rgba(255,255,255,0.85); max-width: 36rem; margin-top: 1.75rem;">{{ summary }}</p>
+        {% endif %}
+        <dl style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; padding-left: 1.5rem; border-left: 1px solid rgba(255,255,255,0.20); max-width: 30rem;">
+            {% if duration %}
+            <div>
+                <dt class="eyebrow gold">Duration</dt>
+                <dd style="font-family: var(--font-serif); font-weight: 600; font-size: 1.5rem; color: #fff; margin: 0.5rem 0 0;">{{ duration }}</dd>
+            </div>
+            {% endif %}
+            {% if window %}
+            <div>
+                <dt class="eyebrow gold">Apply</dt>
+                <dd style="font-family: var(--font-serif); font-weight: 600; font-size: 1.5rem; color: #fff; margin: 0.5rem 0 0;">{{ window }}</dd>
+            </div>
+            {% endif %}
+        </dl>
+        {% if apply_url %}
+            <p style="margin-top: 2.25rem;"><a href="{{ apply_url }}" target="_blank" rel="noopener" class="btn btn-gold" style="color: var(--deep-forest);">Apply →</a></p>
+        {% endif %}
+    </div>
+</section>
+
+{% if body %}
+<section class="panel bg-warm section-pad" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow prose">{{ body|markdown|raw }}</div>
+    <div class="wrap-narrow" style="padding-top: 2.5rem;">
+        <a href="/academics" class="btn btn-outline">← All programmes</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
