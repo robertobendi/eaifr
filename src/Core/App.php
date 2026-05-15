@@ -89,6 +89,11 @@ final class App
             },
         ));
 
+        // True when rendering for the static-export pipeline (bin/export.php).
+        // Templates branch on this to swap PHP-only widgets (forms) for static
+        // equivalents (mailto, external links).
+        $this->view->env()->addGlobal('static_export', (bool) getenv('EAIFR_STATIC_EXPORT'));
+
         $this->router = $this->buildRouter();
     }
 

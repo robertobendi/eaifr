@@ -35,6 +35,32 @@ Built on **[Pebblestack](https://github.com/Labyrica/pebblestack)** (PHP 8.2 + S
 
 Public site lives at `/`. Admin lives at `/admin`. The contact form posts to `/forms/contact` and submissions are visible in the admin under "Contact".
 
+## Deploy to GitHub Pages
+
+GH Pages can't run PHP, so the repo also ships a static-export pipeline that snapshots every public page to plain HTML and lets GitHub Pages serve it. The PHP/SQLite stack stays the source of truth for content; the export is just a build artifact.
+
+1. In the repo on GitHub, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+2. Push to `main`. The `.github/workflows/pages.yml` workflow installs PHP, runs `bin/install-ci.php` (fresh DB + seed), runs `bin/export.php` (crawl → `dist/`), and deploys `dist/` via `actions/deploy-pages`.
+3. The published URL is `https://<owner>.github.io/<repo>/`. The workflow auto-derives the URL prefix (`EAIFR_STATIC_BASE_PATH=/<repo>`) so links work under the sub-path; for a custom domain at the root, set `EAIFR_STATIC_BASE_PATH=""` and add a `CNAME` file under `dist/`.
+
+What changes vs the Hostinger deploy:
+
+- **No admin.** GH Pages is read-only. Edit content locally (or on Hostinger), commit a fresh seed to `seed-eaifr.php`, and the next CI run rebuilds the site. Long-term, switch to a richer seed source if needed.
+- **Contact form → mailto.** When `EAIFR_STATIC_EXPORT=1` is set, the contact page renders a styled mailto block (`templates/theme/eaifr/partials/contact-mailto.twig`) instead of the POST form. Hostinger still gets the real form.
+- **No `/admin`, no `/install`, no `/forms/contact`.** Those PHP-only routes simply aren't crawled.
+
+To preview the static build locally:
+
+```bash
+php bin/install-ci.php           # fresh DB + seed (warning: rewrites data/pebblestack.sqlite)
+EAIFR_STATIC_BASE_PATH=/eaifr php bin/export.php
+
+# serve dist/ under the /eaifr sub-path to simulate GH Pages
+mkdir -p /tmp/preview/eaifr && cp -r dist/. /tmp/preview/eaifr/
+php -S 127.0.0.1:8000 -t /tmp/preview
+# open http://127.0.0.1:8000/eaifr/
+```
+
 ## Local development
 
 PHP 8.2+ with the `pdo_sqlite`, `mbstring`, and `json` extensions:

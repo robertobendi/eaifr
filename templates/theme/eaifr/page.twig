@@ -25,7 +25,11 @@
 
         {% if entry.slug == 'contact' %}
             <div style="margin-top: {{ body ? '3rem' : '0' }};">
-                {% include '@theme/partials/contact-form.twig' %}
+                {% if static_export %}
+                    {% include '@theme/partials/contact-mailto.twig' %}
+                {% else %}
+                    {% include '@theme/partials/contact-form.twig' %}
+                {% endif %}
             </div>
         {% elseif entry.slug == 'apply' %}
             {% set msc = entry('programmes', 'msc-physics') %}
