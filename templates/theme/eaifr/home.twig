@@ -63,8 +63,11 @@
         transition: transform .3s ease, box-shadow .3s ease;
     }
     .research-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -25px rgba(13,128,128,0.45); }
-    .research-card .cover { aspect-ratio: 16/10; background: linear-gradient(180deg, var(--cream), var(--warm)); position: relative; }
-    .research-card .cover img { width: 100%; height: 100%; object-fit: cover; }
+    .research-card .cover { aspect-ratio: 16/10; background: linear-gradient(180deg, var(--cream), var(--warm)); position: relative; overflow: hidden; }
+    .research-card .cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+    @media (prefers-reduced-motion: no-preference) {
+        .research-card:hover .cover img { transform: scale(1.05); }
+    }
     .research-card .body { padding: 1.75rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
     .research-card h3 { font-family: var(--font-serif); font-weight: 600; font-size: 1.5rem; line-height: 1.2; color: var(--ink); margin: 0; }
     .research-card .subtitle { font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; }
@@ -109,6 +112,18 @@
     .reach__map { position: relative; aspect-ratio: 16/10; }
     .reach__map img { width: 100%; height: 100%; object-fit: contain; opacity: 0.65; }
     .reach__map .pin { position: absolute; top: 58%; left: 54%; transform: translate(-50%,-50%); width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(212,168,67,0.20); }
+    .reach__map .pin::after {
+        content: ''; position: absolute; inset: -6px; border-radius: 50%;
+        border: 1.5px solid rgba(212,168,67,0.55);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .reach__map .pin::after { animation: pinPulse 2.8s ease-out infinite; }
+        @keyframes pinPulse {
+            0%   { transform: scale(0.6); opacity: 0.9; }
+            70%  { transform: scale(2.2); opacity: 0; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+    }
     .reach__map .pin-label { position: absolute; top: 62%; left: 56%; font-family: var(--font-sans); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(27,40,56,0.7); }
 
     /* Events & news */
@@ -169,17 +184,17 @@
 
     <div class="wrap hero__inner">
         <div>
-            <p class="eyebrow gold">Est. 2018 · Kigali · UNESCO Cat. II</p>
-            <p class="greeting">Murakaza neza · Welcome</p>
-            <h1>Excellence in<br><em>basic science</em><br>for Africa.</h1>
-            <div class="gold-bar" style="width: 64px; margin-top: 1.75rem;"></div>
-            <p class="lead">A young, dynamic hub for higher education and research in basic sciences — a partnership of the Government and University of Rwanda with the Abdus Salam International Centre for Theoretical Physics.</p>
-            <div class="ctas">
+            <p class="eyebrow gold reveal">Est. 2018 · Kigali · UNESCO Cat. II</p>
+            <p class="greeting reveal" style="--reveal-delay: .08s;">Murakaza neza · Welcome</p>
+            <h1 class="reveal" style="--reveal-delay: .16s;">Excellence in<br><em>basic science</em><br>for Africa.</h1>
+            <div class="gold-bar reveal" style="width: 64px; margin-top: 1.75rem; --reveal-delay: .26s;"></div>
+            <p class="lead reveal" style="--reveal-delay: .32s;">A young, dynamic hub for higher education and research in basic sciences — a partnership of the Government and University of Rwanda with the Abdus Salam International Centre for Theoretical Physics.</p>
+            <div class="ctas reveal" style="--reveal-delay: .40s;">
                 <a href="/research" class="btn btn-gold">Our research <span aria-hidden="true">→</span></a>
                 <a href="/academics/msc-physics" class="btn btn-ghost">MSc in Physics</a>
             </div>
         </div>
-        <aside class="hero__aside">
+        <aside class="hero__aside reveal" style="--reveal-delay: .5s;">
             <div class="col">
                 <dl>
                     <div>
@@ -205,7 +220,7 @@
 <section class="panel bg-cream vision section-pad">
     <div class="grain"></div>
     <div class="wrap vision__grid">
-        <div>
+        <div class="reveal">
             <p class="eyebrow">Welcome · Murakaza neza</p>
             <h2>A young, dynamic hub for<br><em>basic science in Africa.</em></h2>
             <div class="gold-bar" style="margin-top: 1.5rem;"></div>
@@ -221,7 +236,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="reveal" style="--reveal-delay: .12s;">
             <p class="eyebrow">Our vision</p>
             <ol class="vision__list">
                 <li>
@@ -249,12 +264,12 @@
     </div>
     <div class="wrap">
         <div class="research__head">
-            <div>
+            <div class="reveal">
                 <p class="eyebrow">Collaborative</p>
                 <h2>Research</h2>
                 <div class="gold-bar" style="margin-top: 1.5rem;"></div>
             </div>
-            <p>A vibrant hub for local and visiting scientists, with a focus on international collaborations across complementary programmes.</p>
+            <p class="reveal" style="--reveal-delay: .1s;">A vibrant hub for local and visiting scientists, with a focus on international collaborations across complementary programmes.</p>
         </div>
         {% if areas|length > 0 %}
             <div class="research__grid {{ areas|length == 2 ? 'cols-2' : 'cols-3' }}">
@@ -264,7 +279,7 @@
                     {% set overview = area.field('overview', '') %}
                     {% set preview = overview|length > 180 ? overview|slice(0, 180) ~ '…' : overview %}
                     {% set cover = area.field('cover_image', '') %}
-                    <a class="research-card accent-{{ accent }}" href="/research/{{ area.slug }}">
+                    <a class="research-card accent-{{ accent }} reveal" style="--reveal-delay: {{ (loop.index0 * 0.08)|round(2) }}s;" href="/research/{{ area.slug }}">
                         <div class="cover">
                             {% if cover %}<img src="{{ cover }}" alt="" loading="lazy" decoding="async">
                             {% elseif area.slug == 'geophysics' or area.slug == 'physics-of-the-solid-earth' %}
@@ -285,7 +300,7 @@
         {% else %}
             <p style="font-style: italic;">Research areas coming soon.</p>
         {% endif %}
-        <div style="margin-top: 3rem;">
+        <div class="reveal" style="margin-top: 3rem;">
             <a href="/research" class="btn btn-teal">Learn more <span aria-hidden="true">→</span></a>
         </div>
     </div>
@@ -301,7 +316,7 @@
         {% for i in 1..16 %}<span></span>{% endfor %}
     </div>
     <div class="wrap edu__grid">
-        <div>
+        <div class="reveal">
             <p class="eyebrow gold">Academics · Education</p>
             <h2>Training the next generation of<br><em>African physicists.</em></h2>
             <div class="gold-bar" style="margin-top: 1.5rem;"></div>
@@ -321,7 +336,7 @@
                 </div>
             </dl>
         </div>
-        <div>
+        <div class="reveal" style="--reveal-delay: .14s;">
             <div class="edu__card">
                 <p class="eyebrow gold">Current offer</p>
                 <h3>{{ msc ? msc.field('name', 'MSc in Physics') : 'MSc in Physics' }}</h3>
@@ -346,7 +361,7 @@
 <section class="panel bg-cream reach section-pad">
     <div class="grain"></div>
     <div class="wrap reach__grid">
-        <div>
+        <div class="reveal">
             <p class="eyebrow">A global network</p>
             <h2>Rooted in Kigali,<br><em>connected worldwide.</em></h2>
             <div class="gold-bar" style="margin-top: 1.25rem;"></div>
@@ -366,7 +381,7 @@
                 </div>
             </dl>
         </div>
-        <div class="reach__map">
+        <div class="reach__map reveal" style="--reveal-delay: .12s;">
             <img src="/uploads/svg/world-dots-teal.svg" alt="EAIFR's international collaboration network" loading="lazy" decoding="async">
             <span class="pin"></span>
             <span class="pin-label">Kigali</span>
@@ -378,7 +393,7 @@
 <section class="panel bg-warm en section-pad">
     <div class="grain"></div>
     <div class="wrap en__grid">
-        <div>
+        <div class="reveal">
             <p class="eyebrow">Upcoming events</p>
             <h2>Conferences, schools, workshops.</h2>
             <div class="gold-bar" style="margin-top: 1rem;"></div>
@@ -393,7 +408,7 @@
             </div>
             <a href="/events" class="all-link">All events →</a>
         </div>
-        <div>
+        <div class="reveal" style="--reveal-delay: .12s;">
             <p class="eyebrow">News &amp; highlights</p>
             <h2>What&rsquo;s happening at EAIFR.</h2>
             <div class="gold-bar" style="margin-top: 1rem;"></div>
@@ -415,19 +430,19 @@
 <section class="panel bg-cream section-pad-sm" style="padding-bottom: clamp(4rem, 8vw, 8rem);">
     <div class="grain"></div>
     <div class="wrap">
-        <div class="partners__intro">
+        <div class="partners__intro reveal">
             <p class="eyebrow">Supported by</p>
             <p>EAIFR operates in partnership with UNESCO, ICTP, the University of Rwanda and the Government of Rwanda — with the support of international research institutions.</p>
         </div>
 
-        <p class="partners__label">Principal partners</p>
-        <div class="partners__principal">
+        <p class="partners__label reveal">Principal partners</p>
+        <div class="partners__principal reveal" style="--reveal-delay: .08s;">
             <img src="/uploads/logos/principal-logos.png" alt="UNESCO · Government of Rwanda · University of Rwanda · ICTP" loading="lazy" decoding="async">
         </div>
 
         {% if supporter_partners|length > 0 %}
-            <p class="partners__label partners__supporters-label">In collaboration with</p>
-            <div class="partners__grid">
+            <p class="partners__label partners__supporters-label reveal">In collaboration with</p>
+            <div class="partners__grid reveal" style="--reveal-delay: .08s;">
                 {% for p in supporter_partners %}
                     {% set logo = p.field('logo', '') %}
                     {% set url  = p.field('url', '#') %}

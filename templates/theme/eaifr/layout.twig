@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.documentElement.classList.add('js');</script>
     <title>{% block title %}{{ site.name }} — East African Institute for Fundamental Research{% endblock %}</title>
     {% block meta %}
         <meta name="description" content="{% block meta_description %}A UNESCO Category II institute for basic sciences in Africa. A partnership of the Government and University of Rwanda with ICTP, established in 2018 in Kigali.{% endblock %}">
@@ -268,6 +269,25 @@
         }
         /* Prevent stray horizontal overflow from absolutely-positioned decorations on tiny screens */
         body { overflow-x: clip; }
+
+        /* ───── Motion: scroll reveal + micro-interactions ─────
+           Progressive enhancement — only the `.js` class (set in <head>) arms the
+           hidden initial state, and everything is gated behind prefers-reduced-motion,
+           so no-JS and reduced-motion users always see fully-rendered content. */
+        @media (prefers-reduced-motion: no-preference) {
+            .js .reveal {
+                opacity: 0;
+                transform: translateY(22px);
+                transition: opacity .7s ease, transform .75s cubic-bezier(.22,.61,.36,1);
+                transition-delay: var(--reveal-delay, 0s);
+            }
+            .js .reveal.in { opacity: 1; transform: none; }
+
+            /* Buttons: gentle arrow nudge on hover/focus */
+            .btn span[aria-hidden] { transition: transform .2s ease; }
+            .btn:hover span[aria-hidden],
+            .btn:focus-visible span[aria-hidden] { transform: translateX(4px); }
+        }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -290,6 +310,23 @@
                     btn.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
                 });
             }
+        })();
+
+        // Scroll-reveal: fade/slide elements in as they enter the viewport.
+        (function () {
+            var els = document.querySelectorAll('.reveal');
+            if (!els.length) return;
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !('IntersectionObserver' in window)) {
+                for (var i = 0; i < els.length; i++) els[i].classList.add('in');
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+            els.forEach(function (el) { io.observe(el); });
         })();
     </script>
 </body>
