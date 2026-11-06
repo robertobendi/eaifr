@@ -3,10 +3,6 @@
 {% block title %}News · EAIFR{% endblock %}
 {% block meta_description %}Latest posts from ICTP-EAIFR on X.{% endblock %}
 
-{% block head %}
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-{% endblock %}
-
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'News from ICTP-EAIFR',
@@ -19,7 +15,9 @@
 <section class="panel bg-warm section-pad" style="position: relative;">
     <div class="grain"></div>
     <div class="wrap-narrow" style="position: relative;">
-        <a class="twitter-timeline" data-height="720" data-dnt="true" href="https://x.com/ictpeaifr">Posts from @ictpeaifr</a>
+        <a class="twitter-timeline" data-height="720" href="https://twitter.com/ictpeaifr?ref_src=twsrc%5Etfw">Posts from @ictpeaifr</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <p style="margin-top: 1.5rem;">If the feed is blocked by your browser&rsquo;s privacy settings, <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">view @ictpeaifr directly on X ↗</a>.</p>
         <noscript><p>See the latest updates on <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">@ictpeaifr on X</a>.</p></noscript>
     </div>
 </section>
