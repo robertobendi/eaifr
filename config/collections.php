@@ -112,7 +112,7 @@ return [
             'full_name'   => ['type' => 'text',     'required' => true, 'label' => 'Full name'],
             'slug'        => ['type' => 'slug',     'required' => true, 'label' => 'Slug'],
             'role'        => ['type' => 'select',                       'label' => 'Role',
-                'options' => ['director', 'faculty', 'postdoc', 'phd-student', 'msc-student', 'staff', 'affiliate']],
+                'options' => ['director', 'faculty', 'postdoc', 'phd-student', 'msc-student', 'staff', 'visiting-lecturer', 'former-staff', 'affiliate']],
             'title'       => ['type' => 'text',                         'label' => 'Title / Position'],
             'affiliation' => ['type' => 'text',                         'label' => 'Affiliation'],
             'email'       => ['type' => 'text',                         'label' => 'Email'],
