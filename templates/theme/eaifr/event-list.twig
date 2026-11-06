@@ -4,26 +4,47 @@
 {% block meta_description %}Schools, conferences, workshops, colloquia, and seminars hosted by EAIFR in Kigali and online.{% endblock %}
 
 {% block content %}
+{% set upcoming_events = [] %}
+{% set past_events = [] %}
+{% for event in entries %}
+    {% if event.field('start_date') and event.field('start_date')|date('U') >= 'now'|date('U') %}
+        {% set upcoming_events = upcoming_events|merge([event]) %}
+    {% else %}
+        {% set past_events = past_events|merge([event]) %}
+    {% endif %}
+{% endfor %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'Events',
     title:   'Conferences, schools,',
     accent:  'workshops.',
-    summary: 'EAIFR convenes international scientific gatherings on the African continent — bringing students, researchers and practitioners together around topics of shared interest.',
+    summary: 'EAIFR convenes international scientific gatherings on the African continent — and preserves a searchable record of its past schools, workshops, seminars and conferences.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
     <div class="grain"></div>
     <div class="wrap">
-        {% if entries|length > 0 %}
+        {% if upcoming_events|length > 0 %}
+            <p class="eyebrow">Upcoming events</p>
             <div style="display: grid; gap: 1.25rem;">
-                {% for e in entries %}
+                {% for e in upcoming_events %}
                     {% include '@theme/partials/event-card.twig' with { event: e, compact: false } %}
                 {% endfor %}
             </div>
-        {% else %}
-            <div class="empty-state"><p>No events scheduled at the moment.</p></div>
         {% endif %}
+        <div style="margin-top: {% if upcoming_events|length > 0 %}4.5rem{% else %}0{% endif %};">
+            <p class="eyebrow">Past events archive</p>
+            <h2 style="font-size: clamp(1.75rem, 3vw, 2.25rem); margin-top: 0.85rem;">Previous events</h2>
+            <p style="max-width: 42rem; margin: 1rem 0 2rem;">Past events remain part of EAIFR&rsquo;s public record. Browse the entries below, or consult the full 2018&ndash;present archive while earlier records are being migrated.</p>
+            {% if past_events|length > 0 %}
+                <div style="display: grid; gap: 1.25rem;">
+                    {% for e in past_events %}
+                        {% include '@theme/partials/event-card.twig' with { event: e, compact: false } %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <p style="margin-top: 2rem;"><a class="btn btn-outline" href="https://eaifr.ictp.it/events/" target="_blank" rel="noopener">Browse the complete archive (2018–present) ↗</a></p>
+        </div>
     </div>
 </section>
 {% endblock %}
