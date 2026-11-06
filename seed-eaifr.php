@@ -57,7 +57,7 @@ $entries = [
         'slug'    => 'about',
         'eyebrow' => 'About us',
         'summary' => 'Established in 2018, EAIFR is a UNESCO Category II institute for basic sciences in Africa — a partnership of the Government and University of Rwanda with the Abdus Salam International Centre for Theoretical Physics (ICTP).',
-        'body'    => "## Mission\n\nEAIFR was established in 2018 as a young and dynamic international hub for higher education and research in basic sciences in Africa. It operates as a UNESCO Category II institute, in partnership with the Government and University of Rwanda, and with the Abdus Salam International Centre for Theoretical Physics (ICTP).\n\n## Vision\n\n- Create a community of African scientists in an international network for basic science.\n- Address African challenges in natural hazards, energy, climate, materials and health.\n- Deliver academic excellence — quality over quantity.\n\n## Governance\n\nEAIFR is hosted at the University of Rwanda in Kigali. Scientific direction is provided jointly with ICTP.",
+        'body'    => "## Mission\n\nEAIFR was established in 2018 as a young and dynamic international hub for higher education and research in basic sciences in Africa. It operates as a UNESCO Category II institute, in partnership with the Government and University of Rwanda, and with the Abdus Salam International Centre for Theoretical Physics (ICTP).\n\n## Vision\n\n- Create a community of African scientists in an international network for basic science.\n- Address African challenges in natural hazards, energy, climate, materials and health.\n- Deliver academic excellence — quality over quantity.\n\n## Governance\n\nEAIFR is hosted at the University of Rwanda in Kigali.",
     ]],
     ['pages', 'visit', [
         'title'   => 'Visit us',
@@ -70,7 +70,7 @@ $entries = [
         'title'   => 'Apply',
         'slug'    => 'apply',
         'eyebrow' => 'Admissions',
-        'summary' => 'EAIFR offers MSc and PhD physics programmes at the University of Rwanda, with scientific oversight by ICTP.',
+        'summary' => 'EAIFR offers MSc and PhD physics programmes at the University of Rwanda.',
         'body'    => "## MSc in Physics\n\nThe MSc is a two-year programme. Applicants should hold, or be completing, a BSc in physics or a closely related field and be fluent in English. Applications are submitted through the [ICTP application portal](https://www.ictp.it/training/degree-programs).\n\n## PhD in Physics\n\nThe research-led PhD has a maximum duration of four years and offers specialisation in High Energy Physics, Condensed Matter Physics, or Solid Earth Geophysics.\n\n### PhD eligibility\n\n- A bachelor's degree with honours in physics, mathematics, or a related field, with a cumulative average of at least 70%.\n- A master's degree in physics, mathematics, or a related field.\n- Selection is based on the university record and academic recommendations.\n\n### PhD application documents\n\n- Degree certificates and academic transcripts in English\n- Evidence of English-language proficiency\n- Contact details for two referees\n- An up-to-date CV and ID or passport copy\n- A proposal for the intended PhD research\n\nApplicants are encouraged to contact EAIFR scientific staff about shared research interests. Send PhD applications to [admissions@eaifr.org](mailto:admissions@eaifr.org), copying [admissions.pgs@ur.ac.rw](mailto:admissions.pgs@ur.ac.rw). Application and selection dates are to be determined.",
     ]],
     ['pages', 'contact', [
@@ -101,8 +101,8 @@ $entries = [
     ['programmes', 'msc-physics', [
         'name'                => 'Master of Science in Physics',
         'slug'                => 'msc-physics',
-        'summary'             => 'A two-year, English-language master\'s programme at the University of Rwanda, jointly delivered with ICTP. Fully funded scholarships for admitted African students.',
-        'body'                => "## Programme\n\nThe MSc in Physics is a two-year degree programme of the University of Rwanda, with scientific oversight by EAIFR and ICTP.\n\n- **Year 1** — core graduate physics coursework\n- **Year 2** — a research thesis in one of EAIFR's research areas\n\n## Scholarships\n\nFully funded scholarships are available for admitted African students (tuition, stipend, travel, accommodation).\n\n## How to apply\n\nApplications are accepted annually via the ICTP application portal. Visit the Apply page for the current window.",
+        'summary'             => 'A two-year, English-language master\'s programme at the University of Rwanda. Fully funded scholarships for admitted African students.',
+        'body'                => "## Programme\n\nThe MSc in Physics is a two-year degree programme of the University of Rwanda.\n\n- **Year 1** — core graduate physics coursework\n- **Year 2** — a research thesis in one of EAIFR's research areas\n\n## Scholarships\n\nFully funded scholarships are available for admitted African students (tuition, stipend, travel, accommodation).\n\n## How to apply\n\nApplications are accepted annually via the ICTP application portal. Visit the Apply page for the current window.",
         'duration'            => '2 years',
         'application_window'  => 'Opens each spring',
         'apply_url'           => 'https://www.ictp.it/training/degree-programs',
