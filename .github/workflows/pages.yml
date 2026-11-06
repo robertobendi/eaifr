@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -38,6 +40,9 @@ jobs:
 
       - name: Bootstrap DB + seed
         run: php bin/install-ci.php
+
+      - name: Sync latest EAIFR X posts
+        run: php bin/sync-x-news.php
 
       - name: Static export
         env:

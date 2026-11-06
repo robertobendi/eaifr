@@ -15,10 +15,27 @@
 <section class="panel bg-warm section-pad" style="position: relative;">
     <div class="grain"></div>
     <div class="wrap-narrow" style="position: relative;">
-        <a class="twitter-timeline" data-height="720" href="https://twitter.com/ictpeaifr?ref_src=twsrc%5Etfw">Posts from @ictpeaifr</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        <p style="margin-top: 1.5rem;">If the feed is blocked by your browser&rsquo;s privacy settings, <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">view @ictpeaifr directly on X ↗</a>.</p>
-        <noscript><p>See the latest updates on <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">@ictpeaifr on X</a>.</p></noscript>
+        {% set x_posts = [] %}
+        {% for item in entries %}
+            {% if item.field('source_url') %}
+                {% set x_posts = x_posts|merge([item]) %}
+            {% endif %}
+        {% endfor %}
+        {% if x_posts %}
+            <div class="cards-grid">
+                {% for item in x_posts %}
+                    {% set published = item.field('published_at') %}
+                    <a class="card" href="{{ item.field('source_url') }}" target="_blank" rel="noopener">
+                        {% if published %}<time datetime="{{ published|date('c') }}" class="meta">{{ published|date('j F Y') }} · X</time>{% endif %}
+                        <h3>{{ item.field('title') }}</h3>
+                        <p class="excerpt">{{ item.field('excerpt') }}</p>
+                        <span class="all-link">View post on X ↗</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Latest posts are being refreshed. <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">View @ictpeaifr on X ↗</a></p>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

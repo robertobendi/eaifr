@@ -47,6 +47,7 @@ return [
             'body'         => ['type' => 'markdown',                     'label' => 'Body'],
             'published_at' => ['type' => 'datetime', 'required' => true, 'label' => 'Published on'],
             'cover_image'  => ['type' => 'url',                          'label' => 'Cover image',  'help' => 'URL from /admin/media (optional).'],
+            'source_url'   => ['type' => 'url',                          'label' => 'Source URL',   'help' => 'Optional original post URL.'],
             'tag'          => ['type' => 'select',                       'label' => 'Tag',
                 'options' => ['research', 'admissions', 'events', 'announcement', 'partnership']],
         ],
