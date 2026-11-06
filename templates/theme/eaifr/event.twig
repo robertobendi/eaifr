@@ -8,6 +8,7 @@
 {% set location = entry.field('location', '') %}
 {% set body     = entry.field('body', '') %}
 {% set reg_url  = entry.field('registration_url', '') %}
+{% set cover    = entry.field('cover_image', '') %}
 
 {% block title %}{{ title }} · EAIFR{% endblock %}
 {% block meta_description %}{{ summary }}{% endblock %}
@@ -41,6 +42,9 @@
         </dl>
         {% if summary %}
             <p style="font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.65; color: var(--mid); margin-top: 1.75rem;">{{ summary }}</p>
+        {% endif %}
+        {% if cover %}
+            <img src="{{ cover }}" alt="" style="display: block; width: 100%; max-height: 30rem; object-fit: cover; border-radius: 14px; margin-top: 2rem;">
         {% endif %}
         {% if reg_url %}
             <p style="margin-top: 2rem;"><a href="{{ reg_url }}" class="btn btn-teal" target="_blank" rel="noopener">Registration / details →</a></p>
