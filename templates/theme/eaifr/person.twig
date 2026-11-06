@@ -7,6 +7,12 @@
 {% set email       = entry.field('email', '') %}
 {% set photo       = entry.field('photo', '') %}
 {% set bio         = entry.field('bio', '') %}
+{% set person_publications = [] %}
+{% for publication in entries('publications', 500) %}
+    {% if entry.slug in publication.field('people_slugs', '')|split(',') %}
+        {% set person_publications = person_publications|merge([publication]) %}
+    {% endif %}
+{% endfor %}
 
 {% block title %}{{ name }} · People · EAIFR{% endblock %}
 {% block meta_description %}{{ name }} — {{ title_pos }} at EAIFR, {{ affiliation }}.{% endblock %}
@@ -47,9 +53,28 @@
 <section class="panel bg-warm section-pad-sm" style="position: relative;">
     <div class="grain"></div>
     <div class="wrap-narrow prose" style="padding-top: clamp(2rem, 4vw, 3rem);">{{ bio|markdown|raw }}</div>
-    <div class="wrap-narrow" style="padding-top: 2rem;">
-        <a href="/people" class="btn btn-outline">← All people</a>
+</section>
+{% endif %}
+{% if person_publications|length > 0 %}
+<section class="panel bg-warm section-pad-sm" style="position: relative;">
+    <div class="grain"></div>
+    <div class="wrap-narrow" style="position: relative;">
+        <p class="eyebrow">Research output</p>
+        <h2 style="font-size: clamp(1.75rem, 3vw, 2.25rem); margin-top: 0.85rem;">Publications</h2>
+        <div style="display: grid; gap: 1rem; margin-top: 2rem;">
+            {% for publication in person_publications %}
+                {% set destination = publication.field('url', '') ?: '/publications/' ~ publication.slug %}
+                <a href="{{ destination }}"{% if publication.field('url', '') %} target="_blank" rel="noopener"{% endif %} style="display: block; padding: 1.25rem 1.5rem; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--hairline); color: var(--mid); text-decoration: none;">
+                    {% if publication.field('year') %}<span class="eyebrow">{{ publication.field('year') }}</span>{% endif %}
+                    <strong style="display: block; font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.35; color: var(--ink); margin-top: 0.35rem;">{{ publication.field('title', publication.slug) }}</strong>
+                    {% if publication.field('venue') %}<span style="display: block; font-style: italic; font-size: 0.9rem; margin-top: 0.35rem;">{{ publication.field('venue') }}</span>{% endif %}
+                </a>
+            {% endfor %}
+        </div>
     </div>
 </section>
 {% endif %}
+<section class="bg-warm" style="padding: 0 0 3rem;">
+    <div class="wrap-narrow"><a href="/people" class="btn btn-outline">← All people</a></div>
+</section>
 {% endblock %}

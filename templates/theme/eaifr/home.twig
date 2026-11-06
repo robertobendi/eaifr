@@ -156,7 +156,6 @@
 {% set programmes = entries('programmes', 10, 'created_at ASC') %}
 {% set msc        = entry('programmes', 'msc-physics') ?? (programmes[0] ?? null) %}
 {% set phd        = entry('programmes', 'phd-physics') %}
-{% set news       = entries('news', 3)   %}
 {% set events     = entries('events', 3) %}
 {% set partners   = entries('partners', 50) %}
 {% set principal_partners = [] %}
@@ -411,15 +410,9 @@
             <h2>What&rsquo;s happening at EAIFR.</h2>
             <div class="gold-bar" style="margin-top: 1rem;"></div>
             <div class="stack">
-                {% if news|length > 0 %}
-                    {% for n in news %}
-                        {% include '@theme/partials/news-card.twig' with { item: n } %}
-                    {% endfor %}
-                {% else %}
-                    <p class="empty">No news yet — check back soon.</p>
-                {% endif %}
+                <p class="empty">Our news is published through the official ICTP-EAIFR account on X.</p>
             </div>
-            <a href="/news" class="all-link">All news →</a>
+            <a href="/news" class="all-link">View latest posts →</a>
         </div>
     </div>
 </section>

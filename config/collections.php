@@ -141,6 +141,7 @@ return [
             'doi'       => ['type' => 'text',                       'label' => 'DOI'],
             'url'       => ['type' => 'url',                        'label' => 'URL'],
             'area_slug' => ['type' => 'text',                       'label' => 'Research area slug'],
+            'people_slugs' => ['type' => 'text',                    'label' => 'People slugs', 'help' => 'Comma-separated People slugs, with no spaces. Linked publications display automatically on each person profile.'],
         ],
     ],
 

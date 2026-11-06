@@ -1,29 +1,26 @@
 {% extends '@theme/layout.twig' %}
 
 {% block title %}News · EAIFR{% endblock %}
-{% block meta_description %}Latest news, announcements, and highlights from the East African Institute for Fundamental Research.{% endblock %}
+{% block meta_description %}Latest posts from ICTP-EAIFR on X.{% endblock %}
+
+{% block head %}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% endblock %}
 
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
-    eyebrow: 'News & announcements',
-    title:   'What\'s happening at',
-    accent:  'EAIFR.',
-    summary: 'Admissions calls, research milestones, partnership updates, and highlights from our international community.',
+    eyebrow: 'News from ICTP-EAIFR',
+    title:   'Latest from',
+    accent:  '@ictpeaifr.',
+    summary: 'Follow the official ICTP-EAIFR account for announcements, events and research highlights.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
     <div class="grain"></div>
-    <div class="wrap">
-        {% if entries|length > 0 %}
-            <div style="display: grid; gap: 1.25rem; grid-template-columns: 1fr;">
-                {% for n in entries %}
-                    {% include '@theme/partials/news-card.twig' with { item: n } %}
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="empty-state"><p>No news yet — check back soon.</p></div>
-        {% endif %}
+    <div class="wrap-narrow" style="position: relative;">
+        <a class="twitter-timeline" data-height="720" data-dnt="true" href="https://x.com/ictpeaifr">Posts from @ictpeaifr</a>
+        <noscript><p>See the latest updates on <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">@ictpeaifr on X</a>.</p></noscript>
     </div>
 </section>
 {% endblock %}
