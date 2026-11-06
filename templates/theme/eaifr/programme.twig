@@ -23,6 +23,12 @@
         {% if summary %}
             <p style="font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.65; color: rgba(255,255,255,0.85); max-width: 36rem; margin-top: 1.75rem;">{{ summary }}</p>
         {% endif %}
+        {% if window %}
+            <div style="display: inline-flex; flex-direction: column; gap: 0.25rem; margin-top: 2rem; padding: 1rem 1.25rem; border-left: 3px solid var(--gold); background: rgba(255,255,255,0.09);">
+                <span class="eyebrow gold">Key dates</span>
+                <strong style="font-family: var(--font-serif); font-size: 1.1rem; color: #fff;">{{ window }}</strong>
+            </div>
+        {% endif %}
         <dl style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; padding-left: 1.5rem; border-left: 1px solid rgba(255,255,255,0.20); max-width: 30rem;">
             {% if duration %}
             <div>
@@ -32,7 +38,7 @@
             {% endif %}
             {% if window %}
             <div>
-                <dt class="eyebrow gold">Apply</dt>
+                <dt class="eyebrow gold">Application dates</dt>
                 <dd style="font-family: var(--font-serif); font-weight: 600; font-size: 1.5rem; color: #fff; margin: 0.5rem 0 0;">{{ window }}</dd>
             </div>
             {% endif %}

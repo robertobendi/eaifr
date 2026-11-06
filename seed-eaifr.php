@@ -70,8 +70,8 @@ $entries = [
         'title'   => 'Apply',
         'slug'    => 'apply',
         'eyebrow' => 'Admissions',
-        'summary' => 'Applications to the MSc in Physics are accepted annually through the ICTP application portal.',
-        'body'    => "## MSc in Physics — How to apply\n\nApplications are submitted via the ICTP application portal. The annual window opens each spring.\n\n### Who can apply\n\nThe programme is open to citizens of African countries holding a BSc in Physics (or a closely related discipline) with strong academic records.\n\n### What you need\n\n- Academic transcripts\n- Two letters of recommendation\n- A statement of purpose\n- An up-to-date CV\n\n### Scholarships\n\nAdmitted applicants receive a fully funded scholarship covering tuition, living stipend, travel and accommodation.",
+        'summary' => 'EAIFR offers MSc and PhD physics programmes at the University of Rwanda, with scientific oversight by ICTP.',
+        'body'    => "## MSc in Physics\n\nThe MSc is a two-year programme. Applicants should hold, or be completing, a BSc in physics or a closely related field and be fluent in English. Applications are submitted through the [ICTP application portal](https://www.ictp.it/training/degree-programs).\n\n## PhD in Physics\n\nThe research-led PhD has a maximum duration of four years and offers specialisation in High Energy Physics, Condensed Matter Physics, or Solid Earth Geophysics.\n\n### PhD eligibility\n\n- A bachelor's degree with honours in physics, mathematics, or a related field, with a cumulative average of at least 70%.\n- A master's degree in physics, mathematics, or a related field.\n- Selection is based on the university record and academic recommendations.\n\n### PhD application documents\n\n- Degree certificates and academic transcripts in English\n- Evidence of English-language proficiency\n- Contact details for two referees\n- An up-to-date CV and ID or passport copy\n- A proposal for the intended PhD research\n\nApplicants are encouraged to contact EAIFR scientific staff about shared research interests. Send PhD applications to [admissions@eaifr.org](mailto:admissions@eaifr.org), copying [admissions.pgs@ur.ac.rw](mailto:admissions.pgs@ur.ac.rw). Application and selection dates are to be determined.",
     ]],
     ['pages', 'contact', [
         'title'   => 'Contact us',
@@ -106,6 +106,15 @@ $entries = [
         'duration'            => '2 years',
         'application_window'  => 'Opens each spring',
         'apply_url'           => 'https://www.ictp.it/training/degree-programs',
+    ]],
+    ['programmes', 'phd-physics', [
+        'name'                => 'Doctor of Philosophy in Physics',
+        'slug'                => 'phd-physics',
+        'summary'             => 'A research-led PhD in physics with specialisations in high energy physics, condensed matter physics, and solid earth geophysics.',
+        'body'                => "## PhD Programme\n\nThe PhD programme at EAIFR is in physics, with research specialization in one of the following broad areas:\n\n1. High Energy Physics\n2. Condensed Matter Physics\n3. Solid Earth Geophysics\n\nAdmitted students will be taught and supervised by EAIFR resident scientists and co-supervised by scientists at ICTP Trieste and possibly others around the world based upon mutual interests and the research proposal of the students.\n\n## Duration of the PhD Programme\n\nMaximum time duration of four years.\n\n## Mode of attendance\n\nThe PhD programme is completed through in-depth research that breaks new ground in the field and contributes to overall scientific knowledge. Research publications are expected from students as well as a final dissertation thesis before graduation.\n\n## Key dates\n\n- PhD application deadline: To be determined\n- Deadline for notification of selection: To be determined\n- Registration and commencement of research: To be determined\n\n## Minimum qualifications\n\n- Bachelor's degree with honours in physics, mathematics, or a related field, with distinction (cumulative grade point average of at least 70%).\n- Master's degree in physics, mathematics, or a related field.\n- Selection of candidates will be based on their university record and on academic recommendations.\n\n## Required documents\n\n- Copies of degree, academic transcripts and certificates (in English).\n- Documents that show that the students can follow instructions in the English language.\n- Contact details of two referees who can make comprehensive comments about the applicant's abilities, past studies, and work.\n- Updated CV and ID or Passport copy\n- A proposal of the intended PhD research\n\n## How to apply\n\nSend an email with the documents mentioned above to [admissions@eaifr.org](mailto:admissions@eaifr.org) with a copy to [admissions.pgs@ur.ac.rw](mailto:admissions.pgs@ur.ac.rw).",
+        'duration'            => 'Up to 4 years',
+        'application_window'  => 'Dates to be determined',
+        'apply_url'           => 'https://eaifr.ictp.it/degree-programmes/phd-programme/',
     ]],
 
     // ── Partners ───────────────────────────────────────────────────────

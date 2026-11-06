@@ -155,6 +155,7 @@
 {% set areas      = entries('research_areas', 6)            %}
 {% set programmes = entries('programmes', 10, 'created_at ASC') %}
 {% set msc        = entry('programmes', 'msc-physics') ?? (programmes[0] ?? null) %}
+{% set phd        = entry('programmes', 'phd-physics') %}
 {% set news       = entries('news', 3)   %}
 {% set events     = entries('events', 3) %}
 {% set partners   = entries('partners', 50) %}
@@ -191,7 +192,7 @@
             <p class="lead reveal" style="--reveal-delay: .32s;">A young, dynamic hub for higher education and research in basic sciences — a partnership of the Government and University of Rwanda with the Abdus Salam International Centre for Theoretical Physics.</p>
             <div class="ctas reveal" style="--reveal-delay: .40s;">
                 <a href="/research" class="btn btn-gold">Our research <span aria-hidden="true">→</span></a>
-                <a href="/academics/msc-physics" class="btn btn-ghost">MSc in Physics</a>
+                <a href="/academics" class="btn btn-ghost">Degree programmes</a>
             </div>
         </div>
         <aside class="hero__aside reveal" style="--reveal-delay: .5s;">
@@ -320,7 +321,7 @@
             <p class="eyebrow gold">Academics · Education</p>
             <h2>Training the next generation of<br><em>African physicists.</em></h2>
             <div class="gold-bar" style="margin-top: 1.5rem;"></div>
-            <p class="lead">EAIFR offers graduate-level physics education at the University of Rwanda, with scientific oversight by ICTP. Scholarships are available for admitted African students — covering tuition, stipend, travel and accommodation.</p>
+            <p class="lead">EAIFR offers MSc and PhD physics education at the University of Rwanda, with scientific oversight by ICTP. Students learn from resident scientists and an international network of collaborators.</p>
             <dl class="edu__stats">
                 <div>
                     <dt>Duration</dt>
@@ -330,28 +331,25 @@
                     <dt>Language</dt>
                     <dd>English</dd>
                 </div>
-                <div>
-                    <dt>Support</dt>
-                    <dd>Funded</dd>
-                </div>
+                <div><dt>Programmes</dt><dd>MSc + PhD</dd></div>
             </dl>
         </div>
         <div class="reveal" style="--reveal-delay: .14s;">
             <div class="edu__card">
-                <p class="eyebrow gold">Current offer</p>
-                <h3>{{ msc ? msc.field('name', 'MSc in Physics') : 'MSc in Physics' }}</h3>
-                <p>{{ msc ? msc.field('summary', 'A two-year, English-language master\'s programme at the University of Rwanda, jointly delivered with ICTP.') : 'A two-year, English-language master\'s programme at the University of Rwanda, jointly delivered with ICTP.' }}</p>
+                <p class="eyebrow gold">Degree programmes</p>
+                <h3>{{ msc ? msc.field('name', 'MSc in Physics') : 'MSc in Physics' }}{% if phd %} + PhD in Physics{% endif %}</h3>
+                <p>{% if phd %}Choose a two-year MSc or research-led PhD specialising in high energy physics, condensed matter physics, or solid earth geophysics.{% else %}{{ msc ? msc.field('summary', 'A two-year, English-language master\'s programme at the University of Rwanda, jointly delivered with ICTP.') : 'A two-year, English-language master\'s programme at the University of Rwanda, jointly delivered with ICTP.' }}{% endif %}</p>
                 <dl>
                     <div>
-                        <dt>Apply by</dt>
-                        <dd>{{ msc ? msc.field('application_window', 'Opens each spring') : 'Opens each spring' }}</dd>
+                        <dt>PhD applications</dt>
+                        <dd>{{ phd ? phd.field('application_window', 'Dates to be determined') : 'Dates to be determined' }}</dd>
                     </div>
                     <div>
                         <dt>Where</dt>
                         <dd>Kigali</dd>
                     </div>
                 </dl>
-                <a href="/academics/{{ msc ? msc.slug : 'msc-physics' }}" class="btn btn-gold">Programme details →</a>
+                <a href="/academics" class="btn btn-gold">Explore programmes →</a>
             </div>
         </div>
     </div>
