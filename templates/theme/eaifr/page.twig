@@ -21,6 +21,12 @@
 <section class="panel bg-warm section-pad" style="position: relative;">
     <div class="grain"></div>
     <div class="wrap-narrow">
+        {% if entry.slug == 'about' %}
+            <figure style="margin: 0 0 3rem; background: #fff; border-radius: 14px; padding: clamp(1rem, 3vw, 2rem); box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.10);">
+                <img src="/uploads/logos/governance-partnerships.png" alt="UNESCO, EAIFR, the Government of Rwanda, the University of Rwanda, and ICTP" style="display: block; width: 100%; height: auto;" loading="eager" decoding="async">
+                <figcaption style="font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-top: 1.25rem;">Governance and institutional partnerships</figcaption>
+            </figure>
+        {% endif %}
         {% if body %}<div class="prose">{{ body|markdown|raw }}</div>{% endif %}
 
         {% if entry.slug == 'contact' %}
