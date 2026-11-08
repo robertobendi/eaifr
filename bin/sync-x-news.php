@@ -32,6 +32,7 @@ foreach ($matches as $match) {
     }
 
     $text = json_decode('"' . $match[2] . '"', true, 512, JSON_THROW_ON_ERROR);
+    $text = str_replace(['\\n', '\\r', '\\t'], ["\n", "\r", "\t"], $text);
     $text = trim(preg_replace('/https?:\/\/t\.co\/\w+/', '', $text) ?? '');
     if ($text === '') {
         continue;

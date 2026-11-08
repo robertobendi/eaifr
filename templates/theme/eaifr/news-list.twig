@@ -3,7 +3,14 @@
 {% block title %}News · EAIFR{% endblock %}
 {% block meta_description %}Latest posts from ICTP-EAIFR on X.{% endblock %}
 
-{% block head %}<style>.cards-grid { display: grid; gap: 1.25rem; }</style>{% endblock %}
+{% block head %}
+<style>
+    .news-posts { display: grid; gap: 1.5rem; max-width: 550px; }
+    .news-posts .twitter-tweet { margin: 0; padding: 1.5rem; border: 1px solid var(--hairline); border-radius: 4px; }
+    .news-posts .twitter-tweet p { margin: 0 0 1rem; white-space: pre-line; overflow-wrap: anywhere; }
+    .news-posts .twitter-tweet a { font-family: var(--font-sans); font-size: .875rem; }
+</style>
+{% endblock %}
 
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
@@ -24,20 +31,25 @@
             {% endif %}
         {% endfor %}
         {% if x_posts %}
-            <div class="cards-grid">
+            <div class="news-posts">
                 {% for item in x_posts %}
                     {% set published = item.field('published_at') %}
-                    <a class="card" href="{{ item.field('source_url') }}" target="_blank" rel="noopener">
-                        {% if published %}<time datetime="{{ published|date('c') }}" class="meta">{{ published|date('j F Y') }} · X</time>{% endif %}
-                        <h3>{{ item.field('title') }}</h3>
-                        <p class="excerpt">{{ item.field('excerpt') }}</p>
-                        <span class="all-link">View post on X ↗</span>
-                    </a>
+                    <div>
+                        <blockquote class="twitter-tweet" data-dnt="true" data-conversation="none">
+                            <p lang="en" dir="ltr">{{ item.field('excerpt') }}</p>
+                            &mdash; ICTP-EAIFR (@ictpeaifr)
+                            <a href="{{ item.field('source_url') }}" target="_blank" rel="noopener">{% if published %}{{ published|date('j F Y') }}{% else %}View post on X{% endif %}</a>
+                        </blockquote>
+                    </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p>Latest posts are being refreshed. <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">View @ictpeaifr on X ↗</a></p>
+            <p><a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">Read ICTP-EAIFR posts on X ↗</a></p>
         {% endif %}
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}

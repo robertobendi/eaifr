@@ -271,6 +271,10 @@ $entries = [
     ], strtotime('2026-03-01')],
 ];
 
+foreach (json_decode(file_get_contents(__DIR__ . '/data/x-posts.json'), true, 512, JSON_THROW_ON_ERROR) as $post) {
+    $entries[] = ['news', $post['slug'], $post, $post['published_at']];
+}
+
 echo "=== EAIFR seed ===\n";
 foreach ($entries as $row) {
     [$collection, $slug, $data] = [$row[0], $row[1], $row[2]];
