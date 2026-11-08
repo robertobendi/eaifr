@@ -14,11 +14,11 @@
 {% block meta_description %}{{ summary }}{% endblock %}
 
 {% block content %}
-<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+<section class="page-hero">
 
     <div class="wrap-narrow detail-hero__inner">
-        <p class="eyebrow">Event · {{ kind }}</p>
-        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0.8rem 0 0; color: var(--ink);">{{ title }}</h1>
+
+        <h1 class="page-hero__title">{{ title }}</h1>
 
         <dl style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
             {% if start %}

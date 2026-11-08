@@ -10,11 +10,11 @@
 {% block meta_description %}{{ excerpt }}{% endblock %}
 
 {% block content %}
-<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+<section class="page-hero">
 
     <div class="wrap-narrow detail-hero__inner">
-        <p class="eyebrow">News {% if tag %}· {{ tag }}{% endif %}</p>
-        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0.8rem 0 0; color: var(--ink);">{{ title }}</h1>
+
+        <h1 class="page-hero__title">{{ title }}</h1>
 
         {% if published %}
             <p style="margin-top: 1.5rem; font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);">{{ published|date('j F Y') }}</p>

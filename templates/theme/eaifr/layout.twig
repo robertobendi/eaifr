@@ -179,14 +179,11 @@
         .section-pad-sm { padding: clamp(2.5rem, 4vw, 3.5rem) 0; }
 
         /* ───── Interior masthead ───── */
-        .page-hero { overflow: hidden; }
-        .page-hero__inner { padding-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: clamp(2.25rem, 4vw, 3.25rem); }
-        .page-hero__copy { max-width: 820px; }
-        .page-hero__title { font-family: var(--font-serif); font-weight: 600; font-size: clamp(2.1rem, 4.2vw, 3.4rem); line-height: 1.12; letter-spacing: -0.025em; margin: .65rem 0 0; }
-        .page-hero__title span { font-style: italic; font-weight: 400; color: var(--navy); }
-        .page-hero__summary { font-size: 1.02rem; line-height: 1.65; max-width: 690px; margin: 1rem 0 0; }
-        .page-hero--navy .page-hero__title span, .page-hero--deep-navy .page-hero__title span, .page-hero--forest .page-hero__title span { color: var(--gold); }
-        .detail-hero__inner { padding-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: clamp(2.25rem, 4vw, 3.5rem); }
+        .page-hero { background: #fff; }
+        .page-hero__inner, .detail-hero__inner { padding-top: clamp(2rem, 4vw, 3rem); padding-bottom: 2rem; }
+        .page-hero__copy { max-width: 760px; }
+        .page-hero__title { font-family: var(--font-sans); font-weight: 700; font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.2; letter-spacing: -.02em; margin: 0; color: var(--ink); }
+        .page-hero__summary { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; max-width: 680px; margin: .75rem 0 0; color: var(--mid); }
 
         /* ───── Cards ───── */
         .card {

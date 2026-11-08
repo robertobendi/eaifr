@@ -1,31 +1,10 @@
-{# Reusable page hero. Variables:
-   - eyebrow (string)
-   - title   (string, plain — first line)
-   - accent  (string, optional — italic gold second line)
-   - summary (string, optional)
-   - tone    ('cream' | 'warm' | 'navy' | 'deep-navy' | 'forest', default 'cream')
-#}
-{% set tone = tone|default('cream') %}
-{% set bg = {
-    cream: 'bg-cream',
-    warm: 'bg-warm',
-    navy: 'bg-navy',
-    'deep-navy': 'bg-deep-navy',
-    forest: 'bg-forest'
-}[tone] %}
-{% set on_dark = tone in ['navy', 'deep-navy', 'forest'] %}
-<section class="panel page-hero page-hero--{{ tone }} {{ bg }}">
-    <div class="wrap page-hero__inner">
+<header class="page-hero">
+    <div class="{{ narrow|default(false) ? 'wrap-narrow' : 'wrap' }} page-hero__inner">
         <div class="page-hero__copy">
-            <p class="eyebrow {{ on_dark ? 'gold' : '' }}">{{ eyebrow }}</p>
-            <h1 class="page-hero__title" style="color: {{ on_dark ? '#fff' : 'var(--ink)' }};">
-                {{ title }}
-                {% if accent %}<span>{{ accent }}</span>{% endif %}
-            </h1>
-
+            <h1 class="page-hero__title">{{ title }}{% if accent %} {{ accent }}{% endif %}</h1>
             {% if summary %}
-                <p class="page-hero__summary" style="color: {{ on_dark ? 'rgba(255,255,255,0.80)' : 'var(--mid)' }};">{{ summary }}</p>
+                <p class="page-hero__summary">{{ summary }}</p>
             {% endif %}
         </div>
     </div>
-</section>
+</header>

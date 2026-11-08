@@ -18,23 +18,22 @@
 {% block meta_description %}{{ name }} — {{ title_pos }} at EAIFR, {{ affiliation }}.{% endblock %}
 
 {% block content %}
-<section class="panel bg-cream" style="position: relative; overflow: hidden;">
+<section class="page-hero">
 
-    <div class="wrap detail-hero__inner" style="display: grid; gap: 2.5rem;">
+    <div class="wrap detail-hero__inner" style="display: grid; gap: 1.75rem;">
         <div style="display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1fr);" class="person-head">
-            <style>@media (min-width: 768px) { .person-head { grid-template-columns: 220px 1fr !important; align-items: start; } }</style>
+            <style>@media (min-width: 768px) { .person-head { grid-template-columns: 160px 1fr !important; align-items: start; } }</style>
             <div>
                 {% if photo %}
-                    <img src="{{ photo }}" alt="{{ name }}" style="width: 220px; height: 220px; object-fit: cover; border-radius: 8px; border: 1px solid var(--hairline);">
+                    <img src="{{ photo }}" alt="{{ name }}" style="width: 160px; height: 160px; object-fit: cover; border-radius: 8px; border: 1px solid var(--hairline);">
                 {% else %}
-                    <div style="width: 220px; height: 220px; background: linear-gradient(180deg, var(--warm), var(--cream)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 3rem; color: var(--teal); font-weight: 600;">
+                    <div style="width: 160px; height: 160px; background: linear-gradient(180deg, var(--warm), var(--cream)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 3rem; color: var(--teal); font-weight: 600;">
                         {{ name|first|upper }}
                     </div>
                 {% endif %}
             </div>
             <div>
-                {% if role %}<p class="eyebrow">{{ role|replace({'-': ' '}) }}</p>{% endif %}
-                <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0.7rem 0 0; color: var(--ink);">{{ name }}</h1>
+                <h1 class="page-hero__title">{{ name }}</h1>
 
                 {% if title_pos %}
                     <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{{ title_pos }}</p>
