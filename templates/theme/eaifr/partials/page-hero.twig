@@ -14,7 +14,7 @@
     forest: 'bg-forest'
 }[tone] %}
 {% set on_dark = tone in ['navy', 'deep-navy', 'forest'] %}
-<section class="panel page-hero {{ bg }}">
+<section class="panel page-hero page-hero--{{ tone }} {{ bg }}">
     {% if on_dark %}
         <div class="dot-grid" style="position: absolute; right: 2rem; top: 2rem;">
             {% for i in 1..16 %}<span></span>{% endfor %}
@@ -24,14 +24,22 @@
         <div class="grain"></div>
     {% endif %}
     <div class="wrap page-hero__inner">
-        <p class="eyebrow {{ on_dark ? 'gold' : '' }}">{{ eyebrow }}</p>
-        <h1 class="page-hero__title" style="color: {{ on_dark ? '#fff' : 'var(--ink)' }};">
-            {{ title }}
-            {% if accent %}<span style="display: block; font-style: italic; font-weight: 400; color: var(--gold);">{{ accent }}</span>{% endif %}
-        </h1>
-        <div class="gold-bar page-hero__rule"></div>
-        {% if summary %}
-            <p class="page-hero__summary" style="color: {{ on_dark ? 'rgba(255,255,255,0.80)' : 'var(--mid)' }};">{{ summary }}</p>
-        {% endif %}
+        <div class="page-hero__copy">
+            <p class="eyebrow {{ on_dark ? 'gold' : '' }}">{{ eyebrow }}</p>
+            <h1 class="page-hero__title" style="color: {{ on_dark ? '#fff' : 'var(--ink)' }};">
+                {{ title }}
+                {% if accent %}<span>{{ accent }}</span>{% endif %}
+            </h1>
+            <div class="gold-bar page-hero__rule"></div>
+            {% if summary %}
+                <p class="page-hero__summary" style="color: {{ on_dark ? 'rgba(255,255,255,0.80)' : 'var(--mid)' }};">{{ summary }}</p>
+            {% endif %}
+        </div>
+        <div class="page-hero__signature" aria-hidden="true">
+            <span class="page-hero__signature-name">EAIFR</span>
+            <span class="page-hero__signature-rule"></span>
+            <span class="page-hero__signature-label">Kigali · Rwanda</span>
+            <span class="page-hero__signature-orbit"></span>
+        </div>
     </div>
 </section>
