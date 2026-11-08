@@ -18,7 +18,8 @@ $html = curl_exec($ch);
 $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
 if (!is_string($html) || $status !== 200) {
-    throw new RuntimeException('Unable to retrieve the EAIFR X profile.');
+    fwrite(STDERR, "Skipped X news sync: EAIFR's X profile returned HTTP {$status}.\n");
+    exit(0);
 }
 
 preg_match_all('/\\\\\\"created_at_ms\\\\\\":(\d+).{0,3000}?\\\\\\"full_text\\\\\\":\\\\\\"((?:\\\\\\\\.|[^"\\\\\\\\])*)\\\\\\".{0,3000}?\\\\\\"edit_tweet_ids\\\\\\":\[\\\\\\"(\d+)\\\\\\"\]/s', $html, $matches, PREG_SET_ORDER);
@@ -47,7 +48,8 @@ uasort($posts, static fn (array $a, array $b): int => $b['timestamp'] <=> $a['ti
 $posts = array_slice($posts, 0, 12, true);
 
 if ($posts === []) {
-    throw new RuntimeException('No posts were found on the EAIFR X profile.');
+    fwrite(STDERR, "Skipped X news sync: no posts could be parsed from EAIFR's X profile.\n");
+    exit(0);
 }
 
 $root = realpath(__DIR__ . '/..') ?: __DIR__ . '/..';
