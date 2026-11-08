@@ -5,13 +5,20 @@
 
 {% block head %}
 <style>
-    .pub-list { display: flex; flex-direction: column; gap: 1.25rem; }
-    .pub-row { background: #fff; border-radius: 14px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.08); display: grid; gap: 0.5rem; text-decoration: none; color: var(--mid); transition: transform .15s, box-shadow .15s; }
-    .pub-row:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -16px rgba(13,128,128,0.2); }
-    .pub-row .year { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); }
-    .pub-row h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.1rem; line-height: 1.35; color: var(--ink); margin: 0; }
-    .pub-row .authors { font-family: var(--font-serif); font-size: 14px; color: var(--mid); margin: 0; }
-    .pub-row .venue { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--mid); margin: 0; }
+    .pub-index { max-width: 960px; }
+    .pub-index__intro { margin: 0 0 2rem; font-family: var(--font-sans); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+    .pub-year { display: flex; align-items: baseline; gap: 1rem; margin: 2.75rem 0 .65rem; color: var(--ink); }
+    .pub-year::after { content: ''; height: 1px; flex: 1; background: var(--hairline); }
+    .pub-year h2 { font-family: var(--font-sans); font-size: 1rem; font-weight: 900; letter-spacing: .14em; color: var(--teal); }
+    .pub-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--hairline); }
+    .pub-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .25rem 1.5rem; padding: 1rem .15rem; border-bottom: 1px solid var(--hairline); text-decoration: none; color: var(--mid); transition: padding .16s ease, background-color .16s ease; }
+    .pub-row:hover { padding-left: .75rem; padding-right: .75rem; background: rgba(255,255,255,.5); color: var(--mid); }
+    .pub-row h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; line-height: 1.32; color: var(--ink); margin: 0; }
+    .pub-row:hover h3 { color: var(--teal); }
+    .pub-row .authors { grid-column: 1; font-family: var(--font-serif); font-size: .875rem; line-height: 1.45; color: var(--mid); margin: .15rem 0 0; }
+    .pub-row .venue { grid-column: 1; font-family: var(--font-serif); font-style: italic; font-size: .8125rem; line-height: 1.4; color: var(--light-ink); margin: 0; }
+    .pub-row .arrow { grid-column: 2; grid-row: 1 / span 3; align-self: center; font-family: var(--font-sans); font-size: 1rem; color: var(--teal); }
+    @media (max-width: 540px) { .pub-row { gap: .25rem .75rem; padding: .9rem 0; } .pub-row h3 { font-size: 1rem; } }
 </style>
 {% endblock %}
 
@@ -20,7 +27,7 @@
     eyebrow: 'Publications',
     title:   'Peer-reviewed work',
     accent:  'from EAIFR.',
-    summary: 'A reverse-chronological index of journal articles and conference proceedings authored or co-authored by EAIFR scientists.',
+    summary: 'A complete, reverse-chronological record of work authored or co-authored by EAIFR researchers.',
     tone:    'cream'
 } %}
 
@@ -28,15 +35,25 @@
     <div class="grain"></div>
     <div class="wrap">
         {% if entries|length > 0 %}
-            <div class="pub-list">
+            <div class="pub-index">
+                <p class="pub-index__intro">{{ entries|length }} publications · 2018–2026</p>
+                {% set current_year = '' %}
                 {% for p in entries %}
-                    <a href="/publications/{{ p.slug }}" class="pub-row">
-                        {% if p.field('year') %}<span class="year">{{ p.field('year') }}</span>{% endif %}
+                    {% set year = p.field('year', '') %}
+                    {% if year != current_year %}
+                        {% if current_year != '' %}</ul>{% endif %}
+                        <div class="pub-year"><h2>{{ year }}</h2></div>
+                        <ul class="pub-list">
+                        {% set current_year = year %}
+                    {% endif %}
+                    <li><a href="/publications/{{ p.slug }}" class="pub-row">
                         <h3>{{ p.field('title', p.slug) }}</h3>
                         {% if p.field('authors') %}<p class="authors">{{ p.field('authors') }}</p>{% endif %}
                         {% if p.field('venue') %}<p class="venue">{{ p.field('venue') }}</p>{% endif %}
-                    </a>
+                        <span class="arrow" aria-hidden="true">↗</span>
+                    </a></li>
                 {% endfor %}
+                </ul>
             </div>
         {% else %}
             <div class="empty-state"><p>Publications listing coming soon.</p></div>

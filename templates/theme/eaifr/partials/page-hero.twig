@@ -14,7 +14,7 @@
     forest: 'bg-forest'
 }[tone] %}
 {% set on_dark = tone in ['navy', 'deep-navy', 'forest'] %}
-<section class="panel {{ bg }}" style="overflow: hidden; position: relative;">
+<section class="panel page-hero {{ bg }}">
     {% if on_dark %}
         <div class="dot-grid" style="position: absolute; right: 2rem; top: 2rem;">
             {% for i in 1..16 %}<span></span>{% endfor %}
@@ -23,15 +23,15 @@
     {% else %}
         <div class="grain"></div>
     {% endif %}
-    <div class="wrap" style="padding-top: clamp(4rem, 7vw, 7rem); padding-bottom: clamp(3.5rem, 6vw, 6rem); max-width: 980px; position: relative;">
+    <div class="wrap page-hero__inner">
         <p class="eyebrow {{ on_dark ? 'gold' : '' }}">{{ eyebrow }}</p>
-        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: {{ on_dark ? '#fff' : 'var(--ink)' }};">
+        <h1 class="page-hero__title" style="color: {{ on_dark ? '#fff' : 'var(--ink)' }};">
             {{ title }}
             {% if accent %}<span style="display: block; font-style: italic; font-weight: 400; color: var(--gold);">{{ accent }}</span>{% endif %}
         </h1>
-        <div class="gold-bar" style="margin-top: 1.5rem;"></div>
+        <div class="gold-bar page-hero__rule"></div>
         {% if summary %}
-            <p style="font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.65; max-width: 620px; margin: 1.75rem 0 0; color: {{ on_dark ? 'rgba(255,255,255,0.80)' : 'var(--mid)' }};">{{ summary }}</p>
+            <p class="page-hero__summary" style="color: {{ on_dark ? 'rgba(255,255,255,0.80)' : 'var(--mid)' }};">{{ summary }}</p>
         {% endif %}
     </div>
 </section>

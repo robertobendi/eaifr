@@ -16,10 +16,10 @@
     <div class="dot-grid" style="position: absolute; right: 2rem; top: 2rem;">
         {% for i in 1..16 %}<span></span>{% endfor %}
     </div>
-    <div class="wrap" style="padding: clamp(4rem, 7vw, 7rem) 0 clamp(3.5rem, 6vw, 6rem); max-width: 980px; position: relative;">
+    <div class="wrap detail-hero__inner" style="max-width: 980px; position: relative;">
         <p class="eyebrow gold">Academic programme</p>
-        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.01em; margin: 1.25rem 0 0; color: #fff;">{{ name }}</h1>
-        <div class="gold-bar" style="margin-top: 1.5rem;"></div>
+        <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.01em; margin: 0.8rem 0 0; color: #fff;">{{ name }}</h1>
+        <div class="gold-bar" style="width: 42px; height: 3px; margin-top: 1.1rem;"></div>
         {% if summary %}
             <p style="font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.65; color: rgba(255,255,255,0.85); max-width: 36rem; margin-top: 1.75rem;">{{ summary }}</p>
         {% endif %}
