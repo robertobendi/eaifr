@@ -6,7 +6,18 @@
 {% block head %}
 <style>
     .pub-index { max-width: 960px; }
-    .pub-index__intro { margin: 0 0 2rem; font-family: var(--font-sans); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+    .pub-index__intro { margin: 0 0 1.25rem; font-family: var(--font-sans); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
+    .pub-explorer { display: grid; gap: .75rem; padding: 1rem; margin-bottom: 2.75rem; background: rgba(255,255,255,.62); border: 1px solid rgba(27,40,56,.10); border-radius: 12px; box-shadow: 0 12px 32px -28px rgba(6,30,47,.45); }
+    .pub-explorer__search { position: relative; }
+    .pub-explorer__search svg { position: absolute; left: .9rem; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--teal); pointer-events: none; }
+    .pub-explorer input, .pub-explorer select { width: 100%; min-height: 44px; padding: .65rem .8rem; border: 1px solid rgba(27,40,56,.14); border-radius: 7px; background: #fff; color: var(--ink); font-family: var(--font-sans); font-size: .875rem; }
+    .pub-explorer input { padding-left: 2.65rem; }
+    .pub-explorer select { appearance: auto; }
+    .pub-explorer input:focus, .pub-explorer select:focus { outline: 2px solid rgba(13,128,128,.30); border-color: var(--teal); }
+    .pub-explorer__meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .1rem .2rem 0; font-family: var(--font-sans); font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); }
+    .pub-explorer__clear { border: 0; padding: .35rem .1rem; background: transparent; color: var(--teal); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .pub-explorer__clear[hidden] { display: none; }
+    @media (min-width: 680px) { .pub-explorer { grid-template-columns: minmax(0, 1fr) 132px 170px; align-items: center; } .pub-explorer__meta { grid-column: 1 / -1; } }
     .pub-year { display: flex; align-items: baseline; gap: 1rem; margin: 2.75rem 0 .65rem; color: var(--ink); }
     .pub-year::after { content: ''; height: 1px; flex: 1; background: var(--hairline); }
     .pub-year h2 { font-family: var(--font-sans); font-size: 1rem; font-weight: 900; letter-spacing: .14em; color: var(--teal); }
@@ -18,6 +29,9 @@
     .pub-row .authors { grid-column: 1; font-family: var(--font-serif); font-size: .875rem; line-height: 1.45; color: var(--mid); margin: .15rem 0 0; }
     .pub-row .venue { grid-column: 1; font-family: var(--font-serif); font-style: italic; font-size: .8125rem; line-height: 1.4; color: var(--light-ink); margin: 0; }
     .pub-row .arrow { grid-column: 2; grid-row: 1 / span 3; align-self: center; font-family: var(--font-sans); font-size: 1rem; color: var(--teal); }
+    .pub-empty { display: none; padding: 2.5rem 0 .5rem; font-family: var(--font-serif); font-style: italic; color: var(--mid); }
+    .pub-index.is-empty .pub-empty { display: block; }
+    .pub-index.is-empty .pub-year, .pub-index.is-empty .pub-list { display: none; }
     @media (max-width: 540px) { .pub-row { gap: .25rem .75rem; padding: .9rem 0; } .pub-row h3 { font-size: 1rem; } }
 </style>
 {% endblock %}
@@ -35,18 +49,36 @@
     <div class="grain"></div>
     <div class="wrap">
         {% if entries|length > 0 %}
+            {% set years = [] %}
+            {% set areas = [] %}
+            {% for p in entries %}
+                {% set year = p.field('year', '') %}
+                {% set area = p.field('area_slug', '') %}
+                {% if year and year not in years %}{% set years = years|merge([year]) %}{% endif %}
+                {% if area and area not in areas %}{% set areas = areas|merge([area]) %}{% endif %}
+            {% endfor %}
             <div class="pub-index">
                 <p class="pub-index__intro">{{ entries|length }} publications · 2018–2026</p>
+                <form class="pub-explorer" role="search" data-publication-explorer>
+                    <label class="pub-explorer__search">
+                        <span class="sr-only">Search publications</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m20 20-4.35-4.35"></path></svg>
+                        <input type="search" name="q" placeholder="Search title, author, or journal" autocomplete="off" data-publication-query>
+                    </label>
+                    <label><span class="sr-only">Filter by year</span><select name="year" data-publication-year><option value="">All years</option>{% for year in years %}<option value="{{ year }}">{{ year }}</option>{% endfor %}</select></label>
+                    <label><span class="sr-only">Filter by research area</span><select name="area" data-publication-area><option value="">All areas</option>{% for area in areas %}<option value="{{ area }}">{{ area|replace({'-': ' '})|title }}</option>{% endfor %}</select></label>
+                    <div class="pub-explorer__meta"><span aria-live="polite" data-publication-count>{{ entries|length }} results</span><button type="reset" class="pub-explorer__clear" data-publication-clear hidden>Clear filters</button></div>
+                </form>
                 {% set current_year = '' %}
                 {% for p in entries %}
                     {% set year = p.field('year', '') %}
                     {% if year != current_year %}
                         {% if current_year != '' %}</ul>{% endif %}
-                        <div class="pub-year"><h2>{{ year }}</h2></div>
-                        <ul class="pub-list">
+                        <div class="pub-year" data-publication-year-group="{{ year }}"><h2>{{ year }}</h2></div>
+                        <ul class="pub-list" data-publication-list="{{ year }}">
                         {% set current_year = year %}
                     {% endif %}
-                    <li><a href="/publications/{{ p.slug }}" class="pub-row">
+                    <li data-publication-item data-year="{{ year }}" data-area="{{ p.field('area_slug', '') }}" data-search="{{ p.field('title', p.slug) }} {{ p.field('authors', '') }} {{ p.field('venue', '') }}"><a href="/publications/{{ p.slug }}" class="pub-row">
                         <h3>{{ p.field('title', p.slug) }}</h3>
                         {% if p.field('authors') %}<p class="authors">{{ p.field('authors') }}</p>{% endif %}
                         {% if p.field('venue') %}<p class="venue">{{ p.field('venue') }}</p>{% endif %}
@@ -54,10 +86,53 @@
                     </a></li>
                 {% endfor %}
                 </ul>
+                <p class="pub-empty" data-publication-empty>No matching publications. Try a different search or clear the filters.</p>
             </div>
         {% else %}
             <div class="empty-state"><p>Publications listing coming soon.</p></div>
         {% endif %}
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function () {
+        var explorer = document.querySelector('[data-publication-explorer]');
+        if (!explorer) return;
+        var index = explorer.closest('.pub-index');
+        var query = explorer.querySelector('[data-publication-query]');
+        var year = explorer.querySelector('[data-publication-year]');
+        var area = explorer.querySelector('[data-publication-area]');
+        var count = explorer.querySelector('[data-publication-count]');
+        var clear = explorer.querySelector('[data-publication-clear]');
+        var items = Array.prototype.slice.call(index.querySelectorAll('[data-publication-item]'));
+        var groups = Array.prototype.slice.call(index.querySelectorAll('[data-publication-list]'));
+
+        function applyFilters() {
+            var term = query.value.trim().toLowerCase();
+            var visible = 0;
+            items.forEach(function (item) {
+                var matches = (!term || item.dataset.search.toLowerCase().indexOf(term) !== -1) &&
+                    (!year.value || item.dataset.year === year.value) &&
+                    (!area.value || item.dataset.area === area.value);
+                item.hidden = !matches;
+                if (matches) visible++;
+            });
+            groups.forEach(function (group) {
+                var hasVisible = group.querySelector('[data-publication-item]:not([hidden])');
+                group.hidden = !hasVisible;
+                var heading = index.querySelector('[data-publication-year-group="' + group.dataset.publicationList + '"]');
+                if (heading) heading.hidden = !hasVisible;
+            });
+            count.textContent = visible + (visible === 1 ? ' result' : ' results');
+            clear.hidden = !(term || year.value || area.value);
+            index.classList.toggle('is-empty', visible === 0);
+        }
+
+        explorer.addEventListener('input', applyFilters);
+        explorer.addEventListener('change', applyFilters);
+        explorer.addEventListener('reset', function () { window.setTimeout(applyFilters, 0); });
+    })();
+</script>
 {% endblock %}

@@ -20,7 +20,8 @@
         </a>
         <nav class="site-nav" aria-label="Primary">
             {% for item in NAV %}
-                <a href="{{ item.href }}">{{ item.label }}</a>
+                {% set active = current_path == item.href or (current_path starts with item.href ~ '/') %}
+                <a href="{{ item.href }}"{% if active %} class="active"{% endif %}{% if active %} aria-current="page"{% endif %}>{{ item.label }}</a>
             {% endfor %}
             <a href="/apply" class="apply">Apply</a>
         </nav>
@@ -34,7 +35,8 @@
     </div>
     <div class="wrap mobile-nav" aria-label="Mobile primary">
         {% for item in NAV %}
-            <a href="{{ item.href }}">{{ item.label }}</a>
+            {% set active = current_path == item.href or (current_path starts with item.href ~ '/') %}
+            <a href="{{ item.href }}"{% if active %} class="active"{% endif %}{% if active %} aria-current="page"{% endif %}>{{ item.label }}</a>
         {% endfor %}
         <a href="/apply" class="apply">Apply</a>
     </div>

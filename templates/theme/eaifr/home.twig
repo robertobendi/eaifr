@@ -154,6 +154,7 @@
 
 {% set areas      = entries('research_areas', 6)            %}
 {% set programmes = entries('programmes', 10, 'created_at ASC') %}
+{% set publications = entries('publications', 500) %}
 {% set msc        = entry('programmes', 'msc-physics') ?? (programmes[0] ?? null) %}
 {% set phd        = entry('programmes', 'phd-physics') %}
 {% set events     = entries('events', 3) %}
@@ -209,6 +210,10 @@
                         <dt>Research programmes</dt>
                         <dd><em>Geophysics</em><br><span class="sub">Volcanology &amp; Seismology</span></dd>
                         <dd style="margin-top: 0.85rem;"><em>Condensed matter physics</em><br><span class="sub">Materials &amp; Biophysics</span></dd>
+                    </div>
+                    <div>
+                        <dt>Research record</dt>
+                        <dd><a href="/publications" style="color: inherit; text-decoration-color: rgba(212,168,67,.65);">{{ publications|length }} publications<br><span class="sub">Explore the full index →</span></a></dd>
                     </div>
                 </dl>
             </div>

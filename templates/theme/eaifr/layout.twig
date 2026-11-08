@@ -144,6 +144,7 @@
             min-height: 44px; display: flex; align-items: center;
         }
         .mobile-nav a:hover { background: rgba(27,40,56,0.05); color: var(--ink); }
+        .mobile-nav a.active { background: rgba(13,128,128,0.10); color: var(--teal); }
         .mobile-nav a.apply { background: var(--gold); color: var(--deep-navy); text-align: center; margin-top: 0.5rem; border-radius: 999px; }
 
         /* ───── Footer ───── */
@@ -284,6 +285,7 @@
         :where(a, button, input, select, textarea, .btn):focus-visible {
             outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 4px;
         }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         @media (hover: none) {
             .card:hover, .research-card:hover, .person-card:hover, .pub-row:hover, .prog-card:hover, .research-card-lg:hover { transform: none; }
         }
@@ -329,9 +331,17 @@
             var btn = document.querySelector('.menu-toggle');
             var nav = document.querySelector('.mobile-nav');
             if (btn && nav) {
-                btn.addEventListener('click', function () {
-                    nav.classList.toggle('open');
-                    btn.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
+                function setMenu(open) {
+                    nav.classList.toggle('open', open);
+                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+                }
+                btn.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape' && nav.classList.contains('open')) {
+                        setMenu(false);
+                        btn.focus();
+                    }
                 });
             }
         })();
@@ -353,5 +363,6 @@
             els.forEach(function (el) { io.observe(el); });
         })();
     </script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
