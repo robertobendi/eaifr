@@ -15,14 +15,14 @@
 {% endfor %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'Events',
-    title:   'Conferences, schools,',
-    accent:  'workshops.',
-    summary: 'EAIFR convenes international scientific gatherings on the African continent — and preserves a searchable record of its past schools, workshops, seminars and conferences.',
+    title:   'Scientific events',
+    accent:  '',
+    summary: 'Scientific meetings at EAIFR, in Kigali and online. Browse recent events or visit the full archive.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap">
         {% if upcoming_events|length > 0 %}
             <p class="eyebrow">Upcoming events</p>

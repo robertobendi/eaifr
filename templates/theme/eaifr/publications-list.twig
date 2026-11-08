@@ -7,7 +7,7 @@
 <style>
     .pub-index { max-width: 960px; }
     .pub-index__intro { margin: 0 0 1.25rem; font-family: var(--font-sans); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); }
-    .pub-explorer { display: grid; gap: .75rem; padding: 1rem; margin-bottom: 2.75rem; background: rgba(255,255,255,.62); border: 1px solid rgba(27,40,56,.10); border-radius: 12px; box-shadow: 0 12px 32px -28px rgba(6,30,47,.45); }
+    .pub-explorer { display: grid; gap: .75rem; padding: 1rem; margin-bottom: 2.75rem; background: rgba(255,255,255,.62); border: 1px solid rgba(27,40,56,.10); border-radius: 4px;  }
     .pub-explorer__search { position: relative; }
     .pub-explorer__search svg { position: absolute; left: .9rem; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--teal); pointer-events: none; }
     .pub-explorer input, .pub-explorer select { width: 100%; min-height: 44px; padding: .65rem .8rem; border: 1px solid rgba(27,40,56,.14); border-radius: 7px; background: #fff; color: var(--ink); font-family: var(--font-sans); font-size: .875rem; }
@@ -27,7 +27,7 @@
     .pub-row h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; line-height: 1.32; color: var(--ink); margin: 0; }
     .pub-row:hover h3 { color: var(--teal); }
     .pub-row .authors { grid-column: 1; font-family: var(--font-serif); font-size: .875rem; line-height: 1.45; color: var(--mid); margin: .15rem 0 0; }
-    .pub-row .venue { grid-column: 1; font-family: var(--font-serif); font-style: italic; font-size: .8125rem; line-height: 1.4; color: var(--light-ink); margin: 0; }
+    .pub-row .venue { grid-column: 1; font-family: var(--font-serif); font-style: italic; font-size: .8125rem; line-height: 1.4; color: var(--mid); margin: 0; }
     .pub-row .arrow { grid-column: 2; grid-row: 1 / span 3; align-self: center; font-family: var(--font-sans); font-size: 1rem; color: var(--teal); }
     .pub-empty { display: none; padding: 2.5rem 0 .5rem; font-family: var(--font-serif); font-style: italic; color: var(--mid); }
     .pub-index.is-empty .pub-empty { display: block; }
@@ -39,14 +39,14 @@
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'Publications',
-    title:   'Peer-reviewed work',
-    accent:  'from EAIFR.',
-    summary: 'A complete, reverse-chronological record of work authored or co-authored by EAIFR researchers.',
+    title:   'Research publications',
+    accent:  '',
+    summary: 'Browse publications listed by the institute, from journal articles to book chapters. Search by title, author or journal.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap">
         {% if entries|length > 0 %}
             {% set years = [] %}
@@ -130,6 +130,7 @@
             index.classList.toggle('is-empty', visible === 0);
         }
 
+        explorer.addEventListener('submit', function (event) { event.preventDefault(); applyFilters(); });
         explorer.addEventListener('input', applyFilters);
         explorer.addEventListener('change', applyFilters);
         explorer.addEventListener('reset', function () { window.setTimeout(applyFilters, 0); });

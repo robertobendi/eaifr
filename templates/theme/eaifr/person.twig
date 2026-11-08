@@ -19,13 +19,13 @@
 
 {% block content %}
 <section class="panel bg-cream" style="position: relative; overflow: hidden;">
-    <div class="grain"></div>
+
     <div class="wrap detail-hero__inner" style="display: grid; gap: 2.5rem;">
         <div style="display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1fr);" class="person-head">
             <style>@media (min-width: 768px) { .person-head { grid-template-columns: 220px 1fr !important; align-items: start; } }</style>
             <div>
                 {% if photo %}
-                    <img src="{{ photo }}" alt="{{ name }}" style="width: 220px; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: 0 10px 40px -20px rgba(6,30,47,0.25);">
+                    <img src="{{ photo }}" alt="{{ name }}" style="width: 220px; height: 220px; object-fit: cover; border-radius: 8px; border: 1px solid var(--hairline);">
                 {% else %}
                     <div style="width: 220px; height: 220px; background: linear-gradient(180deg, var(--warm), var(--cream)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 3rem; color: var(--teal); font-weight: 600;">
                         {{ name|first|upper }}
@@ -35,7 +35,7 @@
             <div>
                 {% if role %}<p class="eyebrow">{{ role|replace({'-': ' '}) }}</p>{% endif %}
                 <h1 style="font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0.7rem 0 0; color: var(--ink);">{{ name }}</h1>
-                <div class="gold-bar" style="width: 42px; height: 3px; margin-top: 1.1rem;"></div>
+
                 {% if title_pos %}
                     <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{{ title_pos }}</p>
                 {% endif %}
@@ -51,20 +51,20 @@
 </section>
 {% if bio %}
 <section class="panel bg-warm section-pad-sm" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap-narrow prose" style="padding-top: clamp(2rem, 4vw, 3rem);">{{ bio|markdown|raw }}</div>
 </section>
 {% endif %}
 {% if person_publications|length > 0 %}
 <section class="panel bg-warm section-pad-sm" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap-narrow" style="position: relative;">
         <p class="eyebrow">Research output</p>
         <h2 style="font-size: clamp(1.75rem, 3vw, 2.25rem); margin-top: 0.85rem;">Publications</h2>
         <div style="display: grid; gap: 1rem; margin-top: 2rem;">
             {% for publication in person_publications %}
                 {% set destination = publication.field('url', '') ?: '/publications/' ~ publication.slug %}
-                <a href="{{ destination }}"{% if publication.field('url', '') %} target="_blank" rel="noopener"{% endif %} style="display: block; padding: 1.25rem 1.5rem; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--hairline); color: var(--mid); text-decoration: none;">
+                <a href="{{ destination }}"{% if publication.field('url', '') %} target="_blank" rel="noopener"{% endif %} style="display: block; padding: 1.25rem 1.5rem; border-radius: 4px; background: #fff; box-shadow: 0 0 0 1px var(--hairline); color: var(--mid); text-decoration: none;">
                     {% if publication.field('year') %}<span class="eyebrow">{{ publication.field('year') }}</span>{% endif %}
                     <strong style="display: block; font-family: var(--font-serif); font-size: 1.1rem; line-height: 1.35; color: var(--ink); margin-top: 0.35rem;">{{ publication.field('title', publication.slug) }}</strong>
                     {% if publication.field('venue') %}<span style="display: block; font-style: italic; font-size: 0.9rem; margin-top: 0.35rem;">{{ publication.field('venue') }}</span>{% endif %}

@@ -15,7 +15,7 @@
 
 {% block content %}
 <section class="panel bg-deep-navy" style="position: relative; overflow: hidden;">
-    <div class="grain-dark"></div>
+
     {% if cover %}
         <div style="position: absolute; inset: 0; z-index: 0;">
             <img src="{{ cover }}" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.30;">
@@ -28,13 +28,13 @@
         {% if short %}
             <p style="font-family: var(--font-sans); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; color: var(--gold); margin-top: 0.85rem;">{{ short }}</p>
         {% endif %}
-        <div class="gold-bar" style="width: 42px; height: 3px; margin-top: 1.1rem;"></div>
+
     </div>
 </section>
 
 {% if overview %}
 <section class="panel bg-warm section-pad" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap-narrow prose">{{ overview|markdown|raw }}</div>
     <div class="wrap-narrow" style="padding-top: 2.5rem;">
         <a href="/research" class="btn btn-outline">← All research areas</a>

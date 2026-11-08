@@ -8,8 +8,8 @@
     .people-grid { display: grid; gap: 1.75rem; grid-template-columns: 1fr; }
     @media (min-width: 640px) { .people-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .people-grid { grid-template-columns: repeat(3, 1fr); } }
-    .person-card { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 1px 0 rgba(27,40,56,0.04), 0 0 0 1px rgba(27,40,56,0.08); display: flex; gap: 1rem; align-items: center; text-decoration: none; color: var(--mid); transition: transform .2s, box-shadow .2s; }
-    .person-card:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -20px rgba(13,128,128,0.25); }
+    .person-card { background: #fff; border-radius: 4px; padding: 1.5rem; border: 1px solid var(--hairline); display: flex; gap: 1rem; align-items: center; text-decoration: none; color: var(--mid); transition: transform .2s, box-shadow .2s; }
+    .person-card:hover { border-color: rgba(13,128,128,.4); }
     .person-card .avatar { width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0; background: var(--cream); object-fit: cover; }
     .person-card .avatar.placeholder { display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: var(--teal); background: linear-gradient(180deg, var(--warm), var(--cream)); }
     .person-card h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0; line-height: 1.25; }
@@ -21,14 +21,14 @@
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'People',
-    title:   'Faculty, postdocs,',
-    accent:  'students & staff.',
+    title:   'Our people',
+    accent:  '',
     summary: 'EAIFR is a young, growing community of African and international scientists working out of Kigali.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap">
         {% if entries|length > 0 %}
             <div class="people-grid">

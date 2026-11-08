@@ -3,17 +3,19 @@
 {% block title %}News · EAIFR{% endblock %}
 {% block meta_description %}Latest posts from ICTP-EAIFR on X.{% endblock %}
 
+{% block head %}<style>.cards-grid { display: grid; gap: 1.25rem; }</style>{% endblock %}
+
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'News from ICTP-EAIFR',
-    title:   'Latest from',
-    accent:  '@ictpeaifr.',
+    title:   'News & announcements',
+    accent:  '',
     summary: 'Follow the official ICTP-EAIFR account for announcements, events and research highlights.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
-    <div class="grain"></div>
+
     <div class="wrap-narrow" style="position: relative;">
         {% set x_posts = [] %}
         {% for item in entries %}
