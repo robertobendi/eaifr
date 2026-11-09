@@ -15,6 +15,10 @@
     .person-card h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0; line-height: 1.25; }
     .person-card .role { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-top: 0.4rem; }
     .person-card .title { font-family: var(--font-serif); font-size: 14px; color: var(--mid); margin-top: 0.3rem; line-height: 1.45; }
+    .people-sections { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; margin-bottom: 2.5rem; font-family: var(--font-sans); font-size: .875rem; }
+    .people-section + .people-section { margin-top: 3.5rem; }
+    .people-section h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    .person-card .affiliation { font-family: var(--font-sans); font-size: .8rem; line-height: 1.5; margin: .4rem 0 0; }
 </style>
 {% endblock %}
 
@@ -31,8 +35,20 @@
 
     <div class="wrap">
         {% if entries|length > 0 %}
-            <div class="people-grid">
-                {% for p in entries %}
+            {% set groups = [
+                {id: 'permanent-staff', title: 'Permanent staff', roles: ['director', 'faculty', 'staff', 'postdoc']},
+                {id: 'visiting-lecturers', title: 'Visiting lecturers', roles: ['visiting-lecturer']},
+                {id: 'postgraduate-students', title: 'Postgraduate students', roles: ['phd-student', 'msc-student', 'postgraduate-student']},
+                {id: 'former-permanent-staff', title: 'Former permanent staff', roles: ['former-staff']}
+            ] %}
+            <nav class="people-sections" aria-label="People sections">
+                {% for group in groups %}<a href="#{{ group.id }}">{{ group.title }}</a>{% endfor %}
+            </nav>
+            {% for group in groups %}
+            <section class="people-section" id="{{ group.id }}" style="scroll-margin-top: 7rem;">
+                <h2>{{ group.title }}</h2>
+                <div class="people-grid">
+                {% for p in entries %}{% if p.field('role') in group.roles %}
                     {% set photo = p.field('photo', '') %}
                     <a href="/people/{{ p.slug }}" class="person-card">
                         {% if photo %}
@@ -42,12 +58,14 @@
                         {% endif %}
                         <div>
                             <h3>{{ p.field('full_name', p.slug) }}</h3>
-                            {% if p.field('role') %}<p class="role">{{ p.field('role')|replace({'-': ' '}) }}</p>{% endif %}
                             {% if p.field('title') %}<p class="title">{{ p.field('title') }}</p>{% endif %}
+                            {% if p.field('affiliation') %}<p class="affiliation">{{ p.field('affiliation') }}</p>{% endif %}
                         </div>
                     </a>
-                {% endfor %}
-            </div>
+                {% endif %}{% endfor %}
+                </div>
+            </section>
+            {% endfor %}
         {% else %}
             <div class="empty-state"><p>People listing coming soon.</p></div>
         {% endif %}

@@ -53,6 +53,9 @@ jobs:
           EAIFR_STATIC_BASE_URL: https://${{ github.repository_owner }}.github.io
         run: php bin/export.php
 
+      - name: Verify migrated site content
+        run: php tests/site-content.php
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -54,7 +54,14 @@
     <div class="wrap-narrow prose" style="padding-top: clamp(2rem, 4vw, 3rem);">{{ bio|markdown|raw }}</div>
 </section>
 {% endif %}
-{% if person_publications|length > 0 %}
+{% if entry.field('publications_body') %}
+<section class="panel bg-warm section-pad-sm">
+    <div class="wrap-narrow prose">
+        <h2>Publications</h2>
+        {{ entry.field('publications_body')|markdown }}
+    </div>
+</section>
+{% elseif person_publications|length > 0 %}
 <section class="panel bg-warm section-pad-sm" style="position: relative;">
 
     <div class="wrap-narrow" style="position: relative;">
