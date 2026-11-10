@@ -54,23 +54,27 @@ mkdir($distDir, 0775, true);
 // even when `php` isn't on the shell's PATH — e.g. Homebrew installs that
 // shim PHP behind `/opt/homebrew/bin` only on login shells.
 $logFile = sys_get_temp_dir() . '/eaifr-export-' . getmypid() . '.log';
-$cmd = sprintf(
-    'EAIFR_STATIC_EXPORT=1 %s -S %s -t %s %s > %s 2>&1 & echo $!',
-    escapeshellarg(PHP_BINARY),
-    escapeshellarg($hostPort),
-    escapeshellarg($root),
-    escapeshellarg($root . '/bin/router.php'),
-    escapeshellarg($logFile),
+// proc_open with an argument array skips the shell, so this works on
+// Windows as well as Linux/macOS.
+$env = getenv();
+$env['EAIFR_STATIC_EXPORT'] = '1';
+$server = proc_open(
+    [PHP_BINARY, '-S', $hostPort, '-t', $root, $root . '/bin/router.php'],
+    [0 => ['pipe', 'r'], 1 => ['file', $logFile, 'a'], 2 => ['file', $logFile, 'a']],
+    $pipes,
+    $root,
+    $env,
 );
-$pid = (int) trim((string) shell_exec($cmd));
-if ($pid <= 0) {
+if (!is_resource($server)) {
     fwrite(STDERR, "Failed to start PHP built-in server.\n");
     exit(1);
 }
-register_shutdown_function(function () use ($pid, $logFile): void {
-    if ($pid > 0 && function_exists('posix_kill')) {
-        @posix_kill($pid, 15);
+register_shutdown_function(function () use ($server, $pipes, $logFile): void {
+    foreach ($pipes as $p) {
+        @fclose($p);
     }
+    @proc_terminate($server);
+    @proc_close($server);
     if (is_file($logFile)) {
         @unlink($logFile);
     }
