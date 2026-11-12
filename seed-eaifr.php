@@ -67,7 +67,7 @@ $entries = [
         'slug'    => 'visit',
         'eyebrow' => 'Getting here',
         'summary' => 'EAIFR is hosted at the University of Rwanda\'s College of Science and Technology in Kigali. Visitors, students and collaborators are welcome.',
-        'body'    => "## Address\n\nEAIFR — East African Institute for Fundamental Research  \nUniversity of Rwanda · College of Science and Technology  \nAvenue de l'Armée, Kigali, Rwanda\n\n## Getting here\n\nKigali International Airport (KGL) is a 20-minute drive from campus. Visa information is available on the Rwanda Directorate General of Immigration and Emigration website. Most visitors are eligible for a visa on arrival.\n\n## Contact\n\nGeneral inquiries: info [at] eaifr.org",
+        'body'    => "## Address\n\nEAIFR — East African Institute for Fundamental Research  \nEinstein Block, CST Nyarugenge Campus  \nUniversity of Rwanda, Kigali, Rwanda\n\n## Getting here\n\nKigali International Airport (KGL) is a 20-minute drive from campus. Visa information is available on the Rwanda Directorate General of Immigration and Emigration website. Most visitors are eligible for a visa on arrival.\n\n## Contact\n\nGeneral inquiries: info [at] eaifr.org  \nDirector: director [at] eaifr.org  \nPhone: +250 786 104 237",
     ]],
     ['pages', 'apply', [
         'title'   => 'Apply',
@@ -101,7 +101,7 @@ $entries = [
     ['research_areas', 'geophysics', [
         'name'     => 'Geophysics',
         'slug'     => 'geophysics',
-        'short'    => 'Volcanology & Seismology',
+        'short'    => 'Volcanology & Observational Seismology',
         'overview' => "The study of Earth's dynamics and its interior is essential for a better understanding not only of earthquakes and volcanoes, but also of the interactions between the solid Earth, the atmosphere, and the biosphere. It can also contribute to improved management of natural hazards (landslides, floods), resources (water, minerals, energy), and societal risks (e.g., health impacts), and help address the challenges posed by climate change.\n\nOur team combines theoretical and numerical modeling and high-resolution seismic tomography to study intraplate earthquakes and volcanism through the active volcanoes of Nyiragongo and Nyamuragira located along the western branch of the East African Rift, the only modern continental rift observable by geoscientists. We also lead interdisciplinary collaborations with fluid dynamics experts, climatologists, and epidemiologists.",
         'accent'   => 'forest',
     ]],

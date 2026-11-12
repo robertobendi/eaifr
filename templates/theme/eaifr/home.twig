@@ -81,6 +81,7 @@
     .edu__stats dt { font-family: var(--font-sans); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
     .edu__stats dd { font-family: var(--font-serif); font-weight: 600; font-size: 1.5rem; color: #fff; margin: 0.5rem 0 0; }
     @media (max-width: 480px) { .edu__stats dd { font-size: 1.15rem; } .edu__stats dt { letter-spacing: .08em; font-size: .6rem; } }
+    .edu__offer { margin: 0.85rem 0 0; padding-left: 1.2rem; display: grid; gap: 0.45rem; font-family: var(--font-serif); font-size: 16px; line-height: 1.5; color: rgba(255,255,255,0.88); }
     .edu__card {
         background: rgba(20,61,40,.35);
         border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 2rem;
@@ -184,8 +185,8 @@
                     </div>
                     <div>
                         <dt>Research programmes</dt>
-                        <dd><em>Geophysics</em><br><span class="sub">Volcanology &amp; Seismology</span></dd>
-                        <dd style="margin-top: 0.85rem;"><em>Condensed matter physics</em><br><span class="sub">Materials &amp; Biophysics</span></dd>
+                        <dd><em>Geophysics</em><br><span class="sub">Volcanology &amp; Observational Seismology</span></dd>
+                        <dd style="margin-top: 0.85rem;"><em>Condensed matter physics</em><br><span class="sub">Materials Discovery &amp; Biophysics</span></dd>
                     </div>
                     <div>
                         <dt>Research record</dt>
@@ -205,7 +206,7 @@
             <p class="eyebrow">Welcome · Murakaza neza</p>
             <h2>An institute for<br><em>science in Africa.</em></h2>
 
-            <p class="intro">Established in 2018, EAIFR is a UNESCO Category&nbsp;II institute working in partnership with the Government and University of Rwanda, and the Abdus Salam International Centre for Theoretical Physics (ICTP).</p>
+            <p class="intro">Established in 2018, EAIFR is a young and dynamic international hub for higher education and research in basic sciences in Africa. It is a UNESCO Category&nbsp;II institute working in partnership with the government and university of Rwanda, and the Abdus Salam International Centre for Theoretical Physics (ICTP).</p>
         </div>
         <div>
             <p class="eyebrow">Our vision</p>
@@ -233,11 +234,11 @@
     <div class="wrap">
         <div class="research__head">
             <div>
-                <p class="eyebrow">Our work</p>
+                <p class="eyebrow">Collaborative</p>
                 <h2>Research</h2>
 
             </div>
-            <p>Our scientists study the Earth and the properties of matter through field observations, theory and computation.</p>
+            <p>A dynamic hub for local and visiting scientists, with a focus on international collaborations.</p>
         </div>
         {% if areas|length > 0 %}
             <div class="research__grid {{ areas|length == 2 ? 'cols-2' : 'cols-3' }}">
@@ -282,10 +283,18 @@
 
     <div class="wrap edu__grid">
         <div>
-            <p class="eyebrow gold">Academics · Education</p>
+            <p class="eyebrow gold">Advanced · Education</p>
             <h2>Training the next generation of<br><em>African physicists.</em></h2>
 
-            <p class="lead">EAIFR offers MSc and PhD physics education at the University of Rwanda. Students learn from resident scientists and an international network of collaborators.</p>
+            <p class="lead">An exciting centre for training the next generations of talent from Rwanda, Africa and beyond.</p>
+            <p class="eyebrow gold" style="margin-top: 2rem;">We offer</p>
+            <ul class="edu__offer">
+                <li>Internationally accredited M.Sc. and Ph.D. in Physics</li>
+                <li>Scholarships for fully funded tuition</li>
+                <li>An international network of visiting lecturers</li>
+                <li>Global research training opportunities building on local mentorship</li>
+                <li>Diplomas from the University of Rwanda</li>
+            </ul>
             <dl class="edu__stats">
                 <div>
                     <dt>Duration</dt>
@@ -343,8 +352,9 @@
 
     <div class="wrap en__grid">
         <div>
-            <p class="eyebrow">Events archive</p>
+            <p class="eyebrow">Scientific events</p>
             <h2>Conferences, schools, workshops.</h2>
+            <p style="margin-top: 1rem;">A key node for physics networks in Africa, hosting ~5 scientific meetings or schools per year, often in collaboration with ICTP.</p>
 
             <div class="stack">
                 {% if events|length > 0 %}
