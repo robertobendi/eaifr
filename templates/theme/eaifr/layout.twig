@@ -304,6 +304,41 @@
             }
         })();
 
+        // Email addresses are never written whole in the HTML, so address
+        // harvesters cannot read them. They are stored as "name [at] domain"
+        // (or split across data-eu / data-ed) and reassembled here.
+        (function () {
+            document.querySelectorAll('[data-eu][data-ed]').forEach(function (el) {
+                var address = el.dataset.eu + '@' + el.dataset.ed;
+                if (el.tagName === 'A') {
+                    el.href = 'mailto:' + address + (el.dataset.subject ? '?subject=' + encodeURIComponent(el.dataset.subject) : '');
+                }
+                if (el.textContent.indexOf('[at]') !== -1) el.textContent = address;
+            });
+            var pattern = /([\w.+-]+)\s\[at\]\s([\w-]+(?:\.[\w-]+)+)/g;
+            var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+            var nodes = [];
+            while (walker.nextNode()) {
+                var node = walker.currentNode;
+                if (node.nodeValue.indexOf('[at]') !== -1 && !node.parentElement.closest('a, script, style, textarea')) nodes.push(node);
+            }
+            nodes.forEach(function (node) {
+                var text = node.nodeValue, fragment = document.createDocumentFragment(), last = 0, match;
+                pattern.lastIndex = 0;
+                while ((match = pattern.exec(text)) !== null) {
+                    fragment.appendChild(document.createTextNode(text.slice(last, match.index)));
+                    var link = document.createElement('a');
+                    link.href = 'mailto:' + match[1] + '@' + match[2];
+                    link.textContent = match[1] + '@' + match[2];
+                    fragment.appendChild(link);
+                    last = match.index + match[0].length;
+                }
+                if (last === 0) return;
+                fragment.appendChild(document.createTextNode(text.slice(last)));
+                node.parentNode.replaceChild(fragment, node);
+            });
+        })();
+
     </script>
     {% block scripts %}{% endblock %}
 </body>

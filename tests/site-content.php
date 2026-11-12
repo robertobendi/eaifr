@@ -55,4 +55,23 @@ $check(substr_count($read('msc-faqs'), '<h2>') === 7, 'Incomplete MSc FAQs');
 $check(substr_count($read('publications'), '<li data-publication-item') === 49, 'Institute publications changed');
 $check(substr_count($read('news'), '<blockquote class="twitter-tweet"') >= 6, 'Tweet fallback lost');
 
+
+// Email addresses must never be exported whole; layout.twig rebuilds them in the browser.
+$pages = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dist, FilesystemIterator::SKIP_DOTS));
+foreach ($pages as $page) {
+    if ($page->getExtension() !== 'html') {
+        continue;
+    }
+    $check(
+        preg_match('~[\w.+-]+@[\w-]+\.[a-z]{2,}~i', file_get_contents($page->getPathname()), $found) !== 1,
+        'Unprotected email address ' . ($found[0] ?? '') . ' in ' . $page->getPathname()
+    );
+}
+$check(str_contains($profile, 'data-eu="cmeriaux"'), 'Director email link missing');
+foreach (['daniel-manu-marfo', 'edward-ntim-gasu'] as $slug) {
+    $check(str_contains($read('people/' . $slug), 'Biography'), "Staff profile text missing: {$slug}");
+}
+$check(str_contains($read('research/geophysics'), 'Nyiragongo and Nyamuragira'), 'Geophysics research text not updated');
+$check(str_contains($read('research/condensed-matter-physics'), 'from the atomistic to the continuum'), 'Condensed matter research text not updated');
+
 echo "Site content checks passed\n";

@@ -42,7 +42,9 @@
                     <p style="font-family: var(--font-serif); font-size: 15px; color: var(--mid); margin-top: 0.5rem;">{{ affiliation }}</p>
                 {% endif %}
                 {% if email %}
-                    <p style="margin-top: 1.5rem;"><a href="mailto:{{ email }}" class="btn btn-outline">{{ email }}</a></p>
+                    {# Address is split so it never appears whole in the HTML; layout.twig reassembles it in the browser. #}
+                    {% set email_parts = email|split('@', 2) %}
+                    <p style="margin-top: 1.5rem;"><a data-eu="{{ email_parts[0] }}" data-ed="{{ email_parts[1]|default('') }}" class="btn btn-outline">{{ email_parts[0] }} [at] {{ email_parts[1]|default('') }}</a></p>
                 {% endif %}
             </div>
         </div>
