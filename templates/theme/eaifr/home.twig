@@ -186,7 +186,7 @@
                     <div>
                         <dt>Research programmes</dt>
                         <dd><em>Geophysics</em><br><span class="sub">Volcanology &amp; Observational Seismology</span></dd>
-                        <dd style="margin-top: 0.85rem;"><em>Condensed matter physics</em><br><span class="sub">Materials Discovery &amp; Biophysics</span></dd>
+                        <dd style="margin-top: 0.85rem;"><em>Condensed matter physics</em><br><span class="sub">Materials Discovery and Energy</span></dd>
                     </div>
                     <div>
                         <dt>Research record</dt>
@@ -313,10 +313,12 @@
                 <h3>{{ msc ? msc.field('name', 'MSc in Physics') : 'MSc in Physics' }}{% if phd %} + PhD in Physics{% endif %}</h3>
                 <p>{% if phd %}Choose a two-year MSc or research-led PhD specialising in high energy physics, condensed matter physics, or solid earth geophysics.{% else %}{{ msc ? msc.field('summary', 'A two-year, English-language master\'s programme at the University of Rwanda.') : 'A two-year, English-language master\'s programme at the University of Rwanda.' }}{% endif %}</p>
                 <dl>
+                    {% if phd and phd.field('application_window') %}
                     <div>
                         <dt>PhD applications</dt>
-                        <dd>{{ phd ? phd.field('application_window', 'Dates to be determined') : 'Dates to be determined' }}</dd>
+                        <dd>{{ phd.field('application_window') }}</dd>
                     </div>
+                    {% endif %}
                     <div>
                         <dt>Where</dt>
                         <dd>Kigali</dd>
