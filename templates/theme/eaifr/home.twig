@@ -55,8 +55,8 @@
         transition: transform .3s ease, box-shadow .3s ease;
     }
     .research-card:hover { border-color: rgba(13,128,128,.4); }
-    .research-card .cover { background: linear-gradient(180deg, var(--cream), var(--warm)); position: relative; overflow: hidden; }
-    .research-card .cover img { display: block; width: 100%; height: auto; }
+    .research-card .cover { aspect-ratio: 16/9; background: linear-gradient(180deg, var(--cream), var(--warm)); position: relative; overflow: hidden; }
+    .research-card .cover img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
     @media (prefers-reduced-motion: no-preference) {
         .research-card:hover, .research-card:focus-visible { transform: translateY(-4px) scale(1.015); box-shadow: 0 12px 28px rgba(27,40,56,.12); }
     }
