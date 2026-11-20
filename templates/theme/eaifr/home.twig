@@ -130,6 +130,7 @@
     @media (min-width: 1024px) { .partners__grid { grid-template-columns: repeat(5, 1fr); } }
     .partners__grid img { max-height: 70px; max-width: 100%; opacity: 0.85; transition: opacity .2s; filter: grayscale(0.2); }
     .partners__grid a:hover img { opacity: 1; filter: none; }
+    .research-card .cover img.formula-illustration { object-fit: contain; transform: none; }
 </style>
 {% endblock %}
 
@@ -254,7 +255,7 @@
                             {% elseif area.slug == 'geophysics' or area.slug == 'physics-of-the-solid-earth' %}
                                 <img src="/uploads/img/research-solid-earth.jpg" alt="" loading="lazy" decoding="async">
                             {% elseif area.slug == 'condensed-matter-physics' %}
-                                <img src="/uploads/img/research-condensed-matter-approved.png" alt="" loading="lazy" decoding="async">
+                                <img class="formula-illustration" src="/uploads/img/research-condensed-matter-approved.png" alt="" loading="lazy" decoding="async">
                             {% endif %}
                         </div>
                         <div class="body">

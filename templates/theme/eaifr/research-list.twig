@@ -23,6 +23,7 @@
     .research-card-lg .subtitle { font-family: var(--font-sans); font-size: 0.875rem; font-weight: 700; color: var(--teal); }
     .research-card-lg p { font-family: var(--font-serif); font-size: 16px; line-height: 1.6; margin: 0; color: var(--mid); }
     .research-card-lg .cta { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; color: var(--teal); margin-top: auto; padding-top: 1rem; }
+    .research-card-lg .cover img.formula-illustration { object-fit: contain; transform: none; }
 </style>
 {% endblock %}
 
@@ -51,7 +52,7 @@
                         {% if area.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter-approved.png' %}{% endif %}
                     {% endif %}
                     <a href="/research/{{ area.slug }}" class="research-card-lg">
-                        <div class="cover">{% if cover %}<img src="{{ cover }}" alt="" loading="lazy" decoding="async">{% endif %}</div>
+                        <div class="cover">{% if cover %}<img{% if area.slug == 'condensed-matter-physics' %} class="formula-illustration"{% endif %} src="{{ cover }}" alt="" loading="lazy" decoding="async">{% endif %}</div>
                         <div class="body">
                             <h3>{{ area.field('name', area.slug) }}</h3>
                             {% if short %}<p class="subtitle">{{ short }}</p>{% endif %}
