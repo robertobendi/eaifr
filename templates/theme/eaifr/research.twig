@@ -7,7 +7,7 @@
 {% set cover    = entry.field('cover_image', '') %}
 {% if not cover %}
     {% if entry.slug == 'geophysics' or entry.slug == 'physics-of-the-solid-earth' %}{% set cover = '/uploads/img/research-solid-earth.jpg' %}{% endif %}
-    {% if entry.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter.jpg' %}{% endif %}
+    {% if entry.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter-approved.png' %}{% endif %}
 {% endif %}
 
 {% block title %}{{ name }} · Research · EAIFR{% endblock %}

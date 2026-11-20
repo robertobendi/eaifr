@@ -48,7 +48,7 @@
                     {% set cover = area.field('cover_image', '') %}
                     {% if not cover %}
                         {% if area.slug == 'geophysics' or area.slug == 'physics-of-the-solid-earth' %}{% set cover = '/uploads/img/research-solid-earth.jpg' %}{% endif %}
-                        {% if area.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter.jpg' %}{% endif %}
+                        {% if area.slug == 'condensed-matter-physics' %}{% set cover = '/uploads/img/research-condensed-matter-approved.png' %}{% endif %}
                     {% endif %}
                     <a href="/research/{{ area.slug }}" class="research-card-lg">
                         <div class="cover">{% if cover %}<img src="{{ cover }}" alt="" loading="lazy" decoding="async">{% endif %}</div>
