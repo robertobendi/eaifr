@@ -48,7 +48,7 @@
             <section class="people-section" id="{{ group.id }}" style="scroll-margin-top: 7rem;">
                 <h2>{{ group.title }}</h2>
                 <div class="people-grid">
-                {% for p in entries %}{% if p.field('role') in group.roles %}
+                {% for p in entries %}{% if p.field('role') in group.roles or (group.id == 'former-permanent-staff' and p.field('former_staff', false)) %}
                     {% set photo = p.field('photo', '') %}
                     <a href="/people/{{ p.slug }}" class="person-card">
                         {% if photo %}

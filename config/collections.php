@@ -112,6 +112,7 @@ return [
         'fields' => [
             'full_name'   => ['type' => 'text',     'required' => true, 'label' => 'Full name'],
             'slug'        => ['type' => 'slug',     'required' => true, 'label' => 'Slug'],
+            'former_staff' => ['type' => 'boolean', 'label' => 'Also list as former staff'],
             'role'        => ['type' => 'select',                       'label' => 'Role',
                 'options' => ['director', 'faculty', 'postdoc', 'phd-student', 'msc-student', 'postgraduate-student', 'alumni', 'staff', 'visiting-lecturer', 'former-staff', 'affiliate']],
             'title'       => ['type' => 'text',                         'label' => 'Title / Position'],

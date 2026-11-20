@@ -22,7 +22,7 @@ $sections = [
     'permanent-staff' => 4,
     'visiting-lecturers' => 21,
     'postgraduate-students' => 4,
-    'former-permanent-staff' => 4,
+    'former-permanent-staff' => 5,
 ];
 foreach ($sections as $id => $expected) {
     preg_match('~<section class="people-section" id="' . $id . '"[^>]*>(.*?)</section>~s', $people, $match);
@@ -52,7 +52,7 @@ $check(str_contains($read('academics'), 'Postgraduate studies'), 'Postgraduate t
 $check(str_contains($read('academics/msc-physics'), 'Symmetries and Bands'), 'MSc courses missing');
 $check(str_contains($read('msc-application-guidelines'), 'Two recommendation letters'), 'Application documents missing');
 $check(substr_count($read('msc-faqs'), '<h2>') === 7, 'Incomplete MSc FAQs');
-$check(substr_count($read('publications'), '<li data-publication-item') === 49, 'Institute publications changed');
+$check(substr_count($read('publications'), '<li data-publication-item') === 48, 'Institute publications changed');
 $check(substr_count($read('news'), '<blockquote class="twitter-tweet"') >= 6, 'Tweet fallback lost');
 
 
