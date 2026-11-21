@@ -20,7 +20,7 @@ $check = static function (bool $condition, string $message): void {
 $people = $read('people');
 $sections = [
     'permanent-staff' => 4,
-    'visiting-lecturers' => 21,
+    'visiting-lecturers' => 20,
     'postgraduate-students' => 4,
     'former-permanent-staff' => 5,
 ];
@@ -29,7 +29,7 @@ foreach ($sections as $id => $expected) {
     $section = $match[1] ?? '';
     $check(substr_count($section, 'class="person-card"') === $expected, "Unexpected membership in {$id}");
     if ($id === 'visiting-lecturers') {
-        $check(substr_count($section, '/uploads/people/') === 21, 'Missing visiting lecturer portraits');
+        $check(substr_count($section, '/uploads/people/') === 20, 'Missing visiting lecturer portraits');
     }
 }
 foreach (['ali-a-hassanali', 'sosthene-irambona', 'wala-fathelrahman-ibrahim-elsayed', 'rukaya-aljuneid'] as $slug) {
@@ -38,6 +38,7 @@ foreach (['ali-a-hassanali', 'sosthene-irambona', 'wala-fathelrahman-ibrahim-els
 $check(str_contains($people, '/people/esther-mahoro"'), 'Esther missing');
 $check(str_contains($people, 'governance-partnerships.png'), 'Updated header mark missing');
 
+$check(substr_count($people, '/people/marcello-musso"') === 1, 'Musso must appear exactly once');
 $profile = $read('people/catherine-a-meriaux');
 foreach (['Research interests', 'Current projects', 'Biography', 'E-LIEU', 'Google Scholar'] as $text) {
     $check(str_contains($profile, $text), "Catherine profile missing {$text}");

@@ -36,10 +36,18 @@
                 <h1 class="page-hero__title">{{ name }}</h1>
 
                 {% if title_pos %}
-                    <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{{ title_pos }}</p>
+                    <p class="eyebrow" style="margin-top: 1.5rem;">{{ role == 'former-staff' or entry.field('former_staff', false) ? 'Former role at EAIFR' : 'Role at EAIFR' }}</p>
+                    <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{% if role == 'visiting-lecturer' %}Visiting lecturer ? {% endif %}{{ title_pos }}</p>
                 {% endif %}
                 {% if affiliation %}
                     <p style="font-family: var(--font-serif); font-size: 15px; color: var(--mid); margin-top: 0.5rem;">{{ affiliation }}</p>
+                {% endif %}
+                {% if entry.field('address') %}<p style="white-space: pre-line; margin-top: 1rem;">{{ entry.field('address') }}</p>{% endif %}
+                {% if entry.field('scholar_url') or entry.field('orcid_url') %}
+                <p style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                    {% if entry.field('scholar_url') %}<a href="{{ entry.field('scholar_url') }}" target="_blank" rel="noopener">Google Scholar</a>{% endif %}
+                    {% if entry.field('orcid_url') %}<a href="{{ entry.field('orcid_url') }}" target="_blank" rel="noopener">ORCID</a>{% endif %}
+                </p>
                 {% endif %}
                 {% if email %}
                     {# Address is split so it never appears whole in the HTML; layout.twig reassembles it in the browser. #}
@@ -50,6 +58,12 @@
         </div>
     </div>
 </section>
+{% if entry.field('thesis_title') or entry.field('current_projects') %}
+<section class="panel bg-warm section-pad-sm"><div class="wrap-narrow prose">
+    {% if entry.field('thesis_title') %}<h2>Thesis</h2><p>{{ entry.field('thesis_title') }}</p>{% endif %}
+    {% if entry.field('current_projects') %}<h2>Current projects</h2>{{ entry.field('current_projects')|markdown }}{% endif %}
+</div></section>
+{% endif %}
 {% if bio %}
 <section class="panel bg-warm section-pad-sm" style="position: relative;">
 

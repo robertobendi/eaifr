@@ -25,7 +25,7 @@
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'People',
-    title:   'Our people',
+    title:   'People at EAIFR',
     accent:  '',
     summary: 'EAIFR is a young, growing community of African and international scientists working out of Kigali.',
     tone:    'cream'
@@ -48,7 +48,7 @@
             <section class="people-section" id="{{ group.id }}" style="scroll-margin-top: 7rem;">
                 <h2>{{ group.title }}</h2>
                 <div class="people-grid">
-                {% for p in entries %}{% if p.field('role') in group.roles or (group.id == 'former-permanent-staff' and p.field('former_staff', false)) %}
+                {% for p in entries %}{% if (p.field('role') in group.roles and not p.field('former_staff', false)) or (group.id == 'former-permanent-staff' and p.field('former_staff', false)) %}
                     {% set photo = p.field('photo', '') %}
                     <a href="/people/{{ p.slug }}" class="person-card">
                         {% if photo %}

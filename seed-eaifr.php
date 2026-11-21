@@ -155,7 +155,7 @@ $entries = [
     ['people', 'flavio-siro-brigiano', ['full_name' => 'Flavio Siro Brigiano', 'slug' => 'flavio-siro-brigiano', 'role' => 'visiting-lecturer', 'title' => 'Numerical Methods II', 'affiliation' => 'Sorbonne University, Paris, France', 'photo' => "/uploads/people/flavio-siro-brigiano.jpg"]],
     ['people', 'alberto-zobelli', ['full_name' => 'Alberto Zobelli', 'slug' => 'alberto-zobelli', 'role' => 'visiting-lecturer', 'title' => 'Solid State Physics', 'affiliation' => 'Université Paris-Saclay, France', 'photo' => "/uploads/people/alberto-zobelli.jpg"]],
     ['people', 'arjun-narayanan', ['full_name' => 'Arjun Narayanan', 'slug' => 'arjun-narayanan', 'role' => 'visiting-lecturer', 'title' => 'Biological Physics', 'affiliation' => 'New York University Abu Dhabi, UAE', 'photo' => "/uploads/people/arjun-narayanan.jpg"]],
-    ['people', 'marcello-musso', ['full_name' => 'Marcello Musso', 'slug' => 'marcello-musso', 'role' => 'visiting-lecturer', 'title' => 'Former Senior Lecturer', 'former_staff' => true, 'affiliation' => 'University of Salamanca, Spain', 'photo' => "/uploads/people/marcello-musso.jpg"]],
+    ['people', 'marcello-musso', ['full_name' => 'Marcello Musso', 'slug' => 'marcello-musso', 'role' => 'former-staff', 'title' => 'Former Senior Lecturer', 'former_staff' => true, 'affiliation' => 'University of Salamanca, Spain', 'photo' => "/uploads/people/marcello-musso.jpg"]],
     ['people', 'andy-hooper', ['full_name' => 'Andy Hooper', 'slug' => 'andy-hooper', 'role' => 'visiting-lecturer', 'title' => 'Physics of Volcanoes, Earthquakes, Geodesy, Geophysics, InSAR and Machine Learning', 'affiliation' => 'University of Leeds, UK', 'area_slug' => 'geophysics', 'photo' => "/uploads/people/andy-hooper.jpeg"]],
     ['people', 'alberto-armigliato', ['full_name' => 'Alberto Armigliato', 'slug' => 'alberto-armigliato', 'role' => 'visiting-lecturer', 'title' => 'Mechanics of Earthquakes', 'affiliation' => 'University of Bologna, Italy', 'area_slug' => 'geophysics', 'photo' => "/uploads/people/alberto-armigliato.jpg"]],
     ['people', 'lorenzo-mantiloni', ['full_name' => 'Lorenzo Mantiloni', 'slug' => 'lorenzo-mantiloni', 'role' => 'visiting-lecturer', 'title' => 'Physics of Volcanoes', 'affiliation' => 'University of Exeter, UK', 'area_slug' => 'geophysics', 'photo' => "/uploads/people/lorenzo-mantiloni.jpg"]],
@@ -282,6 +282,23 @@ $entries = [
         'tag'          => 'admissions',
     ], strtotime('2026-03-01')],
 ];
+
+// Source-backed profile additions retained across static rebuilds.
+$profileDetails = [
+    'daniel-manu-marfo' => ['address' => "ICTP-EAIFR, KIST2 Building CST\nNyarugenge Campus, University of Rwanda\nKigali, Rwanda"],
+    'edward-ntim-gasu' => ['address' => "Einstein Building, Level 4, Room 8\nICTP-EAIFR, University of Rwanda\nKigali, Rwanda", 'orcid_url' => 'https://orcid.org/0000-0002-1752-0948'],
+    'marcello-musso' => ['bio' => "Marcello Musso is a former Senior Lecturer at ICTP-EAIFR. His research is in theoretical physics, gravitation and cosmology. He is based at the University of Salamanca, Spain.\n\n[Institutional profile](https://produccioncientifica.usal.es/investigadores/206350/detalle?lang=en)"],
+    'omololu-akin-ojo' => ['bio' => "Omololu Akin-Ojo was the first Director of ICTP-EAIFR. His research includes computational condensed matter physics and molecular modelling, including force fields and the properties of water.\n\n[Research publications](https://arc.aust.edu.ng/alumni/aust-faculty/top-publications)"],
+    'shoaib-munir' => ['bio' => "Shoaib Munir is a former Senior Lecturer at ICTP-EAIFR. His research concerns particle physics beyond the Standard Model, including Higgs physics and dark matter.\n\n[Institutional profile](https://www.highpoint.edu/faculty-staff/physics-and-astronomy/shoaib-munir/)"],
+    'steve-ndengue' => ['bio' => "Steve Ndengue is a former Senior Lecturer at ICTP-EAIFR. His research in molecular quantum dynamics uses theoretical and computational methods to study chemical reactions and the interaction of molecules with radiation.\n\n[Institutional profile](https://www.haverford.edu/users/sndengue)"],
+    'kingsley-onyebuchi-obodo' => ['bio' => "Kingsley Onyebuchi Obodo is a former Senior Lecturer at ICTP-EAIFR. His research in computational condensed matter physics includes materials design and catalytic materials for hydrogen technologies.\n\n[Research profile](https://hysainfrastructure.com/staff/dr-kingsley-obodo/)"],
+];
+foreach ($entries as &$row) {
+    if ($row[0] === 'people' && isset($profileDetails[$row[1]])) {
+        $row[2] = array_replace($row[2], $profileDetails[$row[1]]);
+    }
+}
+unset($row);
 
 foreach (json_decode(file_get_contents(__DIR__ . '/data/x-posts.json'), true, 512, JSON_THROW_ON_ERROR) as $post) {
     $entries[] = ['news', $post['slug'], $post, $post['published_at']];

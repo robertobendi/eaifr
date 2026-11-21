@@ -17,13 +17,14 @@
     eyebrow: 'News from ICTP-EAIFR',
     title:   'News & announcements',
     accent:  '',
-    summary: 'Follow the official EAIFR account for announcements, events and research highlights.',
+    summary: 'Announcements, events and research highlights from ICTP-EAIFR (@ictpeaifr) on X.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
 
     <div class="wrap-narrow" style="position: relative;">
+        <p style="margin-bottom: 2rem;">Follow <a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">@ictpeaifr on X</a>. Posts below are published by that account and reproduced here automatically.</p>
         {% set x_posts = [] %}
         {% for item in entries %}
             {% if item.field('source_url') %}
