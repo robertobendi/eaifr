@@ -285,7 +285,7 @@ $entries = [
 
 // Source-backed profile additions retained across static rebuilds.
 $profileDetails = [
-    'daniel-manu-marfo' => ['address' => "ICTP-EAIFR, KIST2 Building CST\nNyarugenge Campus, University of Rwanda\nKigali, Rwanda"],
+    'daniel-manu-marfo' => ['orcid_url' => 'https://orcid.org/0000-0002-3774-309X', 'address' => "ICTP-EAIFR, KIST2 Building CST\nNyarugenge Campus, University of Rwanda\nKigali, Rwanda"],
     'edward-ntim-gasu' => ['address' => "Einstein Building, Level 4, Room 8\nICTP-EAIFR, University of Rwanda\nKigali, Rwanda", 'orcid_url' => 'https://orcid.org/0000-0002-1752-0948'],
     'marcello-musso' => ['bio' => "Marcello Musso is a former Senior Lecturer at ICTP-EAIFR. His research is in theoretical physics, gravitation and cosmology. He is based at the University of Salamanca, Spain.\n\n[Institutional profile](https://produccioncientifica.usal.es/investigadores/206350/detalle?lang=en)"],
     'omololu-akin-ojo' => ['bio' => "Omololu Akin-Ojo was the first Director of ICTP-EAIFR. His research includes computational condensed matter physics and molecular modelling, including force fields and the properties of water.\n\n[Research publications](https://arc.aust.edu.ng/alumni/aust-faculty/top-publications)"],
