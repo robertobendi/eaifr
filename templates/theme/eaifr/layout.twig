@@ -97,8 +97,8 @@
             backdrop-filter: blur(10px);
         }
         .site-header__inner { display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; }
-        .site-header__logo { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
-        .site-header__logo img { height: 36px; width: auto; }
+        .site-header__logo { flex: 0 1 300px; max-width: calc(100% - 68px); display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
+        .site-header__logo img { height: auto; width: 300px; max-width: 100%; }
         .site-header__mark { display: block; flex-shrink: 0; }
         .site-header__title { display: none; font-family: var(--font-sans); font-weight: 700; font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); border-left: 1px solid var(--hairline); padding-left: 0.85rem; line-height: 1.5; }
         @media (min-width: 640px) { .site-header__title { display: flex; flex-direction: column; } }

@@ -15,6 +15,8 @@
     .hero h1 em { font-style: italic; color: var(--gold); font-weight: 600; }
     .hero p.lead { max-width: 560px; margin: 2.25rem 0 0; font-family: var(--font-serif); font-size: 1.15rem; line-height: 1.6; color: rgba(255,255,255,0.80); }
     .hero .ctas { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .hero__institute { font-family: var(--font-sans); font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.45; font-weight: 700; color: #fff; max-width: 38rem; margin: 0 0 1rem; }
+    .hero__institute span { white-space: nowrap; }
     .hero .greeting { margin-top: 1.5rem; }
     .hero__aside { display: none; align-self: end; }
     @media (min-width: 768px) { .hero__aside { display: block; } }
@@ -162,14 +164,15 @@
 
     <div class="wrap hero__inner">
         <div>
-            <p class="eyebrow gold">Est. 2018 · Kigali · UNESCO Cat. II</p>
+            <p class="hero__institute">East African Institute for Fundamental Research <span>(EAIFR)</span></p>
+            <p class="eyebrow gold">Est. 2018</p>
             <p class="greeting">Murakaza neza · Welcome</p>
             <h1>Excellence in<br><em>basic science</em><br>for Africa.</h1>
 
-            <p class="lead">Research and graduate education in physics, based at the University of Rwanda in Kigali.</p>
+            <p class="lead">Research and degrees in Physics.</p>
             <div class="ctas">
                 <a href="/research" class="btn btn-gold">Our research <span aria-hidden="true">→</span></a>
-                <a href="/academics" class="btn btn-ghost">Degree programmes</a>
+                <a href="/academics" class="btn btn-ghost">Our degrees</a>
             </div>
         </div>
         <aside class="hero__aside">
@@ -190,7 +193,7 @@
                     </div>
                     <div>
                         <dt>Research record</dt>
-                        <dd><a href="/publications" style="color: inherit; text-decoration-color: rgba(212,168,67,.65);">{{ publications|length }} publications<br><span class="sub">Explore the full index →</span></a></dd>
+                        <dd><a href="/publications" style="color: inherit; text-decoration-color: rgba(212,168,67,.65);">{{ publications|length }} publications <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="vertical-align: middle;"><path d="M4 4h6a3 3 0 0 1 3 3v14a4 4 0 0 0-4-2H4zM20 4h-4a3 3 0 0 0-3 3v14a4 4 0 0 1 4-2h3z"/></svg></a></dd>
                     </div>
                 </dl>
             </div>
@@ -206,7 +209,7 @@
             <p class="eyebrow">Welcome · Murakaza neza</p>
             <h2>An institute for<br><em>science in Africa.</em></h2>
 
-            <p class="intro">Established in 2018, EAIFR is a young and dynamic international hub for higher education and research in basic sciences in Africa. It is a UNESCO Category&nbsp;II institute working in partnership with the government and university of Rwanda, and the Abdus Salam International Centre for Theoretical Physics (ICTP).</p>
+            <p class="intro">Established in 2018, EAIFR is a young and dynamic international hub for higher education and research in basic sciences in Africa. It is a teaching and research institute affiliated to the University of Rwanda, with administrative and financial autonomy under Law No 053/2024 of 07/06/2024 governing the University of Rwanda. EAIFR operates under the auspices of UNESCO, with ICTP as a partner institute.</p>
         </div>
         <div>
             <p class="eyebrow">Our vision</p>
