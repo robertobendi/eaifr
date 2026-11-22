@@ -27,14 +27,14 @@
                 <dd style="margin: .15rem 0 0;">{{ duration }}</dd>
             </div>
             {% endif %}
-            {% if window %}
+            {% if window and entry.field('applications_open', false) %}
             <div>
                 <dt style="font-weight: 700; color: var(--ink);">Application dates</dt>
                 <dd style="margin: .15rem 0 0;">{{ window }}</dd>
             </div>
             {% endif %}
         </dl>
-        {% if apply_url %}
+        {% if apply_url and entry.field('applications_open', false) %}
             <p style="margin: 1.25rem 0 0;"><a href="{{ apply_url }}" target="_blank" rel="noopener" class="btn btn-teal">Apply →</a></p>
         {% endif %}
     </div>
@@ -43,7 +43,7 @@
 {% if body %}
 <section class="panel bg-warm section-pad" style="position: relative;">
 
-    <div class="wrap-narrow prose">{{ body|markdown|raw }}</div>
+    <div class="wrap">{% include '@theme/partials/academic-sections.twig' with { content: body } %}</div>
     <div class="wrap-narrow" style="padding-top: 2.5rem;">
         <a href="/academics" class="btn btn-outline">← All programmes</a>
     </div>

@@ -1,0 +1,30 @@
+{% set degrees = entries('programmes', 20) %}
+<div class="section-intro"><p class="eyebrow">Admissions</p><h2>Find your application route</h2><p>Review the requirements for your chosen degree before preparing your application.</p></div>
+<div class="application-grid">
+{% for degree in degrees %}
+    <section class="application-card">
+        <p class="eyebrow">{{ degree.slug == 'msc-physics' ? 'Taught programme' : 'Research programme' }}</p>
+        <h2>{{ degree.field('name', degree.slug) }}</h2>
+        <p>{{ degree.field('summary') }}</p>
+        <dl><dt>Duration</dt><dd>{{ degree.field('duration') }}</dd><dt>Degree awarded by</dt><dd>University of Rwanda</dd></dl>
+        <ol>
+        {% if degree.slug == 'msc-physics' %}
+            <li>Review the <a href="/academics/msc-physics">programme and eligibility</a>.</li>
+            <li>Prepare your documents using the <a href="/msc-application-guidelines">application guidelines</a>.</li>
+            <li>Read the <a href="/msc-faqs">frequently asked questions</a>.</li>
+        {% else %}
+            <li>Review the <a href="/academics/phd-physics">PhD programme and entry requirements</a>.</li>
+            <li>Prepare your research proposal, academic records and referee details.</li>
+            <li>Follow the submission instructions on the programme page.</li>
+        {% endif %}
+        </ol>
+        {% if degree.field('applications_open', false) and degree.field('apply_url') %}
+            {% if degree.field('application_window') %}<p>{{ degree.field('application_window') }}</p>{% endif %}
+            <a href="{{ degree.field('apply_url') }}" class="btn btn-teal" target="_blank" rel="noopener">Apply</a>
+        {% else %}
+            <p class="admission-status">Check the <a href="/news">latest admissions announcements</a> for application dates.</p>
+        {% endif %}
+    </section>
+{% endfor %}
+</div>
+<aside class="admissions-note"><h2>Questions about admissions?</h2><p>Contact the institute for help with programme requirements or the application process.</p><a href="/contact" class="btn btn-outline">Contact EAIFR</a></aside>

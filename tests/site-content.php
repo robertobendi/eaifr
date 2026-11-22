@@ -75,4 +75,22 @@ foreach (['daniel-manu-marfo', 'edward-ntim-gasu'] as $slug) {
 $check(str_contains($read('research/geophysics'), 'Nyiragongo and Nyamuragira'), 'Geophysics research text not updated');
 $check(str_contains($read('research/condensed-matter-physics'), 'from the atomistic to the continuum'), 'Condensed matter research text not updated');
 
+// Academic navigation and admission actions must survive the static export.
+foreach (['academics/msc-physics', 'academics/phd-physics', 'msc-application-guidelines', 'msc-faqs'] as $path) {
+    $html = $read($path);
+    $check(str_contains($html, 'aria-label="On this page"'), "Missing section navigation: {$path}");
+    preg_match_all('/href="#(section-[0-9]+)"/', $html, $anchors);
+    foreach ($anchors[1] as $anchor) {
+        $check(str_contains($html, 'id="' . $anchor . '"'), "Broken section link: {$path}#{$anchor}");
+    }
+}
+foreach (['academics/msc-physics', 'academics/phd-physics', 'apply'] as $path) {
+    $check(!preg_match('~<a[^>]+class="btn[^>]*>Apply(?:\s|<|&|$)~u', $read($path)), "Apply button shown without a confirmed open call: {$path}");
+}
+$check(str_contains($read('academics'), 'degrees awarded by the University of Rwanda'), 'Degree-awarding explanation missing');
+$check(str_contains($read('apply'), 'Find your application route'), 'Structured application routes missing');
+$check(str_contains($read('research'), 'Publications in the index'), 'Research output context missing');
+$check(str_contains($read('events'), 'event-record__media'), 'Standard event layout missing');
+$check(!str_contains($read('about'), 'Contact ? Murakaza neza'), 'Footer greeting was not removed');
+
 echo "Site content checks passed\n";

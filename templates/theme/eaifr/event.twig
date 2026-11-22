@@ -26,7 +26,7 @@
                 <dt class="eyebrow">When</dt>
                 <dd style="font-family: var(--font-serif); font-size: 1.05rem; color: var(--ink); margin: 0.5rem 0 0;">
                     {% if ends and ends != start %}
-                        {{ start|date('j M') }} — {{ ends|date('j M Y') }}
+                        {{ start|date('j M Y') }} — {{ ends|date('j M Y') }}
                     {% else %}
                         {{ start|date('j F Y') }}
                     {% endif %}
@@ -44,10 +44,10 @@
             <p style="font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.65; color: var(--mid); margin-top: 1.75rem;">{{ summary }}</p>
         {% endif %}
         {% if cover %}
-            <img src="{{ cover }}" alt="" style="display: block; width: 100%; max-height: 30rem; object-fit: cover; border-radius: 4px; margin-top: 2rem;">
+            <img src="{{ cover }}" alt="" style="display: block; width: 100%; height: auto; max-height: 42rem; object-fit: contain; border-radius: 4px; margin-top: 2rem;">
         {% endif %}
         {% if reg_url %}
-            <p style="margin-top: 2rem;"><a href="{{ reg_url }}" class="btn btn-teal" target="_blank" rel="noopener">Registration / details →</a></p>
+            <p style="margin-top: 2rem;"><a href="{{ reg_url }}" class="btn btn-teal" target="_blank" rel="noopener">{{ (ends ?: start) and (ends ?: start)|date('U') < 'now'|date('U') ? 'Event details' : 'Registration / details' }} →</a></p>
         {% endif %}
     </div>
 </section>

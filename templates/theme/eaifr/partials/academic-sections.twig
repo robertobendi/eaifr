@@ -1,0 +1,16 @@
+{% set chunks = ('\n' ~ content)|split('\n## ') %}
+<div class="academic-layout">
+    <nav class="academic-nav" aria-label="On this page">
+        <p class="eyebrow">On this page</p>
+        {% if chunks[0]|trim %}<a href="#overview">Overview</a>{% endif %}
+        {% for chunk in chunks|slice(1) %}<a href="#section-{{ loop.index }}">{{ chunk|split('\n')|first }}</a>{% endfor %}
+        <a href="/apply">Application guidance</a>
+    </nav>
+    <div class="academic-sections">
+        {% if chunks[0]|trim %}<section class="academic-section prose" id="overview"><h2>Overview</h2>{{ chunks[0]|markdown }}</section>{% endif %}
+        {% for chunk in chunks|slice(1) %}
+            {% set lines = chunk|split('\n') %}
+            <section class="academic-section prose" id="section-{{ loop.index }}"><h2>{{ lines|first }}</h2>{{ lines|slice(1)|join('\n')|markdown }}</section>
+        {% endfor %}
+    </div>
+</div>

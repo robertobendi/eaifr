@@ -169,6 +169,7 @@ return [
             'summary'             => ['type' => 'textarea',                     'label' => 'Summary'],
             'body'                => ['type' => 'markdown',                     'label' => 'Body'],
             'duration'            => ['type' => 'text',                         'label' => 'Duration'],
+            'applications_open'   => ['type' => 'boolean', 'label' => 'Applications are open', 'help' => 'Enable only during a confirmed admissions call. Controls public Apply buttons.'],
             'application_window'  => ['type' => 'text',                         'label' => 'Application window'],
             'apply_url'           => ['type' => 'url',                          'label' => 'Application URL'],
             'cover_image'         => ['type' => 'url',                          'label' => 'Cover image'],

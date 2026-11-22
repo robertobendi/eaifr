@@ -7,7 +7,7 @@
 {% set upcoming_events = [] %}
 {% set past_events = [] %}
 {% for event in entries %}
-    {% if event.field('start_date') and event.field('start_date')|date('U') >= 'now'|date('U') %}
+    {% if event.field('start_date') and (event.field('end_date') ?: event.field('start_date'))|date('Y-m-d') >= 'now'|date('Y-m-d') %}
         {% set upcoming_events = upcoming_events|merge([event]) %}
     {% else %}
         {% set past_events = past_events|merge([event]) %}
@@ -25,12 +25,14 @@
 
     <div class="wrap">
         {% if upcoming_events|length > 0 %}
-            <p class="eyebrow">Upcoming events</p>
+            <p class="eyebrow">Scientific programme</p><h2 style="margin: .85rem 0 2rem;">Upcoming and ongoing events</h2>
             <div style="display: grid; gap: 1.25rem;">
                 {% for e in upcoming_events %}
                     {% include '@theme/partials/event-card.twig' with { event: e, compact: false } %}
                 {% endfor %}
             </div>
+        {% else %}
+            <div class="section-intro"><h2>Upcoming events</h2><p>New meetings and schools will be announced here. Explore our previous events below.</p></div>
         {% endif %}
         <div style="margin-top: {% if upcoming_events|length > 0 %}4.5rem{% else %}0{% endif %};">
             <p class="eyebrow">Past events archive</p>

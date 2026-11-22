@@ -69,4 +69,29 @@
         {% endif %}
     </div>
 </section>
+<section class="panel bg-cream section-pad">
+    <div class="wrap">
+        <div class="section-intro"><p class="eyebrow">Research community and output</p><h2>People, publications and exchange</h2><p>Our research connects resident scientists, visiting lecturers and postgraduate students through an international network.</p></div>
+        {% set resident_scientists = [] %}{% set visitors = [] %}{% set affiliations = [] %}
+        {% for person in entries('people', 200) %}
+            {% if not person.field('former_staff', false) %}
+                {% if person.field('role') in ['director', 'faculty', 'postdoc'] or person.slug == 'edward-ntim-gasu' %}{% set resident_scientists = resident_scientists|merge([person]) %}{% endif %}
+                {% if person.field('role') == 'visiting-lecturer' %}
+                    {% set visitors = visitors|merge([person]) %}
+                    {% if person.field('affiliation') and person.field('affiliation') not in affiliations %}{% set affiliations = affiliations|merge([person.field('affiliation')]) %}{% endif %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% set publication_records = entries('publications', 500) %}
+        {% set event_records = entries('events', 200) %}
+        <div class="research-facts">
+            <a href="/people#permanent-staff"><strong>{{ resident_scientists|length }}</strong><span>Resident scientists listed</span></a>
+            <a href="/people#visiting-lecturers"><strong>{{ visitors|length }}</strong><span>Visiting lecturers listed</span></a>
+            <a href="/publications"><strong>{{ publication_records|length }}</strong><span>Publications in the index</span></a>
+            <a href="/events"><strong>{{ event_records|length }}</strong><span>Scientific events in the archive</span></a>
+        </div>
+        <p>These counts reflect the profiles and records published on this website. Explore the publication index and scientific events archive for the individual records.</p>
+        <div class="research-network"><h2>An international collaboration network</h2><p>Visiting lecturers connect EAIFR with institutions across Africa and beyond. Their listed affiliations include:</p><ul>{% for affiliation in affiliations %}<li>{{ affiliation }}</li>{% endfor %}</ul><p><a href="/people">Meet the researchers and visiting lecturers</a></p></div>
+    </div>
+</section>
 {% endblock %}

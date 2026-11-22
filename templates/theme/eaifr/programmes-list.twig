@@ -1,6 +1,6 @@
 {% extends '@theme/layout.twig' %}
 
-{% block title %}Postgraduate studies · EAIFR{% endblock %}
+{% block title %}Academics · EAIFR{% endblock %}
 {% block meta_description %}EAIFR's graduate and degree programmes at the University of Rwanda.{% endblock %}
 
 {% block head %}
@@ -18,15 +18,16 @@
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
     eyebrow: 'Academics',
-    title:   'Postgraduate studies',
+    title:   'Academics',
     accent:  '',
-    summary: 'An exciting centre for training the next generations of talent from Rwanda, Africa and beyond.',
+    summary: 'An exciting center for training the next generations of talent from Rwanda, Africa, and beyond. Study at EAIFR to obtain internationally recognized degrees awarded by the University of Rwanda.',
     tone:    'cream'
 } %}
 
 <section class="panel bg-warm section-pad" style="position: relative;">
 
     <div class="wrap">
+        <div class="section-intro"><p class="eyebrow">Postgraduate studies</p><h2>Choose your programme</h2><p>Explore the programme structure and entry requirements, then follow the application guidance for your degree.</p></div>
         {% if entries|length > 0 %}
             <div class="prog-list">
                 {% for prog in entries %}
@@ -35,14 +36,16 @@
                         {% if prog.field('summary') %}<p>{{ prog.field('summary') }}</p>{% endif %}
                         <div class="meta">
                             {% if prog.field('duration') %}<span>{{ prog.field('duration') }}</span>{% endif %}
-                            {% if prog.field('application_window') %}<span>{{ prog.field('application_window') }}</span>{% endif %}
+                            {% if prog.field('applications_open', false) and prog.field('application_window') %}<span>{{ prog.field('application_window') }}</span>{% endif %}
                         </div>
+                        <span class="programme-link">Programme details</span>
                     </a>
                 {% endfor %}
             </div>
         {% else %}
             <div class="empty-state"><p>Programmes listing coming soon.</p></div>
         {% endif %}
+        <aside class="admissions-note"><h2>Preparing an application?</h2><p>Find the MSc application guidelines, FAQs and PhD requirements together in one place.</p><a href="/apply" class="btn btn-outline">Application guidance</a></aside>
     </div>
 </section>
 {% endblock %}
