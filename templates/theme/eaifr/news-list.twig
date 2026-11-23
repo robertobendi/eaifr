@@ -1,7 +1,7 @@
 {% extends '@theme/layout.twig' %}
 
 {% block title %}News · EAIFR{% endblock %}
-{% block meta_description %}Latest posts from ICTP-EAIFR on X.{% endblock %}
+{% block meta_description %}Latest posts from EAIFR on X.{% endblock %}
 
 {% block head %}
 <style>
@@ -14,10 +14,10 @@
 
 {% block content %}
 {% include '@theme/partials/page-hero.twig' with {
-    eyebrow: 'News from ICTP-EAIFR',
+    eyebrow: 'News from EAIFR',
     title:   'News & announcements',
     accent:  '',
-    summary: 'Announcements, events and research highlights from ICTP-EAIFR (@ictpeaifr) on X.',
+    summary: 'Announcements, events and research highlights from EAIFR (@ictpeaifr) on X.',
     tone:    'cream'
 } %}
 
@@ -38,14 +38,14 @@
                     <div>
                         <blockquote class="twitter-tweet" data-dnt="true" data-conversation="none">
                             <p lang="en" dir="ltr">{{ item.field('excerpt') }}</p>
-                            &mdash; ICTP-EAIFR (@ictpeaifr)
+                            &mdash; EAIFR (@ictpeaifr)
                             <a href="{{ item.field('source_url') }}" target="_blank" rel="noopener">{% if published %}{{ published|date('j F Y') }}{% else %}View post on X{% endif %}</a>
                         </blockquote>
                     </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p><a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">Read ICTP-EAIFR posts on X ↗</a></p>
+            <p><a href="https://x.com/ictpeaifr" target="_blank" rel="noopener">Read EAIFR posts on X ↗</a></p>
         {% endif %}
     </div>
 </section>

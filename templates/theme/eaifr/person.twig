@@ -46,7 +46,7 @@
                 {% if entry.field('scholar_url') or entry.field('orcid_url') %}
                 <p style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
                     {% if entry.field('scholar_url') %}<a href="{{ entry.field('scholar_url') }}" target="_blank" rel="noopener">Google Scholar</a>{% endif %}
-                    {% if entry.field('orcid_url') %}<a href="{{ entry.field('orcid_url') }}" target="_blank" rel="noopener">ORCID</a>{% endif %}
+                    {% if entry.field('orcid_url') %}<a href="{{ entry.field('orcid_url') }}" target="_blank" rel="noopener">ORCID: {{ entry.field('orcid_url')|split('/')|last }}</a>{% endif %}
                 </p>
                 {% endif %}
                 {% if email %}
