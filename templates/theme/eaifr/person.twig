@@ -37,7 +37,7 @@
 
                 {% if title_pos %}
                     <p class="eyebrow" style="margin-top: 1.5rem;">{{ role == 'former-staff' or entry.field('former_staff', false) ? 'Former role at EAIFR' : 'Role at EAIFR' }}</p>
-                    <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{% if role == 'visiting-lecturer' %}Visiting lecturer ? {% endif %}{{ title_pos }}</p>
+                    <p style="font-family: var(--font-serif); font-size: 1.125rem; color: var(--mid); margin-top: 1.5rem;">{% if role == 'visiting-lecturer' %}Visiting lecturer &middot; {% endif %}{{ title_pos }}</p>
                 {% endif %}
                 {% if affiliation %}
                     <p style="font-family: var(--font-serif); font-size: 15px; color: var(--mid); margin-top: 0.5rem;">{{ affiliation }}</p>
