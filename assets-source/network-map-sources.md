@@ -11,3 +11,9 @@ This replaces the unverified legacy dots entirely. Update the caption and SVG to
 ## Dotted revision
 
 Rebuilt with build_network_map.py using a Robinson projection and uniform land dots. Eight approximate city locations: Kigali, San Diego, Salamanca, Paris, Lausanne, Rome, Cambridge and Abu Dhabi. Each is supported by the named affiliation in the homepage source list. This is a selection, not a comprehensive network. The earlier country-shading implementation is superseded. SVG and HTML dimensions both use 1200 by 650 with preserved aspect ratio.
+
+## Original-format revision (2026-11-25)
+
+Per Sara: back to the original dotted map, pale single-colour land, dark-green partner dots, gold Kigali with its name, no arrows, no Lausanne label, two-item legend. Supersedes the Robinson rebuild above.
+
+The original markers in world-dots-teal.svg had exact longitudes but equirectangular latitudes on a Mercator land map, so they sat too far north (Kigali in Sudan). build_network_map.py now holds them as longitude/latitude (24 locations, city names inferred from coordinates, unconfirmed) and places them with a Mercator fitted to the land dots: x = 2292 + 13.1·lon, y = 1879 − 770·ln tan(45° + lat/2). The list is the old site's, known to be incomplete; replace PARTNERS once Catherine supplies the partner list.

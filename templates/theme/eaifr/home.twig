@@ -109,9 +109,8 @@
     .network-legend { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; list-style: none; padding: 0; margin: 1rem 0; font-family: var(--font-sans); font-size: .875rem; }
     .network-legend li { display: flex; align-items: center; gap: .5rem; }
     .network-key { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-    .network-key.institutions { background: #0d8080; }
-    .network-key.headquarters { background: var(--gold); border: 2px solid var(--ink); outline: 2px solid var(--gold); outline-offset: 2px; }
-    .reach p.network-caption { font-family: var(--font-sans); font-size: .875rem; line-height: 1.6; margin-top: 1rem; max-width: none; }
+    .network-key.partners { background: var(--deep-forest); }
+    .network-key.headquarters { background: var(--gold); }
     .reach__map { margin: 0; min-width: 0; }
     .reach__map img { display: block; width: 100%; height: auto; }
 
@@ -342,27 +341,12 @@
             <p><a href="/people">Meet our scientific community →</a></p>
         </div>
         <figure class="reach__map">
-            <img src="/uploads/svg/world-network.svg" alt="Dotted world map showing selected EAIFR connections in San Diego, Salamanca, Paris, Lausanne, Rome, Cambridge and Abu Dhabi, with EAIFR in Kigali." loading="lazy" decoding="async" width="1200" height="650">
+            <img src="/uploads/svg/world-network.svg" alt="Dotted world map with dark green dots marking EAIFR partners and a gold dot marking EAIFR in Kigali." loading="lazy" decoding="async" width="4776" height="2738">
             <figcaption>
                 <ul class="network-legend" aria-label="Map legend">
-                    <li><span class="network-key institutions" aria-hidden="true"></span>Teal: partner or visiting affiliation</li>
-                    <li><span class="network-key headquarters" aria-hidden="true"></span>Gold: EAIFR, Rwanda</li>
+                    <li><span class="network-key partners" aria-hidden="true"></span>Partners</li>
+                    <li><span class="network-key headquarters" aria-hidden="true"></span>EAIFR, Kigali</li>
                 </ul>
-                <p class="network-caption">Small muted dots form the land; larger teal markers show selected partner or visiting-affiliation locations. Gold marks EAIFR in Kigali. Lausanne, Switzerland is included through Sara Bonella at EPFL.</p>
-                <details class="network-caption">
-                    <summary>Locations and sources</summary>
-                    <ul>
-                        <li><strong>Kigali, Rwanda:</strong> EAIFR, University of Rwanda and Government of Rwanda.</li>
-                        <li><strong>Lausanne, Switzerland:</strong> Sara Bonella at EPFL.</li>
-                        <li><strong>Rome, Italy:</strong> Andrea Marini at CNR.</li>
-                        <li><strong>Paris, France:</strong> Sorbonne University.</li>
-                        <li><strong>Cambridge, United Kingdom:</strong> University of Cambridge.</li>
-                        <li><strong>Salamanca, Spain:</strong> Mario Amado Montero at the University of Salamanca.</li>
-                        <li><strong>San Diego, United States:</strong> Dave May at Scripps Institution of Oceanography, San Diego.</li>
-                        <li><strong>Abu Dhabi, United Arab Emirates:</strong> Arjun Narayanan at NYU Abu Dhabi.</li>
-                    </ul>
-                    <p>Sources: <a href="https://eaifr.ictp.it/about/partnerships/">EAIFR partnerships</a> and <a href="https://eaifr.ictp.it/about/our-people/">EAIFR people</a>, checked 24 November 2026. Affiliations do not imply an institutional partnership. Map boundaries: <a href="https://www.naturalearthdata.com/">Natural Earth</a>.</p>
-                </details>
             </figcaption>
         </figure>
     </div>
