@@ -194,6 +194,23 @@ return [
         ],
     ],
 
+    // Steering Committee members. No public route — rendered as photo cards
+    // on the About page where its body contains [[steering-committee]].
+    'committee_members' => [
+        'label'          => 'Steering Committee',
+        'label_singular' => 'Committee member',
+        'icon'           => 'file',
+        'order_by'       => 'updated_at DESC',
+        'fields' => [
+            'name'     => ['type' => 'text',   'required' => true, 'label' => 'Name'],
+            'slug'     => ['type' => 'slug',   'required' => true, 'label' => 'Slug'],
+            'position' => ['type' => 'select',                     'label' => 'Position', 'options' => ['chair', 'member']],
+            'role'     => ['type' => 'text',                       'label' => 'Representing / role'],
+            'photo'    => ['type' => 'url',                        'label' => 'Photo URL', 'help' => 'URL from /admin/media'],
+            'order'    => ['type' => 'number',                     'label' => 'Display order'],
+        ],
+    ],
+
     // Public contact form. POST /forms/contact.
     'contact' => [
         'label'          => 'Contact',
