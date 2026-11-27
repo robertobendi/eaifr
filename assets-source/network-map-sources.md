@@ -17,3 +17,7 @@ Rebuilt with build_network_map.py using a Robinson projection and uniform land d
 Per Sara: back to the original dotted map, pale single-colour land, dark-green partner dots, gold Kigali with its name, no arrows, no Lausanne label, two-item legend. Supersedes the Robinson rebuild above.
 
 The original markers in world-dots-teal.svg had exact longitudes but equirectangular latitudes on a Mercator land map, so they sat too far north (Kigali in Sudan). build_network_map.py now holds them as longitude/latitude (24 locations, city names inferred from coordinates, unconfirmed) and places them with a Mercator fitted to the land dots: x = 2292 + 13.1·lon, y = 1879 − 770·ln tan(45° + lat/2). The list is the old site's, known to be incomplete; replace PARTNERS once Catherine supplies the partner list.
+
+## Catherine's list (2026-11-27)
+
+Dots now follow Catherine's research collaborations list (23 institutions, 24 locations: IRD and INGV have two each, INSERM and LOMA share Bordeaux). The inferred legacy locations are dropped. Coordinates are city-level. Legend reads "Research collaborations". The same list is seeded as research_collaborations and shown on /research.

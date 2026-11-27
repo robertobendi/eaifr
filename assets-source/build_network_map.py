@@ -1,8 +1,7 @@
 """Rebuild uploads/svg/world-network.svg on the original dotted map.
 
-Land dots come from uploads/svg/world-dots-teal.svg. Partner dots are the original
-site's markers, recovered as longitude/latitude and placed with the land map's own
-projection. Pale single-colour land, dark-green partners, gold Kigali with its name,
+Land dots come from uploads/svg/world-dots-teal.svg. Partner dots are the
+research collaborations list, placed with the land map's own projection. Pale single-colour land, dark-green partners, gold Kigali with its name,
 no arrows. Standard library only.
 
 To add or remove a partner, edit PARTNERS and rerun: python assets-source/build_network_map.py
@@ -20,34 +19,33 @@ PARTNER, GOLD, INK, HALO = "#143d28", "#d4a843", "#1b2838", "#f7f6f2"
 
 KIGALI = (30.06, -1.94)
 
-# (longitude, latitude, nearest city). Coordinates are the original map's markers;
-# city names are inferred from the coordinates and still need confirming against
-# the partner list.
+# (longitude, latitude, institution). Catherine's research collaborations list,
+# November 2026; keep in sync with the research_collaborations seed entries.
 PARTNERS = [
-    (4.33, 50.88, "Brussels / Louvain"),
-    (0.11, 52.20, "Cambridge"),
-    (-2.60, 51.42, "Bristol"),
-    (-3.50, 50.70, "Exeter"),
-    (2.52, 48.89, "Paris"),
-    (-0.56, 44.85, "Bordeaux"),
-    (5.69, 45.21, "Grenoble"),
-    (6.82, 46.54, "Lausanne"),
-    (-5.69, 40.99, "Salamanca"),
-    (11.56, 44.49, "Bologna / Modena"),
-    (12.09, 45.39, "Padua"),
-    (13.75, 45.63, "Trieste"),
-    (12.69, 41.90, "Rome"),
-    (36.80, -1.27, "Nairobi"),
-    (38.76, 9.04, "Addis Ababa"),
-    (54.65, 24.47, "Abu Dhabi"),
-    (113.26, 23.15, "Guangzhou"),
-    (-72.28, 43.70, "Hanover, New Hampshire"),
-    (-79.36, 43.64, "Toronto"),
-    (-87.65, 42.08, "Chicago / Evanston"),
-    (-78.91, 35.99, "Durham, North Carolina"),
-    (-105.20, 39.79, "Boulder / Golden, Colorado"),
-    (-119.74, 34.42, "Santa Barbara"),
-    (-117.25, 32.85, "San Diego"),
+    (5.37, 43.30, "IRD, Marseille"),
+    (36.82, -1.29, "IRD, Nairobi"),
+    (11.34, 44.49, "INGV, Bologna"),
+    (13.77, 45.65, "INGV, Trieste"),
+    (12.51, 41.90, "CNR, Rome"),
+    (6.57, 46.52, "CECAM, Lausanne"),
+    (-1.26, 51.75, "Earth Sciences, University of Oxford"),
+    (4.38, 50.81, "Universite Libre de Bruxelles"),
+    (-0.58, 44.84, "INSERM and LOMA, Bordeaux"),
+    (2.21, 48.71, "Ecole Polytechnique, Palaiseau"),
+    (2.36, 48.85, "Sorbonne University, Paris"),
+    (5.87, 45.64, "ISTerre, Chambery"),
+    (0.12, 52.20, "University of Cambridge"),
+    (-2.60, 51.46, "University of Bristol"),
+    (14.51, 46.05, "Slovenian Environment Agency, Ljubljana"),
+    (-78.90, 35.97, "North Carolina Central University, Durham"),
+    (-105.22, 39.75, "Colorado School of Mines, Golden"),
+    (73.05, 33.68, "Centre for Earthquake Studies, NCP, Islamabad"),
+    (38.76, 9.03, "Addis Ababa University"),
+    (27.13, -22.55, "BIUST, Palapye"),
+    (-1.57, 6.67, "KNUST, Kumasi"),
+    (-0.19, 5.65, "University of Ghana, Accra"),
+    (32.57, 0.33, "Makerere University, Kampala"),
+    (35.74, -6.17, "University of Dodoma"),
 ]
 
 
@@ -76,8 +74,8 @@ kx, ky = xy(*KIGALI)
 svg = [
     f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vx:.0f} {vy:.0f} {vw:.0f} {vh:.0f}" '
     f'width="{vw:.0f}" height="{vh:.0f}" role="img" aria-labelledby="title desc">',
-    '<title id="title">EAIFR partners worldwide</title>',
-    '<desc id="desc">Dotted world map. Dark green dots mark partners; a gold dot marks EAIFR in Kigali.</desc>',
+    '<title id="title">EAIFR research collaborations worldwide</title>',
+    '<desc id="desc">Dotted world map. Dark green dots mark research collaborations; a gold dot marks EAIFR in Kigali.</desc>',
     f'<path fill="{LAND}" opacity="{LAND_OPACITY}" d="{land_d}"/>',
     f'<g fill="{PARTNER}" stroke="#fff" stroke-width="7">',
     *[f'<circle cx="{px:.0f}" cy="{py:.0f}" r="26"/>' for px, py in (xy(lon, lat) for lon, lat, _ in PARTNERS)],

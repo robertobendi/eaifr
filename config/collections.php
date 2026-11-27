@@ -211,6 +211,21 @@ return [
         ],
     ],
 
+    // Institutions EAIFR does collaborative research with. No public route —
+    // listed on the Research page.
+    'research_collaborations' => [
+        'label'          => 'Research collaborations',
+        'label_singular' => 'Research collaboration',
+        'icon'           => 'file',
+        'order_by'       => 'updated_at DESC',
+        'fields' => [
+            'name'    => ['type' => 'text',   'required' => true, 'label' => 'Institution'],
+            'slug'    => ['type' => 'slug',   'required' => true, 'label' => 'Slug'],
+            'country' => ['type' => 'text',                       'label' => 'Country'],
+            'order'   => ['type' => 'number',                     'label' => 'Display order'],
+        ],
+    ],
+
     // Public contact form. POST /forms/contact.
     'contact' => [
         'label'          => 'Contact',

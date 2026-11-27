@@ -90,6 +90,8 @@
             <a href="/publications"><strong>{{ publication_records|length }}</strong><span>Publications in the index</span></a>
             <a href="/events"><strong>{{ event_records|length }}</strong><span>Scientific events in the archive</span></a>
         </div>
+        {% set collaborations = entries('research_collaborations', 100)|sort((a, b) => a.field('order', 999) <=> b.field('order', 999)) %}
+        {% if collaborations|length > 0 %}<div class="research-network" id="collaborations"><h2>Collaborative research</h2><p>EAIFR carries out collaborative research with:</p><ul>{% for c in collaborations %}<li>{{ c.field('name', c.slug) }}{% if c.field('country') %}, {{ c.field('country') }}{% endif %}</li>{% endfor %}</ul></div>{% endif %}
         <div class="research-network"><h2>An international collaboration network</h2><p>Visiting lecturers connect EAIFR with institutions across Africa and beyond. Their affiliations include:</p><ul>{% for affiliation in affiliations %}<li>{{ affiliation }}</li>{% endfor %}</ul><p><a href="/people">Meet the researchers and visiting lecturers</a></p></div>
     </div>
 </section>
